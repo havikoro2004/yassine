@@ -1,0 +1,42 @@
+<?php
+
+include_once ('head.php');
+$alert = null;
+$abonnements=null;
+include_once ('include/Controlle.php');
+
+if (isset($_POST['chercher'])){
+   if (!empty($_POST['filter'])){
+       $client = new Controlle();
+       $user = $client->getClient($_POST['filter']);
+       if ($user){
+           $idClient = $user['id'];
+           $abonnements = $client->getAbonnement($idClient);
+           header('Location:profils.php?id='.$idClient.'');
+
+       } else {
+           $alert ='<div class="alert alert-danger mt-3 container text-center" role="alert">Aucun client trouvé avec ce numéro de badge</div>';
+       }
+   }else {
+       $alert ='<div class="alert alert-danger mt-3 container text-center" role="alert">Veuillez inserer un mot clé de recherche </div>';
+    }
+}
+clearstatcache(true);
+?>
+<header class="d-flex justify-content-center align-items-center">
+    <h1 class="display-5 bg-dark text-white col text-center p-3">La liste des clients</h1>
+</header>
+<?php if ($alert){echo $alert;} ?>
+<div class="border container mt-2 rounded">
+    <h2 class="my-5 text-center">Chercher un client</h2>
+    <form action="" method="post" class="form-inline d-flex container mb-5">
+        <button name="chercher" class="btn btn-outline-dark me-2" type="submit">Chercher</button>
+        <input id="filter" name="filter" class="form-control mr-sm-2 me-2" type="search" placeholder="Chercher" aria-label="Search">
+    </form>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/script.js" ></script>
+<script src="js/bootstrap.bundle.min.js" ></script>
+</body>
+</html>
