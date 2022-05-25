@@ -162,7 +162,17 @@ if (valider){
                         'Novembre':'11',
                         'Decembre':'12'
                     }]
+                for (let i=0;i<indexMonths.length;i++){
+                    if (indexMonths[i]<10){
+                        indexMonths[i]='0'+ indexMonths[i]
+                    }
+                }
 
+                let day = daySelect.value
+
+                if (daySelect.value<10){
+                    day ='0'+ daySelect.value
+                }
 
                 const ulContainer = document.createElement('div')
 
@@ -175,7 +185,7 @@ if (valider){
                     '<li class="list-group-item">Numero de badge : <strong>'+badge.value.toLowerCase()+'</strong></li>'+
                     '<li class="list-group-item">Nom : <strong>'+firstName.value.toLowerCase()+'</strong></li>'+
                     '<li class="list-group-item">Prénom : <strong>'+lastName.value.toLowerCase()+'</strong></li>'+
-                    '<li class="list-group-item">Date de naissance : '+daySelect.value+'-'+monthSelect.value+'-'+yearSelect.value+'</li>'+
+                    '<li class="list-group-item">Date de naissance : '+yearSelect.value+'-'+indexMonths[0][monthSelect.value]+'-'+day+'</li>'+
                     '<li class="list-group-item">Genre : <strong>'+checkedValue+'</strong></li>'+
                     '<li class="list-group-item">C.I.N <strong>'+testValue(cin.value).toLowerCase()+'</strong></li>'+
                     '<li class="list-group-item">Tel : <strong>'+testValue(tel.value)+'</strong></li>'+
@@ -187,13 +197,14 @@ if (valider){
                 buttonsContainer.className='d-flex text-center justify-content-center'
                 root.appendChild(buttonsContainer)
 
+
                 const save = document.createElement('div')
                 save.innerHTML='<form method="post" action="">' +
                     ' <div class="d-none">' +
                     '<input type="text" name="badge" value="'+badge.value.toLowerCase()+'" > '+
                     '<input type="text" name="firstName" value="'+firstName.value.toLowerCase()+'" > '+
                     '<input type="text" name="lastName" value="'+lastName.value.toLowerCase()+'" > '+
-
+                    '<input type="text" name="birth" value="'+yearSelect.value+'-'+indexMonths[0][monthSelect.value]+'-'+day+'" > '+
                     '<input type="text" name="genre" value="'+checkedValue+'" > '+
                     '<input type="text" name="cin" value="'+cin.value.toLowerCase()+'" > '+
                     '<input type="text" name="tel" value="'+tel.value+'" > '+
