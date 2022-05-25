@@ -272,25 +272,73 @@ const abn = document.getElementById('abn')
 if (abn){
     abn.addEventListener('click',()=>{
         root2.style.display="block"
+        document.getElementById('closeIcone').style.display='block'
         root2.scrollIntoView();
     })
 }
 const subAbn = document.getElementById('subAbn')
 const selectSport = document.getElementById('selectSport')
-const selectAbn = document.getElementById('selectAbn')
+const dateDebut = document.getElementById('date_debut')
+const dateFin = document.getElementById('date_fin')
+const fermerAbn= document.getElementById('closeIcone')
+
+
+//Disable preview dates:
+
+const curentDate = new Date();
+
+let curentMonth = curentDate.getMonth()+1
+let curentDay = curentDate.getDate()
+let curentYear = curentDate.getFullYear()
+
+if (curentDay<10){
+    curentDay ='0'+ curentDate
+}
+if (curentMonth<10){
+    curentMonth ='0'+curentMonth
+}
+const setAtrebutDate =curentYear+'-'+curentMonth+'-'+curentDay
+
+dateDebut.setAttribute('min',setAtrebutDate)
+dateFin.setAttribute('min',setAtrebutDate)
+
 if (subAbn){
+
     subAbn.addEventListener('click',(e)=>{
 
-        if (!selectSport.value || !selectAbn.value){
+        if (!selectSport.value || !dateDebut.value || !dateFin.value || selectSport.value==='Choisir une activité'){
+            root.innerHTML=''
             e.preventDefault()
             const alert = document.createElement('div')
             alert.className='my-3 container text-center'
-            alert.innerHTML='<div class="alert alert-danger">Vous devez selectioner tous les champs</div>'
+            alert.innerHTML='<div class="alert alert-danger">Vous devez remplir tous les champs</div>'
+            root.appendChild(alert)
+            alert.scrollIntoView();
+        }
+
+        const diff = new Date(dateFin.value).getTime() - new Date(dateDebut.value).getTime()
+
+        if (diff<=0){
+            root.innerHTML=''
+            e.preventDefault()
+            const alert = document.createElement('div')
+            alert.className='my-3 container text-center'
+            alert.innerHTML='<div class="alert alert-danger">La date de d\'expiration doit être supérieur à la date de début</div>'
             root.appendChild(alert)
             alert.scrollIntoView();
         }
 
     })
 }
+fermerAbn.addEventListener('click',(e)=>{
+    root2.style.display="none"
+    fermerAbn.style.display='none'
+    root2.scrollIntoView();
 
 
+    }
+)
+
+document.getElementById('deleteModal').addEventListener('click',()=>{
+    document.location.href="http://manouvellepage.com";
+})

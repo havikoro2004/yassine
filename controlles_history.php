@@ -19,7 +19,7 @@ if ($history){ ?>
     <tr>
 
         <th scope="col">Nom de l'activité</th>
-        <th scope="col">Type abonnement</th>
+        <th scope="col">Date d'inscription</th>
         <th scope="col">Date d'expiration</th>
         <th scope="col">La date de controlle</th>
         <th scope="col">L'heure du controle</th>
@@ -30,6 +30,7 @@ if ($history){ ?>
     <?php
 
     foreach ($history as $historique){
+        $dateDebut = date_format(new DateTime($historique['date_debut']),('d-m-Y'));
         $dateFin = date_format(new DateTime($historique['date_fin']),('d-m-Y'));
         $dateControle = date_format(new DateTime($historique['date']),('d-m-Y'));
         $heureControlle = date_format(new DateTime($historique['date']),('H:i'));
@@ -37,7 +38,7 @@ if ($history){ ?>
         
         <tr>
             <td>'.$historique['type_sport'].'</td>
-            <td>'.$historique['type_abonnement'].'</td>
+            <td>'.$dateDebut.'</td>
             <td>'.$dateFin.'</td>
             <td>'.$dateControle.'</td>
             <td>'.$heureControlle.'</td>
@@ -53,7 +54,7 @@ if ($history){ ?>
 </table>
 
 <?php } else {
-    echo $alert = '<div class="alert alert-info mt-3 container text-center" role="alert"><h4>Aucun controlle n\'est éféctué</h4></div>';
+    echo $alert = '<div class="alert alert-danger mt-3 container text-center" role="alert"><h4>Aucun controlle n\'est éféctué</h4></div>';
 }
 ?>
 <script src="js/jquery.js"></script>

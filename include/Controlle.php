@@ -19,13 +19,13 @@ class Controlle
         }
     }
     public function getAbonnement($idClient){
-        $req = $this->db->prepare('select * from abonnement where id_client=:id_client');
+        $req = $this->db->prepare('select * from abonnement where id_client=:id_client && id=:id');
         $req->bindParam((':id_client'),$idClient);
+        $req->bindParam((':id'),$_GET['activity']);
         $req->execute();
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        $result = $req->fetch();
         return $result;
     }
-
     public function getControle (){
         $req = $this->db->prepare('select * from controlle join abonnement on controlle.id_abonnement=abonnement.id && id_abonnement=:id_abonnement order by date desc');
         $req->bindParam((':id_abonnement'),$_GET['activity']);

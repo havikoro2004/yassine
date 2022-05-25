@@ -19,7 +19,7 @@ if (isset($_SESSION['status'])){
 if ($alert){echo $alert ;} ?>
 <div id="root"></div>
 <div class="cont_profil container">
-    <div class="profilUser mt-4 d-flex flex-column align-items-center mb-3 justify-content-around">
+    <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
         <img class="mb-2" width="85%" height="85%" src="images/<?= $photo ; ?>" alt="">
         <h3 class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></h3>
     </div>
@@ -75,6 +75,12 @@ if ($alert){echo $alert ;} ?>
             </div>
 
                 <button type="button" id="abn" class="btn btn-dark my-3 me-2">Ajouter un Abonnement</button>
+                <button id="closeIcone" class="my-3 btn btn-outline-danger type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+                </button>
 
         </div>
     </div>
@@ -94,15 +100,11 @@ if (count($resultAbon)> 0){
   <?php  echo '  <table id="table"  class="table table-hover container text-center">
                     <thead class="bg-dark text-white ">
                     <tr>
-                        <th scope="col">Activité</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Fin</th>
+                        <th scope="col">Activité</th>           
                         <th scope="col">Status</th>
-                        <th scope="col">Controle</th>
-                        <th scope="col">Voir controles</th>
-                        <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                            </svg></th>
+                        <th scope="col">Controller</th>
+                        <th scope="col">Tous les controles</th>
+                        <th scope="col">Gérer l\'abonnement</th>
                     </tr>
                     </thead>
                     <tbody>';
@@ -112,38 +114,41 @@ if (count($resultAbon)> 0){
         if (!$abn['status']){
             $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
         } else {
-            $status = '<button class="btn btn-success btnStatus" disabled><span class="d-flex justify-content-center">Actif</span></button>';
+            $status = '<button class="btn btn-info btnStatus text-white" disabled><span class="d-flex justify-content-center">Actif</span></button>';
         }
         $dateFin = date_format(new DateTime($abn['date_fin']),('d-m-y'));
         if ($abn['status']){
-            $btn = '<button id="alert" class="btn btn-primary" type="submit" name="valider'.$abn['id'].'">Valider</button>';
+            $btn = '<button id="alert" class="btn btn-success" type="submit" name="valider'.$abn['id'].'">Valider</button>';
         } else {
-            $btn = '<button id="alert" disabled class="btn btn-dark" type="submit" name="valider'.$abn['id'].'">Valider</button>';
+            $btn = '';
         }
         echo '
       
                  <tr>
                      <th scope="row">'.$abn['type_sport'].'</th>
-                     <th scope="row">'.$abn['type_abonnement'].'</th>
-                     <th>'.$dateFin.'<th>'.$status.'</th>
+
+                     <th>'.$status.'</th>
                      <th><form method="post">'.$btn.'</form></th>
                      <th>
                          <button class="btn btn-primary">
-                         <a class="text-white text-decoration-none" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'">Voir</a>
+                         <a class="text-white text-decoration-none" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'">Tous les controles</a>
                          </button>
                      </th>
-                     <th>
-                         <form method="post" action="">
-                               <button name="delete'.$abn['id'].'" class="btn-danger btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                    </svg>
-                            </button>
-                        </form>
-                    </th>
+                     <th> 
+                        <button class="btn btn-outline-primary">
+                            <a href="gererActivity.php?id='.$abn['id_client'].'&activity='.$abn['id'].'"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                            </a>
+                        </button>
+                     </th>
+       
              </tr>
         ';
 
-        if (isset($_POST['delete'.$abn['id']])){
+    /*    if (isset($_POST['delete'.$abn['id']])){
 
             $reqDelet = $db->prepare('delete from abonnement where id=:id');
             $reqDelet->bindParam(':id',$abn['id']);
@@ -151,6 +156,9 @@ if (count($resultAbon)> 0){
             $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>L\'abonnement a bien été suprimé</h4></div>';
             echo"<meta http-equiv='refresh' content='0'>";
         }
+
+
+    */
         if (isset($_POST['valider'.$abn['id']])){
 
             $reqDelet = $db->prepare('insert into controlle (id_abonnement,date) values (:id_abonnement,NOW()) ');
@@ -173,30 +181,35 @@ if (count($resultAbon)> 0){
 </table>
 
 <div id="root2">
-    <form  class="container " action="" method="post">
-        <div class="form-group">
-            <label for=""><strong>Type de sport</strong></label>
-            <select name="typeSport" class="form-control" id="selectSport">
-                <option></option>
-                <?php foreach ($activitys as $activity){
-                    echo '      <option>'.$activity['name'].'</option>';
+    <form  class="container" action="" method="post">
+    <table class="table container">
+        <thead>
+        <tr>
+            <th scope="col">Nom de l'activité</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+        </tr>
+        <tr>
+            <th>
 
-                } ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for=""><strong>Type de payement</strong></label>
-            <select name="typeAbn" class="form-control" id="selectAbn">
-                <option></option>
-                <option>1 Mois</option>
-                <option>3 Mois</option>
-                <option>6 Mois</option>
-                <option>12 Mois</option>
-            </select>
-            <button id="subAbn" type="submit" class="btn btn-primary mt-3" name="validerAbn">Valider</button>
-        </div>
+                    <select name="type_sport" class="form-control" id="selectSport">
+                        <option>Choisir une activité</option>
+                        <?php foreach ($activitys as $activity){
+                            echo '      <option>'.$activity['name'].'</option>';
+                        } ?>
+                    </select>
+                </th>
+            <th>
+                <input class="form-control" type="date" id="date_debut" name="date_debut">
+            </th>
+            <th>
+                <input class="form-control" type="date" id="date_fin" name="date_fin">
+            </th>
+        </tr>
+        </tbody>
+    </table>
+        <div class="container text-center"><button id="subAbn" type="submit" class="btn btn-primary mb-5 " style="width: 30vw" name="validerAbn">Valider</button></div>
     </form>
-</div>
 
 </div>
 
