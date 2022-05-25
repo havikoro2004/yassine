@@ -143,6 +143,7 @@ if (isset($_POST['deleteUser'])){
     $reqDelet = $db->prepare('delete from client where id=:id');
     $reqDelet->bindParam(':id',$_GET['id']);
     $reqDelet->execute();
-    $alert = '<div class="alert alert-danger mt-3 container text-center" role="alert"><h2>Le profil du client a bien été suprimé</h2></div>';
-    header( "refresh:2;url=client_list.php");
+    $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>Le profil a bien été suprimé</h4></div>';
+   echo '<meta http-equiv="refresh" content="2">';
 }
+

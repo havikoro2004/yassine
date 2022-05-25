@@ -48,9 +48,35 @@ if ($alert){echo $alert ;} ?>
                     <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8z"/>
                 </svg> Date d'inscription : <?= date_format($date,('d-m-Y')) ?></li>
         </ul>
-        <form method="post">
-            <button class="btn btn-primary my-3"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier</a></button>
-        </form>
+        <div class="d-flex ">
+            <form method="post">
+                <button class="btn btn-primary my-3 me-2"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier</a></button>
+            </form>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger my-3 me-2" data-toggle="modal" data-target="#exampleModal">
+                Suprimer le profil
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-body text-center">
+                            Etes-Vous sure de vouloir suprimer le client ?
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <form method="post">
+                                <button type="submit" name="deleteUser" class="btn btn-danger">Suprimer le profil</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <button type="button" id="abn" class="btn btn-dark my-3 me-2">Ajouter un Abonnement</button>
+
+        </div>
     </div>
 </div>
 
@@ -145,12 +171,7 @@ if (count($resultAbon)> 0){
 
 </tbody>
 </table>
-<div class="container d-flex justify-content-center">
-    <button type="button" id="abn" class="btn btn-dark mb-5 me-2">Ajouter un Abonnement</button>
-    <form method="post">
-        <button type="submit" name="deleteUser" class="btn btn-danger mb-5">Suprimer le profil</button>
-    </form>
-</div>
+
 <div id="root2">
     <form  class="container " action="" method="post">
         <div class="form-group">
