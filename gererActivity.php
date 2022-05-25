@@ -1,7 +1,7 @@
 <?php
 include_once ('head.php');
 include_once 'include/Controlle.php';
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+
 $abonnement = new Controlle();
 $activity = $abonnement->getAbonnement($_GET['id']);
 
@@ -70,16 +70,7 @@ $activity = $abonnement->getAbonnement($_GET['id']);
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                         <form  method="post">
                             <button id="deleteModal" name="delete" type="submit" class="btn btn-danger">Suprimer</button>
-                            <?php
-                                if (isset($_POST['delete'])){
-                                    "<meta http-equiv='refresh' content='2'>";
-                                    $req = $db->prepare('delete from abonnement where id=:id');
-                                    $req->bindParam((':id'),$_GET['activity']);
-                                    $req->execute();
-                                    header('Location:index.php');
-
-                                }
-                            ?>
+                            <?php $abonnement->deleteAbonnement();?>
                         </form>
 
                     </div>

@@ -3,7 +3,8 @@ $db = new PDO ('mysql:host=localhost;dbname=club','root','');
 $alert = null;
 $id = $_GET['id'];
 if (isset($_POST['validerAbn'])){
-    $reqVerif=$db->prepare('select * from abonnement where type_sport=:type');
+    $reqVerif=$db->prepare('select * from abonnement where id_client=:id_client && type_sport=:type');
+    $reqVerif->bindParam(':id_client',$_GET['id']);
     $reqVerif->bindParam(':type',$_POST['type_sport']);
     $reqVerif->execute();
     if (!$reqVerif->fetch()){

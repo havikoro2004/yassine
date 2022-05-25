@@ -26,6 +26,15 @@ class Controlle
         $result = $req->fetch();
         return $result;
     }
+    public function deleteAbonnement(){
+        if (isset($_POST['delete'])){
+            $req = $this->db->prepare('delete from abonnement where id=:id');
+            $req->bindParam((':id'),$_GET['activity']);
+            $req->execute();
+            $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>Activité a bien été suprimée</h4></div>';
+        }
+
+    }
     public function getControle (){
         $req = $this->db->prepare('select * from controlle join abonnement on controlle.id_abonnement=abonnement.id && id_abonnement=:id_abonnement order by date desc');
         $req->bindParam((':id_abonnement'),$_GET['activity']);
@@ -43,7 +52,5 @@ class Controlle
             return $list;
         }
     }
-
-
 
 }
