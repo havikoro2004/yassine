@@ -96,7 +96,7 @@ if (count($resultAbon)> 0){
     </form>
 
 
-  <?php  echo '  <table id="table"  class="table table-hover container text-center">
+  <?php  echo '  <table id="table"  class="table table-hover container text-center table-profils">
                     <thead class="bg-dark text-white ">
                     <tr>
                         <th scope="col">Activité</th>           
@@ -117,7 +117,7 @@ if (count($resultAbon)> 0){
         }
         $dateFin = date_format(new DateTime($abn['date_fin']),('d-m-y'));
         if ($abn['status']){
-            $btn = '<button id="alert" class="btn btn-success" type="submit" name="valider'.$abn['id'].'">Valider</button>';
+            $btn = '<button id="alert" class="btn btn-success btnStatus" type="submit" name="valider'.$abn['id'].'">Valider</button>';
         } else {
             $btn = '';
         }
@@ -130,7 +130,7 @@ if (count($resultAbon)> 0){
                      <th><form method="post">'.$btn.'</form></th>
                      <th>
                          <button class="btn btn-primary">
-                         <a class="text-white text-decoration-none" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'">Tous les controles</a>
+                         <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'">Tous les controles</a>
                          </button>
                      </th>
                      <th> 

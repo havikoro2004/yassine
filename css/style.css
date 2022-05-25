@@ -69,6 +69,9 @@ table {
 #closeIcone{
     display: none;
 }
+.table-profils{
+    font-size: 10px;
+}
 
 @media screen and (min-width: 720px) {
     .menuGrid {
@@ -94,5 +97,8 @@ table {
     .h1Home{
         font-size: 3rem;
         font-family: Calibri;
+    }
+    .table-profils{
+        font-size: 16px;
     }
 }
