@@ -1,5 +1,5 @@
 <?php
-
+$title='CONTROLER UN CLIENT';
 include_once ('head.php');
 $alert = null;
 $abonnements=null;
@@ -23,9 +23,7 @@ if (isset($_POST['chercher'])){
 }
 clearstatcache(true);
 ?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">La liste des clients</h1>
-</header>
+
 <?php if ($alert){echo $alert;} ?>
 <div class="border container mt-2 rounded">
     <h2 class="my-5 text-center">Chercher un client</h2>

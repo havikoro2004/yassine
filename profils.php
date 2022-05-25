@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$title='PROFIL CLIENT';
 include_once ('head.php');
 include_once 'include/get.php';
 include_once 'include/activity.php';
@@ -8,16 +8,15 @@ include_once 'include/abonnement.php';
 clearstatcache(true);
 
 ?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">Profil du client</h1>
-</header>
+
+
+<div id="root"></div>
 <?php
 if (isset($_SESSION['status'])){
     echo $_SESSION['status'];
     unset($_SESSION['status']);
 }
 if ($alert){echo $alert ;} ?>
-<div id="root"></div>
 <div class="cont_profil container">
     <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
         <img class="mb-2" width="85%" height="85%" src="images/<?= $photo ; ?>" alt="">
@@ -65,7 +64,7 @@ if ($alert){echo $alert ;} ?>
                             Etes-Vous sure de vouloir suprimer le client ?
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             <form method="post">
                                 <button type="submit" name="deleteUser" class="btn btn-danger">Suprimer le profil</button>
                             </form>
@@ -136,7 +135,7 @@ if (count($resultAbon)> 0){
                      </th>
                      <th> 
                         <button class="btn btn-outline-primary">
-                            <a href="gererActivity.php?id='.$abn['id_client'].'&activity='.$abn['id'].'"> 
+                            <a href="edit_activity.php?id='.$abn['id_client'].'&abn='.$abn['id'].'"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -148,17 +147,6 @@ if (count($resultAbon)> 0){
              </tr>
         ';
 
-    /*    if (isset($_POST['delete'.$abn['id']])){
-
-            $reqDelet = $db->prepare('delete from abonnement where id=:id');
-            $reqDelet->bindParam(':id',$abn['id']);
-            $reqDelet->execute();
-            $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>L\'abonnement a bien été suprimé</h4></div>';
-            echo"<meta http-equiv='refresh' content='0'>";
-        }
-
-
-    */
         if (isset($_POST['valider'.$abn['id']])){
 
             $reqDelet = $db->prepare('insert into controlle (id_abonnement,date) values (:id_abonnement,NOW()) ');

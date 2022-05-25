@@ -1,10 +1,9 @@
 <?php
+$title='AJOUTER UN CLIENT';
 include_once ('head.php');
 include_once 'include/new.php';
 ?>
-    <header class="d-flex justify-content-center align-items-center">
-        <h1 class="display-5 bg-dark text-white col text-center p-3">Créer client</h1>
-    </header>
+
 <div class="container text-center" id="root">
     <?php if($alert){echo $alert;} ?>
 </div>

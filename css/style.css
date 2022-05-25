@@ -1,11 +1,24 @@
 html , body {
     height: 100vh;
 }
+.h1Home{
+    font-size: 2rem;
+    font-family: Calibri;
+}
+.logo {
+    width:100px ;
+    height:100px;
+}
 header {
-    height: 30vh;
-    background: url("../images/header_bg.jpg") no-repeat;
+    border: 3px solid black;
+    border-radius: 50px 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    text-align: center;
+    height: 15vh;
     background-size: cover;
     width: 100%;
+
 }
 .links {
     color: darkgray;
@@ -56,6 +69,7 @@ table {
 #closeIcone{
     display: none;
 }
+
 @media screen and (min-width: 720px) {
     .menuGrid {
         grid-template-columns: 1fr 1fr 1fr;
@@ -72,5 +86,13 @@ table {
     .cont_profil {
 
         grid-template-columns: 1fr 3fr;
+    }
+
+    header{
+        grid-template-columns: 1fr 5fr;
+    }
+    .h1Home{
+        font-size: 3rem;
+        font-family: Calibri;
     }
 }

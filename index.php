@@ -1,10 +1,9 @@
 <?php
+$title='MARACANA GYM';
 include_once ('head.php');
 clearstatcache(true);
+
 ?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">CLUB MARACANA</h1>
-</header>
 <div class="menuGrid mt-5">
     <a href="client_list.php" class="btn btn-dark m-3 menuBtns links d-flex flex-column justify-content-center align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-rolodex" viewBox="0 0 16 16">

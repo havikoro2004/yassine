@@ -1,7 +1,7 @@
 <?php
 $db = new PDO ('mysql:host=localhost;dbname=club','root','');
 $alert =null;
-            if (isset($_POST['addBtn'])){$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+            if (isset($_POST['addBtn'])){
                 $reqActivity = $db ->prepare('select * from activity where name=:name ');
                 $reqActivity->bindParam(':name',$_POST['add']);
                 $reqActivity->execute();
@@ -23,3 +23,21 @@ $alert =null;
             if (!$activitys){
                 $alert = '<div class="alert alert-warning mt-3 container text-center" role="alert"><h4>Aucune activité n\'est ajoutée</h4></div>';
             }
+if (isset($_POST['validRenouv'])){
+    $req=$db->prepare('select * from abonnement where id=:id');
+    $req->bindParam(':id',$_GET['abn']);
+    $req->execute();
+    $result = $req->fetch();
+    $dateExpiration = date_timestamp_get(date_create($result['date_fin']));
+    $postDate = date_timestamp_get(date_create($_POST['renouvDate']));
+    if ($dateExpiration>=$postDate){
+        $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous devez choisir une date supérieur à la date expiration actuelle</div>';
+    } else {
+        $req=$db->prepare('update abonnement set date_fin=:date_fin where id=:id');
+        $req->bindParam(':date_fin',$_POST['renouvDate']);
+        $req->bindParam(':id',$_GET['abn']);
+        $req->execute();
+        $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert"><h4>Le renouvellement a bien été effectué</h4></div>';
+    }
+
+}

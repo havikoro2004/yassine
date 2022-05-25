@@ -1,12 +1,13 @@
 <?php
+session_start();
+$title='LISTE DES CLIENTS';
 include_once ('head.php');
 include_once ('include/new.php');
 clearstatcache(true);
 ?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">GESTION DES CLIENTS</h1>
-</header>
+
 <?php
+
 if ($res){
     echo'<h4 class="text-center my-3 alert-info alert container">Resultat de votre recherche</h4>';
     foreach ($res as $rsa){
@@ -16,9 +17,9 @@ if ($res){
 if ($alert){echo $alert;}
 
 ?>
-<div class="border container mt-2 rounded">
-    <h2 class="my-5 text-center">Chercher un client</h2>
-    <form action="" method="post" class="form-inline d-flex container">
+<div class="border container rounded mt-4">
+
+    <form action="" method="post" class="form-inline d-flex container mt-4">
         <input id="filter" name="filter" class="form-control mr-sm-2 me-2" type="search" placeholder="Chercher" aria-label="Search">
         <select name="select" class="form-control me-2" id="selectfilter">
             <option>Nom</option>

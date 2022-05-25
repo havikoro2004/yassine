@@ -1,16 +1,10 @@
 <?php
 session_start();
+$title='HISTORIQUE CONTROLE';
 include_once 'include/Controlle.php';
 include_once ('head.php');
 $controlle = new Controlle();
 $history = $controlle->getControle();
-
-?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">Liste des controles</h1>
-</header>
-
-<?php
 
 if ($history){ ?>
     <h2 class="my-4 text-center">Les des dernier controles</h2>

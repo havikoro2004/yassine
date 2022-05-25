@@ -1,17 +1,30 @@
 <?php
+session_start();
+$title='GERER LES ACTIVITES';
 include_once ('head.php');
-include_once 'include/Controlle.php';
+include_once 'include/activity.php';
 
-$abonnement = new Controlle();
-$activity = $abonnement->getAbonnement($_GET['id']);
+$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+$req =$db->prepare('select * from abonnement where id=:id && id_client=:id_client');
+$req->bindParam(':id',$_GET['abn']);
+$req->bindParam(':id_client',$_GET['id']);
+$req->execute();
+$activity=$req->fetch();
 
+if (is_int($activity['id_client']) && $activity['id_client'] = $_GET['id']){
 
+} else {
+    header('Location:profils.php?id='.$_GET['id'].'');
+}
+if (isset($_SESSION['status'])){
+    echo $_SESSION['status'];
+    unset($_SESSION['status']);
+}
 ?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">Detail d'activité</h1>
-</header>
+<div id="headerActivity">
 
-<table class="table container text-center">
+</div>
+<table class="table container text-center mt-5">
     <thead>
     <tr>
         <th scope="col">Nom de l'activité</th>
@@ -23,7 +36,6 @@ $activity = $abonnement->getAbonnement($_GET['id']);
     <tbody>
     <tr>
             <?php
-
             if ($activity){
                 $status=null;
                 if (!$activity['status']){
@@ -38,8 +50,6 @@ $activity = $abonnement->getAbonnement($_GET['id']);
                     <th>'.$activity['date_fin'].'</th>
                     <th>'.$status.'</th>
                 ';
-            } else {
-                header( "Location:" );
             }
 
             ?>
@@ -52,7 +62,7 @@ $activity = $abonnement->getAbonnement($_GET['id']);
         <button type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#exampleModal">
             Suprimer l'activité
         </button>
-        <button class="btn btn-success" type="button" id="prolong">Prolonger l'abonnement</button>
+        <button class="btn btn-success" type="button" id="prolong">Renouveler</button>
     </div>
 
         <!-- Modal -->
@@ -69,15 +79,28 @@ $activity = $abonnement->getAbonnement($_GET['id']);
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                         <form  method="post">
-                            <button id="deleteModal" name="delete" type="submit" class="btn btn-danger">Suprimer</button>
-                            <?php $abonnement->deleteAbonnement();?>
+                            <button id="deleteModal" name="deleteAbn" type="submit" class="btn btn-danger">Suprimer</button>
+                            <?php
+
+                                if (isset($_POST['deleteAbn'])){
+                                    $req = $db->prepare('delete from abonnement where id=:id');
+                                    $req->bindParam(':id',$_GET['abn']);
+                                    $req->execute();
+                                    $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>Abonnement a bien été suprimé</h4></div>';
+                                    echo '<meta http-equiv="refresh" content="0">';
+                                }
+
+                            ;?>
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
+        <div id="renouv" class="container mt-4">
 
+        </div>
+<script src="js/renouvelement.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/script.js" ></script>
 <script src="js/bootstrap.bundle.min.js" ></script>

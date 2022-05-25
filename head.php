@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -42,3 +43,7 @@
         </div>
     </div>
 </nav>
+<header class="mt-3 container">
+    <div class="container text-end"><img class="logo p-2" src="images/logo.jpg" alt="" ></div>
+    <div class="brand d-flex justify-content-center align-items-center""><h1 class="h1Home"><?= $title; ?></h1></div>
+</header>

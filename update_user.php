@@ -6,9 +6,7 @@ $users= new Controlle();
 $client = $users->getById($_GET['id']);
 
 ?>
-<header class="d-flex justify-content-center align-items-center">
-    <h1 class="display-5 bg-dark text-white col text-center p-3">MODIFIER LE</h1>
-</header>
+
 <div class="container text-center" id="root">
     <?php if($alert){echo $alert;} ?>
 </div>

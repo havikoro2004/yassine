@@ -32,7 +32,7 @@ if ($resultat= $reqUrl->fetch()){
 
 } else {
 
-    header('Location:../index.php');
+    header('Location:../client_list.php');
 }
 
 $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id');
