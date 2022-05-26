@@ -3,15 +3,18 @@ html , body {
 }
 .h1Home{
     font-size: 2rem;
-    font-family: Calibri;
+    font-family: "Gill Sans", sans-serif;
+    color: #4f5050;
+
 }
 .logo {
     width:100px ;
     height:100px;
 }
 header {
-    border: 3px solid black;
-    border-radius: 50px 20px;
+    border: 3px solid lightslategrey;
+    border-radius: 10spx 5px;
+    box-shadow: 5px 2px 2px lightslategrey;
     display: grid;
     grid-template-columns: 1fr 2fr;
     text-align: center;
@@ -96,7 +99,7 @@ table {
     }
     .h1Home{
         font-size: 3rem;
-        font-family: Calibri;
+
     }
     .table-profils{
         font-size: 16px;

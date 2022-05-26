@@ -49,7 +49,7 @@ if ($alert){echo $alert ;} ?>
         </ul>
         <div class="d-flex ">
             <form method="post">
-                <button class="btn btn-primary my-3 me-2"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier</a></button>
+                <button class="btn btn-primary my-3 me-2"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier les infos</a></button>
             </form>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-danger my-3 me-2" data-toggle="modal" data-target="#exampleModal">
@@ -117,7 +117,7 @@ if (count($resultAbon)> 0){
         }
         $dateFin = date_format(new DateTime($abn['date_fin']),('d-m-y'));
         if ($abn['status']){
-            $btn = '<button id="alert" class="btn btn-success btnStatus" type="submit" name="valider'.$abn['id'].'">Valider</button>';
+            $btn = '<button id="alert" class="btn btn-success btnStatus" type="submit" name="valider'.$abn['id'].'"><span class="d-flex justify-content-center">Valider</span></button>';
         } else {
             $btn = '';
         }
@@ -130,7 +130,7 @@ if (count($resultAbon)> 0){
                      <th><form method="post">'.$btn.'</form></th>
                      <th>
                          <button class="btn btn-primary">
-                         <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'">Tous les controles</a>
+                         <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'"><span class="d-flex justify-content-center">Actif</span></a>
                          </button>
                      </th>
                      <th> 

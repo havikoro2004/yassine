@@ -4,7 +4,7 @@ $title='GERER LES ACTIVITES';
 include_once ('head.php');
 include_once 'include/activity.php';
 
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+$db = new PDO('mysql:host=localhost;dbname=club;charset=utf8mb4', 'root', '');
 $req =$db->prepare('select * from abonnement where id=:id && id_client=:id_client');
 $req->bindParam(':id',$_GET['abn']);
 $req->bindParam(':id_client',$_GET['id']);
