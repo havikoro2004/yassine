@@ -100,7 +100,7 @@ if (valider){
                 root.innerHTML=''
                 const alert = document.createElement('div')
                 alert.className='my-4'
-                alert.innerHTML='<div class="alert alert-success"><h2>Vérifier les information avant de sauvegarder</h2></div>'
+                alert.innerHTML='<div class="alert alert-primary"><h2>Vérifier les information avant de sauvegarder</h2></div>'
                 root.appendChild(alert)
                 alert.scrollIntoView();
 
