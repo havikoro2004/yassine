@@ -18,7 +18,7 @@ if (isset($_SESSION['status'])){
     unset($_SESSION['status']);
 }
 if ($alert){echo $alert ;} ?>
-<div class="cont_profil container">
+<div class="cont_profil container mt-5">
     <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
         <img id="imgPreview" class="mb-2" width="85%" height="85%" src="images/img_users/<?= $photo ; ?>" alt="">
         <h3 class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></h3>
