@@ -34,6 +34,7 @@ if (isset($_SESSION['status'])){
         <th scope="col">Date de début</th>
         <th scope="col">Date d'expiration</th>
         <th scope="col">Statue</th>
+        <th>Date de renouvellement</th>
     </tr>
     </thead>
     <tbody>
@@ -42,6 +43,7 @@ if (isset($_SESSION['status'])){
             if ($activity){
                 $debut = date_create($activity['date_debut']);
                 $fin = date_create($activity['date_fin']);
+                $renouv = date_create($activity['date_renew']);
 
 
 
@@ -57,6 +59,7 @@ if (isset($_SESSION['status'])){
                     <th>'.date_format($debut,('d-m-Y')).'</th>
                     <th>'.date_format($fin,('d-m-Y')).'</th>
                     <th>'.$status.'</th>
+                    <th>'.date_format($renouv,('d-m-Y')).'</th>
                 ';
             }
 

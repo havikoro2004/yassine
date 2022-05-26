@@ -332,12 +332,14 @@ if (subAbn){
 
     })
 }
-fermerAbn.addEventListener('click',(e)=>{
-    root2.style.display="none"
-    fermerAbn.style.display='none'
-    root2.scrollIntoView();
+if (fermerAbn){
+    fermerAbn.addEventListener('click',(e)=>{
+            root2.style.display="none"
+            fermerAbn.style.display='none'
+            root2.scrollIntoView();
 
 
-    }
-)
+        }
+    )
+}
 
