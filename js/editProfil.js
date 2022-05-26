@@ -129,7 +129,7 @@ if (valider){
 
 
                 const save = document.createElement('div')
-                save.innerHTML='<form method="post" action="">' +
+                save.innerHTML='<form method="post" action="update_user.php?id=133">' +
                     ' <div class="d-none">' +
                     '<input type="text" name="badge" value="'+badge.value.toLowerCase()+'" > '+
                     '<input type="text" name="firstName" value="'+firstName.value.toLowerCase()+'" > '+

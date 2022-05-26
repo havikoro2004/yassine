@@ -20,7 +20,6 @@ if (is_int($activity['id_client']) && $activity['id_client'] = $_GET['id']){
 ?>
 <div id="headerActivity">
 <?php
-
 if (isset($_SESSION['status'])){
     echo $_SESSION['status'];
     unset($_SESSION['status']);
@@ -48,9 +47,6 @@ if (isset($_SESSION['status'])){
                     $renouv = date_create($activity['date_renew']);
                     $renew = date_format($renouv,('d-m-Y'));
                 }
-
-
-
                 $status=null;
                 if (!$activity['status']){
                     $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
@@ -101,8 +97,7 @@ if (isset($_SESSION['status'])){
                                     $req = $db->prepare('delete from abonnement where id=:id');
                                     $req->bindParam(':id',$_GET['abn']);
                                     $req->execute();
-                                    $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>Abonnement a bien été suprimé</h4></div>';
-                                    echo '<meta http-equiv="refresh" content="0">';
+                                    echo '<meta http-equiv="refresh" content="1">';
                                 }
 
                             ;?>

@@ -19,20 +19,6 @@ $(()=>{
     });
 
 })
-
-$(()=>{
-    $("#actifs").on("change", function(){
-        $("#check").submit();
-
-    });
-    $("#expired").on("change", function(){
-        $("#check").submit();
-    });
-    $("#tous").on("change", function(){
-        $("#check").submit();
-    });
-})
-
 const root = document.getElementById('root')
 const valider = document.getElementById('valider')
 const annuler = document.getElementById('annuler')

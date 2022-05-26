@@ -32,7 +32,7 @@ if ($resultat= $reqUrl->fetch()){
 
 } else {
 
-    header('Location:../client_list.php');
+    header('Location:client_list.php');
 }
 
 $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id order by date_abonnement desc ');
@@ -40,93 +40,7 @@ $tableAbonnement->bindParam(':id',$_GET['id']);
 $tableAbonnement->execute();
 $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
 $status=null;
-$check='<div class="container my-3 text-center">
-            <div class="form-check form-check-inline">
-                <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="tous" value="Tous " checked >
-                <label class="form-check-label" for="inlineRadio1">Tous</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="actifs" value="Actifs"  >
-                <label class="form-check-label" for="inlineRadio2">Actifs</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="expired" value="Expiré">
-                <label class="form-check-label" for="inlineRadio3">Expiré</label>
-            </div>
-        </div>';
-if (isset($_POST['inlineRadioOptions'])){
-    if ($_POST['inlineRadioOptions']==="Actifs"){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=true order by date_abonnement desc');
-        $tableAbonnement->bindParam(':id',$_GET['id']);
-        $tableAbonnement->execute();
-        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
-        $status=null;
-        $check='<div class="container my-3 text-center">
-            <div class="form-check form-check-inline">
-                <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="tous" value="Tous "  >
-                <label class="form-check-label" for="inlineRadio1">Tous</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="actifs" value="Actifs" checked >
-                <label class="form-check-label" for="inlineRadio2">Actifs</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="expired" value="Expiré">
-                <label class="form-check-label" for="inlineRadio3">Expiré</label>
-            </div>
-        </div>';
 
-    }
-}
-if (isset($_POST['inlineRadioOptions'])){
-    if ($_POST['inlineRadioOptions']==="Expiré"){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=false order by date_abonnement desc');
-        $tableAbonnement->bindParam(':id',$_GET['id']);
-        $tableAbonnement->execute();
-        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
-        $status=null;
-        $check='<div class="container my-3 text-center">
-            <div class="form-check form-check-inline">
-                <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="tous" value="Tous " >
-                <label class="form-check-label" for="inlineRadio1">Tous</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="actifs" value="Actifs"  >
-                <label class="form-check-label" for="inlineRadio2">Actifs</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="expired" value="Expiré" checked>
-                <label class="form-check-label" for="inlineRadio3">Expiré</label>
-            </div>
-        </div>';
-
-    }
-}
-if (isset($_POST['inlineRadioOptions'])){
-    if ($_POST['inlineRadioOptions']==="Tous"){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id  order by date_abonnement desc');
-        $tableAbonnement->bindParam(':id',$_GET['id']);
-        $tableAbonnement->execute();
-        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
-        $status=null;
-        $check='        <div class="container my-3 text-center">
-            <div class="form-check form-check-inline">
-                <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="tous" value="Tous"checked>
-                <label class="form-check-label" for="inlineRadio1">Tous</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="actifs" value="Actifs"  >
-                <label class="form-check-label" for="inlineRadio2">Actifs</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="expired" value="Expiré" >
-                <label class="form-check-label" for="inlineRadio3">Expiré</label>
-            </div>
-        </div>';
-
-
-    }
-}
 foreach ($resultAbon as $abn){
     $dateDebut = new DateTime($abn['date_debut']);
     $dateFin = new DateTime($abn['date_fin']);

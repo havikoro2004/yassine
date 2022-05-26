@@ -3,7 +3,7 @@ session_start();
 $db = new PDO ('mysql:host=localhost;dbname=club','root','');
 $title='MODIFIER LES INFOS';
 include_once ('head.php');
-
+include_once 'include/update_user.php';
 include_once 'include/Controlle.php';
 $users= new Controlle();
 $client = $users->getById($_GET['id']);
@@ -73,33 +73,7 @@ if (isset($_SESSION['status'])){
     </div>
     <button id="valider" type="button" class="btn btn-primary mb-5">Valider</button>
 </form>
-<?php
 
-    if (isset($_POST['edit'])){
-        $req=$db->prepare('select * from client where birth=:birth && firstName=:firstName && lastName=:lastName');
-        $req->bindParam(':birth',$_POST['birth']);
-        $req->bindParam(':firstName',$_POST['firstName']);
-        $req->bindParam('lastName',$_POST['lastName']);
-        $req->execute();
-        $result = $req->fetch();
-        if ($result && $result['id']!=$_GET['id']){
-            $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Un utilisateur a deja le même nom & prénom et date de naissai</div>';
-            echo "<meta http-equiv='refresh' content='0'>";
-        } else {
-            $req = $db->prepare('update client set firstName=:firstName, lastName=:lastName , cin=:cin , tel=:tel , adresse=:adresse where id=:id');
-            $req->bindParam(':id',$_GET['id']);
-            $req->bindParam(':firstName',$_POST['firstName']);
-            $req->bindParam(':lastName',$_POST['lastName']);
-            $req->bindParam(':cin',$_POST['cin']);
-            $req->bindParam(':tel',$_POST['tel']);
-            $req->bindParam(':adresse',$_POST['adresse']);
-            $req->execute();
-            $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert"><h4>Les informations ont bien été modifiés</h4></div>';
-            echo "<meta http-equiv='refresh' content='0'>";
-        }
-    }
-
-?>
 <script src="js/jquery.js"></script>
 
 <script src="js/editProfil.js"></script>

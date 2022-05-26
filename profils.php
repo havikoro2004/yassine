@@ -21,7 +21,7 @@ if ($alert){echo $alert ;} ?>
 <div class="cont_profil container mt-5">
     <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
         <img id="imgPreview" class="mb-2" width="65%" height="65%" src="images/img_users/<?= $photo ; ?>" alt="">
-        <h3 class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></h3>
+        <strong class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></strong>
         <div class="container">
             <form enctype="multipart/form-data" action="" method="post" class="mb-3 container text-center">
                 <label for="actual-btn">
@@ -104,15 +104,7 @@ if ($alert){echo $alert ;} ?>
 <?php
 $teste[]=null;
 if (count($resultAbon)> 0){
-
-    ?>
-
-    <form name="check" id="check"  action="" method="post">
-        <?= $check ; ?>
-    </form>
-
-
-  <?php  echo '  <table id="table"  class="table table-hover container text-center table-profils">
+ echo '  <table id="table"  class="table table-hover container text-center table-profils">
                     <thead class="bg-dark text-white ">
                     <tr>
                         <th scope="col">Activité</th>           
@@ -150,7 +142,7 @@ if (count($resultAbon)> 0){
                          </button>
                      </th>
                      <th> 
-                        <button class="btn btn-outline-primary">
+                        <button class="btn btn-outline-primary btnStatus">
                             <a href="edit_activity.php?id='.$abn['id_client'].'&abn='.$abn['id'].'"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
