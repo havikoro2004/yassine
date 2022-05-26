@@ -40,6 +40,11 @@ if (isset($_SESSION['status'])){
     <tr>
             <?php
             if ($activity){
+                $debut = date_create($activity['date_debut']);
+                $fin = date_create($activity['date_fin']);
+
+
+
                 $status=null;
                 if (!$activity['status']){
                     $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
@@ -49,8 +54,8 @@ if (isset($_SESSION['status'])){
                 $dateFin = date_format(new DateTime($activity['date_fin']),('d-m-y'));
                 echo'
                     <th>'.$activity['type_sport'].'</th>
-                    <th>'.$activity['date_debut'].'</th>
-                    <th>'.$activity['date_fin'].'</th>
+                    <th>'.date_format($debut,('d-m-Y')).'</th>
+                    <th>'.date_format($fin,('d-m-Y')).'</th>
                     <th>'.$status.'</th>
                 ';
             }
