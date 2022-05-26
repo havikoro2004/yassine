@@ -15,7 +15,7 @@ if (isset($_POST['validerAbn'])){
         $req->bindParam(':date_fin',$_POST['date_fin']);
         $req->execute();
         $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert"><h4>Abonnement a bien été ajouté</h4></div>';
-        echo"<meta http-equiv='refresh' content='0'>";
+        echo"<meta http-equiv='refresh' content='2'>";
     } else {
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Il semble que l\'utilisateur a deja un abonnement de <strong>'.$_POST['type_sport'].'</strong></div>';
     }
