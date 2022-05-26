@@ -40,10 +40,14 @@ if (isset($_SESSION['status'])){
     <tbody>
     <tr>
             <?php
+            $renew=null;
             if ($activity){
                 $debut = date_create($activity['date_debut']);
                 $fin = date_create($activity['date_fin']);
-                $renouv = date_create($activity['date_renew']);
+                if ($activity['date_renew']){
+                    $renouv = date_create($activity['date_renew']);
+                    $renew = date_format($renouv,('d-m-Y'));
+                }
 
 
 
@@ -59,7 +63,7 @@ if (isset($_SESSION['status'])){
                     <th>'.date_format($debut,('d-m-Y')).'</th>
                     <th>'.date_format($fin,('d-m-Y')).'</th>
                     <th>'.$status.'</th>
-                    <th>'.date_format($renouv,('d-m-Y')).'</th>
+                    <th>'.$renew.'</th>
                 ';
             }
 
