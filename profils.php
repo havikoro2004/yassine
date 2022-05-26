@@ -2,6 +2,7 @@
 session_start();
 $title='PROFIL CLIENT';
 include_once ('head.php');
+include_once 'include/upload_img.php';
 include_once 'include/get.php';
 include_once 'include/activity.php';
 include_once 'include/abonnement.php';
@@ -19,8 +20,22 @@ if (isset($_SESSION['status'])){
 if ($alert){echo $alert ;} ?>
 <div class="cont_profil container">
     <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
-        <img class="mb-2" width="85%" height="85%" src="images/<?= $photo ; ?>" alt="">
+        <img id="imgPreview" class="mb-2" width="85%" height="85%" src="images/img_users/<?= $photo ; ?>" alt="">
         <h3 class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></h3>
+        <div class="container">
+            <form enctype="multipart/form-data" action="" method="post" class="mb-3 container text-center">
+                <label for="actual-btn">
+                    <span style="height: 37px" class="btn btn-outline-dark mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
+                        <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
+                        <path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/>
+                        </svg>
+                    </span>
+                </label>
+                <input id="actual-btn" hidden name="photo" type="file" onchange="document.getElementById('imgPreview').src = window.URL.createObjectURL(this.files[0])">
+                <button type="submit" class="btn btn-primary mt-2" name="upload">Valider</button>
+            </form>
+        </div>
     </div>
     <div class="mt-4 infosUser">
         <ul class="list-group">
@@ -84,6 +99,7 @@ if ($alert){echo $alert ;} ?>
         </div>
     </div>
 </div>
+
 
 <?php
 $teste[]=null;

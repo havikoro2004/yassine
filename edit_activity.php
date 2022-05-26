@@ -16,13 +16,16 @@ if (is_int($activity['id_client']) && $activity['id_client'] = $_GET['id']){
 } else {
     header('Location:profils.php?id='.$_GET['id'].'');
 }
+
+?>
+<div id="headerActivity">
+<?php
+
 if (isset($_SESSION['status'])){
     echo $_SESSION['status'];
     unset($_SESSION['status']);
 }
 ?>
-<div id="headerActivity">
-
 </div>
 <table class="table container text-center mt-5">
     <thead>

@@ -35,7 +35,7 @@ if ($resultat= $reqUrl->fetch()){
     header('Location:../client_list.php');
 }
 
-$tableAbonnement = $db->prepare('select * from abonnement where id_client=:id');
+$tableAbonnement = $db->prepare('select * from abonnement where id_client=:id order by date_abonnement desc ');
 $tableAbonnement->bindParam(':id',$_GET['id']);
 $tableAbonnement->execute();
 $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
@@ -56,7 +56,7 @@ $check='<div class="container my-3 text-center">
         </div>';
 if (isset($_POST['inlineRadioOptions'])){
     if ($_POST['inlineRadioOptions']==="Actifs"){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=true');
+        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=true order by date_abonnement desc');
         $tableAbonnement->bindParam(':id',$_GET['id']);
         $tableAbonnement->execute();
         $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
@@ -80,7 +80,7 @@ if (isset($_POST['inlineRadioOptions'])){
 }
 if (isset($_POST['inlineRadioOptions'])){
     if ($_POST['inlineRadioOptions']==="Expiré"){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=false');
+        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=false order by date_abonnement desc');
         $tableAbonnement->bindParam(':id',$_GET['id']);
         $tableAbonnement->execute();
         $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
@@ -104,7 +104,7 @@ if (isset($_POST['inlineRadioOptions'])){
 }
 if (isset($_POST['inlineRadioOptions'])){
     if ($_POST['inlineRadioOptions']==="Tous"){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id ');
+        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id  order by date_abonnement desc');
         $tableAbonnement->bindParam(':id',$_GET['id']);
         $tableAbonnement->execute();
         $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
