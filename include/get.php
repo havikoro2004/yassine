@@ -53,11 +53,34 @@ foreach ($resultAbon as $abn){
         $req->execute();
     }
 }
+if (isset($_POST['fetchFilter'])){
+    if ($_POST['fetchFilter']==='actif'){
+        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=true order by date_abonnement desc ');
+        $tableAbonnement->bindParam(':id',$_GET['id']);
+        $tableAbonnement->execute();
+        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+        if (!$resultAbon){
+            $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité active n\'est trouvée</div>';
+        }
+    }
+}
+if (isset($_POST['fetchFilter'])){
+    if ($_POST['fetchFilter']=='expired'){
+        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=false order by date_abonnement desc ');
+        $tableAbonnement->bindParam(':id',$_GET['id']);
+        $tableAbonnement->execute();
+        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+        if (!$resultAbon){
+            $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité expirée n\'est trouvée</div>';
+        }
+    }
+}
+
 if (isset($_POST['deleteUser'])){
     $reqDelet = $db->prepare('delete from client where id=:id');
     $reqDelet->bindParam(':id',$_GET['id']);
     $reqDelet->execute();
-    $_SESSION['status']='<div id="alert" class="alert alert-info mt-3 container text-center" role="alert"><h4>Le profil a bien été suprimé</h4></div>';
+    $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert"><h4>Le profil a bien été suprimé</h4></div>';
    echo '<meta http-equiv="refresh" content="2">';
 }
 

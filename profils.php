@@ -95,12 +95,22 @@ if ($alert){echo $alert ;} ?>
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                 </svg>
                 </button>
-
         </div>
     </div>
 </div>
 
+    <div class="container text-center my-5">
+        <form id="formFilter" method="post">
+            <div class="form-group">
+                <select name="fetchFilter" class="form-control" id="fetchFilter">
+                    <option disabled="" selected="" value="">Filtrer l'affichage</option>
+                    <option value="expired">Expirés</option>
+                    <option value="actif">Actifs</option>
+                </select>
+            </div>
+        </form>
 
+    </div>
 <?php
 $teste[]=null;
 if (count($resultAbon)> 0){
@@ -210,6 +220,7 @@ if (count($resultAbon)> 0){
 </div>
 
 <script src="js/jquery.js"></script>
+<script src="js/selectFilter.js"></script>
 <script src="js/script.js" ></script>
 <script src="js/bootstrap.bundle.min.js" ></script>
 </body>
