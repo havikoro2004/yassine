@@ -21,7 +21,7 @@ $alert =null;
             $reqActivity->execute();
             $activitys = $reqActivity->fetchAll();
             if (!$activitys){
-                $alert = '<div class="alert alert-warning mt-3 container text-center" role="alert"><h4>Aucune activité n\'est ajoutée</h4></div>';
+                $alert = '<div class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité n\'est ajoutée</div>';
             }
 if (isset($_POST['validRenouv'])){
     $req=$db->prepare('select * from abonnement where id=:id');
