@@ -7,7 +7,7 @@ include_once 'include/get.php';
 include_once 'include/activity.php';
 include_once 'include/abonnement.php';
 clearstatcache(true);
-
+$statusActifs=null;
 ?>
 
 
@@ -104,8 +104,8 @@ if ($alert){echo $alert ;} ?>
             <div class="form-group">
                 <select name="fetchFilter" class="form-control" id="fetchFilter">
                     <option disabled="" selected="" value="">Filtrer l'affichage</option>
-                    <option value="expired">Expirés</option>
-                    <option value="actif">Actifs</option>
+                    <option value="actif">Actives</option>
+                    <option value="expired">Expirées</option>
                 </select>
             </div>
         </form>

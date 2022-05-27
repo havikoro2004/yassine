@@ -59,6 +59,7 @@ if (isset($_POST['fetchFilter'])){
         $tableAbonnement->bindParam(':id',$_GET['id']);
         $tableAbonnement->execute();
         $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+        $statusActifs= 'selected =""';
         if (!$resultAbon){
             $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité active n\'est trouvée</div>';
         }
