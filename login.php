@@ -1,5 +1,8 @@
 <?php
 session_start();
+if ($_SESSION){
+    header('Location: index.php');
+}
 if (isset($_POST['login'])){
     if (!empty($_POST['pseudo']) && !empty($_POST['password'])){
         $db = new PDO ('mysql:host=localhost;dbname=club','root','');
@@ -9,10 +12,13 @@ if (isset($_POST['login'])){
         $req->bindParam(':pseudo',$pseudo);
         $req->bindParam(':password',$password);
         $req->execute();
-        if ($req->fetch()){
-            $_SESSION['user']=$pseudo;
-            echo $pseudo;
-            header('Location:index.php');
+        $result=$req->fetch();
+        if ($result){
+            $_SESSION['pseudo']=$result['pseudo'];
+            $_SESSION['password']=$result['password'];
+            $_SESSION['id']=$result['id'];
+            header('Location: index.php');
+
         } else {
             echo 'pseudo ou password incorrect';
         }

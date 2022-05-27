@@ -1,6 +1,8 @@
 <?php
 session_start();
-    unset($_SESSION);
-    session_destroy();
-    header("Location:login.php");
+unset($_SESSION['pseudo']);
+unset($_SESSION['password']);
+unset($_SESSION['id']);
+session_destroy();
+header("Location:login.php");
 ?>

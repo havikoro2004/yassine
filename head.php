@@ -3,11 +3,6 @@ session_start();
 if (!$_SESSION){
     header('Location:login.php');
 }
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
-$req = $db->prepare('select * from user where pseudo=:pseudo');
-$req->bindParam(':pseudo',$_SESSION['user']);
-$req->execute();
-$user = $req->fetch();
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,7 +48,8 @@ $user = $req->fetch();
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="admin_edit.php?id=<?= $user['id'] ?>">Modifier login</a>
+                <a class="dropdown-item" href="admin_edit.php?id=<?= $_SESSION['id'] ?>">Paramètres</a>
+                <a class="dropdown-item" href="manage_users.php">Gérer Users</a>
                 <a class="dropdown-item" href="logout.php">Se deconnecter</a>
             </div>
         </div>

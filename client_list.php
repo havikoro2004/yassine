@@ -1,5 +1,4 @@
 <?php
-session_start();
 $title='LISTE DES CLIENTS';
 include_once ('head.php');
 include_once ('include/new.php');

@@ -1,5 +1,4 @@
 <?php
-session_start();
 $title='PROFIL CLIENT';
 include_once ('head.php');
 include_once 'include/upload_img.php';

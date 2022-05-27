@@ -1,5 +1,4 @@
 <?php
-session_start();
 $title='HISTORIQUE CONTROLE';
 include_once 'include/Controlle.php';
 include_once ('head.php');

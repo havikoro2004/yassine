@@ -1,5 +1,5 @@
 <?php
-$title='Page Admin';
+$title='Gérer les utilisateurs';
 include_once 'head.php';
 include_once 'include/update_user.php';
 ?>
@@ -25,18 +25,7 @@ if (isset($_SESSION['status'])){
 ?>
 <div class="container text-center mt-5">
     <h2 class="text-secondary">Modifier le login</h2>
-    <form method="post">
-        <div class="form-group my-3 container ">
-            <input id="loginAdmin" name="pseudo" style="max-width: 50vw" value="<?= $_SESSION['pseudo'] ?>" type="text" class="m-auto form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="form-group">
-            <input id="pwdAdmin" name="pwd" style="max-width: 50vw"   placeholder="Mot de passe actuel" type="password" class="m-auto form-control mb-3">
-        </div>
-        <div class="form-group">
-            <input id="pwdConf" style="max-width: 50vw"   placeholder="Nouveau mot de passe" type="password" class="m-auto form-control mb-3">
-        </div>
-        <button id="editAdmin" name="editAdmin" type="submit" class="btn btn-primary">Valider</button>
-    </form>
+
 </div>
 </body>
 <script src="js/jquery.js"></script>

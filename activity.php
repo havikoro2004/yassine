@@ -1,5 +1,4 @@
 <?php
-session_start();
 $title='ACTIVITES';
 include_once ('head.php');
 include_once 'include/activity.php';

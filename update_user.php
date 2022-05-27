@@ -1,6 +1,4 @@
 <?php
-session_start();
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
 $title='MODIFIER LES INFOS';
 include_once ('head.php');
 include_once 'include/update_user.php';
