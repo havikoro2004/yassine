@@ -17,6 +17,7 @@ if (isset($_POST['login'])){
             $_SESSION['pseudo']=$result['pseudo'];
             $_SESSION['password']=$result['password'];
             $_SESSION['id']=$result['id'];
+            $_SESSION['role']=$result['id_type'];
             header('Location: index.php');
 
         } else {

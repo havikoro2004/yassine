@@ -1,6 +1,9 @@
 <?php
 $title='Page Admin';
 include_once 'head.php';
+if ($_SESSION['role']!==1){
+    header('Location:index.php');
+}
 include_once 'include/update_user.php';
 ?>
 <!doctype html>

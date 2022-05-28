@@ -55,7 +55,7 @@ if (isset($_POST['subUser'])){
             $req = $db->prepare('insert into user (name,pseudo,password,date_inscription ,id_type) values(:name,:pseudo,:password,NOW(), :id_type) ');
             $req->bindParam(':name', $_POST['nom']);
             $req->bindParam('pseudo', $_POST['pseudoUser']);
-            $req->bindParam('password', $_POST['pseudoUser']);
+            $req->bindParam('password', $_POST['pwdUser']);
             $req->bindParam('id_type', $roles[$_POST['role']]);
             $req->execute();
             $_SESSION['status'] = '<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">Utilisateur a bien été crée</div>';
@@ -93,5 +93,5 @@ if (isset($_POST['deleteUser'])){
     $req->bindParam(':id',$_GET['id']);
     $req->execute();
     $_SESSION['status'] = '<div id="alert" class="alert alert-info mt-3 container text-center" role="alert">Le profil utilisateur a bien été suprimé</div>';
-    header( "refresh:2;url=http://localhost:8000/manage_users.php" );
+    header( "Location:manage_users.php" );
 }
