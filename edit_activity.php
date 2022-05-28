@@ -1,6 +1,9 @@
 <?php
 $title='GERER LES ACTIVITES';
 include_once ('head.php');
+if ($_SESSION['role']===3){
+    header('Location:index.php');
+}
 include_once 'include/activity.php';
 
 $db = new PDO('mysql:host=localhost;dbname=club;charset=utf8mb4', 'root', '');

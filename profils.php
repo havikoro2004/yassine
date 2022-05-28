@@ -21,6 +21,8 @@ if ($alert){echo $alert ;} ?>
     <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
         <img id="imgPreview" class="mb-2" width="65%" height="65%" src="images/img_users/<?= $photo ; ?>" alt="">
         <strong class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></strong>
+    <?php
+    if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
         <div class="container">
             <form enctype="multipart/form-data" action="" method="post" class="mb-3 container text-center">
                 <label for="actual-btn">
@@ -35,6 +37,9 @@ if ($alert){echo $alert ;} ?>
                 <button type="submit" class="btn btn-primary mt-2" name="upload">Valider</button>
             </form>
         </div>
+ <?php   }
+
+    ?>
     </div>
     <div class="mt-4 infosUser">
         <ul class="list-group">
@@ -61,6 +66,9 @@ if ($alert){echo $alert ;} ?>
                     <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8z"/>
                 </svg> Date d'inscription : <?= date_format($date,('d-m-Y')) ?></li>
         </ul>
+    <?php
+
+    if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
         <div class="d-flex ">
             <form method="post">
                 <button class="btn btn-primary my-3 me-2"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier les infos</a></button>
@@ -87,17 +95,20 @@ if ($alert){echo $alert ;} ?>
                 </div>
             </div>
 
-                <button type="button" id="abn" class="btn btn-dark my-3 me-2">Ajouter un Abonnement</button>
-                <button id="closeIcone" class="my-3 btn btn-outline-danger" type="button">
+            <button type="button" id="abn" class="btn btn-dark my-3 me-2">Ajouter un Abonnement</button>
+            <button id="closeIcone" class="my-3 btn btn-outline-danger" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                 </svg>
-                </button>
+            </button>
         </div>
+  <?php  }
+    ?>
     </div>
 </div>
 
+<div class="container">
     <div class="container text-center my-5">
         <form id="formFilter" method="post">
             <div class="form-group">
@@ -108,24 +119,28 @@ if ($alert){echo $alert ;} ?>
                 </select>
             </div>
         </form>
-
     </div>
+</div>
 <?php
 $teste[]=null;
-if (count($resultAbon)> 0){
- echo '  <table id="table"  class="table table-hover container text-center table-profils">
-                    <thead class="bg-dark text-white ">
-                    <tr>
-                        <th scope="col">Activité</th>           
-                        <th scope="col">Status</th>
-                        <th scope="col">Controller</th>
-                        <th scope="col">Tous les controles</th>
-                        <th scope="col">Gérer l\'abonnement</th>
-                    </tr>
-                    </thead>
-                    <tbody>';
+if (count($resultAbon)> 0){ ?>
+    <table id="table"  class="table table-hover container text-center table-profils">
+        <thead class="bg-dark text-white ">
+        <tr>
+            <th scope="col">Activité</th>
+            <th scope="col">Status</th>
+            <th scope="col">Controller</th>
+            <th scope="col">Tous les controles</th>
+            <?php
+            if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
+                <th scope="col">Gérer l\'abonnement</th>
+          <?php  }  ?>
 
-    foreach ($resultAbon as $abn){
+        </tr>
+        </thead>
+        <tbody>
+
+ <?php   foreach ($resultAbon as $abn){
         $status=null;
         if (!$abn['status']){
             $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
@@ -149,22 +164,27 @@ if (count($resultAbon)> 0){
                          <button class="btn btn-primary">
                          <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'"><span class="d-flex justify-content-center">Voir</span></a>
                          </button>
-                     </th>
-                     <th> 
-                        <button class="btn btn-outline-primary btnStatus">
-                            <a href="edit_activity.php?id='.$abn['id_client'].'&abn='.$abn['id'].'"> 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                </svg>
-                            </a>
-                        </button>
-                     </th>
-       
-             </tr>
-        ';
+                     </th> ' ;
+        if ($_SESSION['role']===1 || $_SESSION['role']===2){
+            echo '     <th>
+         <button class="btn btn-outline-primary btnStatus">
+             <a href="edit_activity.php?id='.$abn['id_client'].'&abn='.$abn['id'].'">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                 </svg>
+             </a>
+         </button>
+     </th>';
+        }
 
-        if (isset($_POST['valider'.$abn['id']])){
+        ?>
+
+
+             </tr>
+
+
+      <?php  if (isset($_POST['valider'.$abn['id']])){
 
             $reqDelet = $db->prepare('insert into controlle (id_abonnement,date) values (:id_abonnement,NOW()) ');
             $reqDelet->bindParam(':id_abonnement',$abn['id']);
