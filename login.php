@@ -20,10 +20,10 @@ if (isset($_POST['login'])){
             header('Location: index.php');
 
         } else {
-            echo 'pseudo ou password incorrect';
+            $_SESSION['status'] = '<div style="max-width: 50vw"  id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Login ou mot de passe incorrect</div>';
         }
     } else {
-        echo 'les champs ne doivent pas être voide';
+        $_SESSION['status'] = '<div style="max-width: 50vw"  id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Les champs ne doivent pas être vides</div>';
     }
 }
 
@@ -41,11 +41,17 @@ if (isset($_POST['login'])){
     <title>Gestion de client</title>
 </head>
 <body>
-
     <div class="container text-center mt-5">
         <img height="10%" width="10%" class="img-fluid" src="images/logo.jpg" alt="">
         <h1 class="text-secondary">Login</h1>
         <form method="post">
+            <?php
+
+            if (isset($_SESSION['status'])){
+                echo $_SESSION['status'];
+                unset($_SESSION['status']);
+            }
+            ?>
             <div class="form-group mb-3 container ">
                 <input name="pseudo" style="max-width: 50vw" placeholder="Login" type="text" class="m-auto form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
