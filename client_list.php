@@ -70,7 +70,15 @@ if ($alert){echo $alert;}
         ?>
     </tbody>
 </table>
-
+<div class="text-center container my-5">
+    <nav aria-label="...">
+        <ul class="pagination pagin">
+            <?php for($i = 1 ; $i <= $nbrPage ; $i++ )
+            { echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
+                        href="?page='.$i.'">'.$i.'</a></li>' ;}  ?>
+        </ul>
+    </nav>
+</div
 <script src="js/jquery.js"></script>
 <script src="js/script.js" ></script>
 <script src="js/bootstrap.bundle.min.js" ></script>

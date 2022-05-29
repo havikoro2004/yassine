@@ -53,8 +53,18 @@ if (isset($_POST['submit'])){
 }
 
 /*  Liste des dernier clients inscrit  */
-$reqAll = $db->prepare('select * from client order by date desc');
+$reqAll = $db->prepare('select * from client order by date desc LIMIT :start, :final ');
+$final = 20;
+$page = $_GET['page'] ?? 1;
+$reqAll->bindParam(':final',$final,pdo::PARAM_INT);
+$reqAll->bindValue(':start' ,$final * ( (int)$page - 1)  , PDO::PARAM_INT );
 $reqAll->execute();
+
+$countStatement = $db ->prepare('SELECT COUNT(*) as nbrresult FROM client');
+$countStatement->execute();
+$totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
+$nbrPage = ceil($totalresult['nbrresult'] / $final );
+
 $resultAll = $reqAll->fetchAll(PDO::FETCH_ASSOC);
 if (isset($_POST['chercher'])){
     if (!empty($_POST['filter'])){
