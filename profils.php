@@ -68,7 +68,7 @@ if ($alert){echo $alert ;} ?>
         </ul>
     <?php
 
-    if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
+    if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
         <div class="d-flex ">
             <form method="post">
                 <button class="btn btn-primary my-3 me-2"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier les infos</a></button>
@@ -132,7 +132,7 @@ if (count($resultAbon)> 0){ ?>
             <th scope="col">Controller</th>
             <th scope="col">Tous les controles</th>
             <?php
-            if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
+            if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
                 <th scope="col">Gérer l\'abonnement</th>
           <?php  }  ?>
 
@@ -165,7 +165,7 @@ if (count($resultAbon)> 0){ ?>
                          <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'"><span class="d-flex justify-content-center">Voir</span></a>
                          </button>
                      </th> ' ;
-        if ($_SESSION['role']===1 || $_SESSION['role']===2){
+        if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){
             echo '     <th>
          <button class="btn btn-outline-primary btnStatus">
              <a href="edit_activity.php?id='.$abn['id_client'].'&abn='.$abn['id'].'">

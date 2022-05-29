@@ -1,7 +1,7 @@
 <?php
 $title='GERER LES ACTIVITES';
 include_once ('head.php');
-if ($_SESSION['role']===3){
+if ($_SESSION['role']==='Controlleur'){
     header('Location:index.php');
 }
 include_once 'include/activity.php';

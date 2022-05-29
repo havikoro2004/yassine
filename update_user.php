@@ -3,6 +3,9 @@ $title='MODIFIER LES INFOS';
 include_once ('head.php');
 include_once 'include/update_user.php';
 include_once 'include/Controlle.php';
+if ($_SESSION['role']==='Controlleur'){
+    header('Location:index.php');
+}
 $users= new Controlle();
 $client = $users->getById($_GET['id']);
 

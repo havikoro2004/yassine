@@ -31,7 +31,7 @@ $activity=null;
                         <tr>
                             <th scope="col">Nom de l'activité</th>
                             <?php
-                             if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
+                             if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
                                  <th scope="col">Suprimer </th>
                            <?php  }  ?>
 
@@ -61,7 +61,7 @@ $activity=null;
                         echo '  
                             <tr><td>'.$activity['name'].'</td>';
 
-                        if ($_SESSION['role']===1 || $_SESSION['role']===2){
+                        if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){
                             echo '               <td>
                               <form method="post">
                                   <button type="submit" name="dActivity'.$activity['id'].'" class="btn btn-danger">
@@ -85,7 +85,7 @@ $activity=null;
 
     </div>
     <?php
-    if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
+    if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
         <form action="" method="post" class="form-inline d-flex container mb-5">
         <button id="addBtn" name="addBtn" type="submit" class="btn btn-dark me-2">Ajouter</button>
         <input maxlength="30" id="add" id="filter" name="add" class="form-control mr-sm-2 me-2" type="search" placeholder="Ajouter une activité" aria-label="Search">

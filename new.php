@@ -2,6 +2,9 @@
 $title='AJOUTER UN CLIENT';
 include_once ('head.php');
 include_once 'include/new.php';
+if ($_SESSION['role']==='Controlleur'){
+    header('Location:index.php');
+}
 ?>
 <div class="container text-center" id="root">
     <?php if($alert){echo $alert;} ?>
