@@ -28,7 +28,7 @@ if ($alert){echo $alert;}
         </select>
         <button name="chercher" class="btn btn-outline-dark" type="submit">Chercher</button>
     </form>
-<?php if ($_SESSION['role']===1 || $_SESSION['role']===2){ ?>
+<?php if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
     <div class="container text-center my-5">
         <a href="new.php" class="btn btn-dark">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
@@ -40,7 +40,8 @@ if ($alert){echo $alert;}
     ?>
 </div>
 
-<h2 class="text-center my-5">Dernière inscriptions</h2>
+<h2 class="text-center my-3">Dernière inscriptions</h2>
+<hr class="my-4 container">
 
         <?php
         if ($resultAll){
@@ -64,7 +65,7 @@ if ($alert){echo $alert;}
                     <tr>';
             }
         } else {
-            echo '<div class="alert alert-danger mt-3 container text-center" role="alert"><h2>Aucune inscription</h2></div>';
+            echo '<div class="alert alert-dark mt-3 container text-center" role="alert">Aucune inscription</div>';
         }
         ?>
     </tbody>

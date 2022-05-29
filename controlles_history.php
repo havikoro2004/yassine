@@ -6,7 +6,8 @@ $controlle = new Controlle();
 $history = $controlle->getControle();
 
 if ($history){ ?>
-    <h2 class="my-4 text-center">Les des dernier controles</h2>
+    <h2 class="my-4 text-center">Derniers controles</h2>
+    <hr class="my-4 container">
     <table class="table container text-center">
     <thead>
     <tr>
@@ -14,8 +15,9 @@ if ($history){ ?>
         <th scope="col">Nom de l'activité</th>
         <th scope="col">Date d'inscription</th>
         <th scope="col">Date d'expiration</th>
-        <th scope="col">La date de controlle</th>
+        <th scope="col">La date de controle</th>
         <th scope="col">L'heure du controle</th>
+        <th scope="col">Par</th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +37,7 @@ if ($history){ ?>
             <td>'.$dateFin.'</td>
             <td>'.$dateControle.'</td>
             <td>'.$heureControlle.'</td>
+            <td>'.$historique['id_user'].'</td>
         </tr>
         
         ';

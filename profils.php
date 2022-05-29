@@ -133,7 +133,7 @@ if (count($resultAbon)> 0){ ?>
             <th scope="col">Tous les controles</th>
             <?php
             if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
-                <th scope="col">Gérer l\'abonnement</th>
+                <th scope="col">Gérer l'abonnement</th>
           <?php  }  ?>
 
         </tr>
@@ -177,7 +177,7 @@ if (count($resultAbon)> 0){ ?>
          </button>
      </th>';
         }
-
+            echo $_SESSION['id'];
         ?>
 
 
@@ -186,8 +186,9 @@ if (count($resultAbon)> 0){ ?>
 
       <?php  if (isset($_POST['valider'.$abn['id']])){
 
-            $reqDelet = $db->prepare('insert into controlle (id_abonnement,date) values (:id_abonnement,NOW()) ');
+            $reqDelet = $db->prepare('insert into controlle (id_abonnement,date,id_user) values (:id_abonnement,NOW(),:id_user) ');
             $reqDelet->bindParam(':id_abonnement',$abn['id']);
+            $reqDelet->bindParam(':id_user',$_SESSION['pseudo']);
             $reqDelet->execute();
             echo"<meta http-equiv='refresh' content='0'>";
 

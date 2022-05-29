@@ -43,8 +43,8 @@ if (isset($_POST['login'])){
 </head>
 <body>
     <div class="container text-center mt-5">
-        <img height="10%" width="10%" class="img-fluid" src="images/logo.jpg" alt="">
-        <h1 class="text-secondary">Login</h1>
+        <img height="10%" width="10%" class="img-fluid mb-4" src="images/logo.png" alt="">
+        <h1 class="h1Home">Login</h1>
         <form method="post">
             <?php
 

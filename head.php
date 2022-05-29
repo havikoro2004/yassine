@@ -39,7 +39,7 @@ if (!$_SESSION){
             </ul>
 
         </div>
-        <span class="text-white"> <?= $_SESSION['role'] ?></span>
+        <span class="text-white"> <?= $_SESSION['pseudo'] ?></span>
     <?php
 
         if ($_SESSION['role']==='Admin'){ ?>
@@ -69,6 +69,7 @@ if (!$_SESSION){
     </div>
 </nav>
 <header class="mt-3 container">
-    <div class="container text-end"><img class="logo p-2" src="images/logo.jpg" alt="" ></div>
+    <div class="container text-end"><img class="logo p-2" src="images/logo.png" alt="" ></div>
     <div class="brand d-flex justify-content-center align-items-center""><h1 class="h1Home"><?= $title; ?></h1></div>
 </header>
+<hr class="my-4 container">
