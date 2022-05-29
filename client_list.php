@@ -72,7 +72,7 @@ if ($alert){echo $alert;}
 </table>
 <div class="text-center container-lg">
 
-    <ul class="pagination pagin">
+    <ul id="ulPagination" class="pagination pagin">
         <?php for($i = 1 ; $i <= $nbrPage ; $i++ )
         {
             if (isset($_GET['page'])){
