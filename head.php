@@ -39,7 +39,6 @@ if (!$_SESSION){
             </ul>
 
         </div>
-        <span class="text-white"> <?= $_SESSION['pseudo'] ?></span>
     <?php
 
         if ($_SESSION['role']==='Admin'){ ?>

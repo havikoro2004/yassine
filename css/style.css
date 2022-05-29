@@ -13,7 +13,7 @@ html , body {
 }
 header {
     border: 1px solid #bcbebf;
-    background-color:#c5e8ef;
+
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
