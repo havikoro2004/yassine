@@ -3,7 +3,7 @@ html , body {
 }
 .h1Home{
     font-size: 2rem;
-    font-family: Candara;
+    font-family: Arial Narrow, sans-serif;
     color: #212529;
 
 }
@@ -12,7 +12,8 @@ html , body {
     height:120px;
 }
 header {
-    border: 7px solid #212529;
+
+    background-color:#c5e8ef;
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
@@ -22,6 +23,7 @@ header {
     width: 100%;
 
 }
+
 .links {
     color: darkgray;
 }
