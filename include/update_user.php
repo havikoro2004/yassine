@@ -26,7 +26,7 @@ if (isset($_POST['edit'])){
 if (isset($_POST['editAdmin'])){
     $req=$db->prepare('select * from user where id=:id  && password=:password');
     $req->bindParam(':id',$_GET['id']);
-    $req->bindParam(':password',$_POST['pwd']);
+    $req->bindParam(':password',$_POST['oldPwd']);
     $req->execute();
     if ($req->fetch()){
         $req=$db->prepare('update user set pseudo=:pseudo,password=:password where id=:id ');

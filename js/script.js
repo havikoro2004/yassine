@@ -334,21 +334,21 @@ if (fermerAbn){
 }
 
 const user = document.getElementById('loginAdmin')
-const pwdUser = document.getElementById('pwdAdmin')
+const oldPwd = document.getElementById('oldPwd')
+const pwd = document.getElementById('pwd')
 const pwdConf = document.getElementById('pwdConf')
-const editAdmin = document.getElementById('editAdmin')
 const rootAdmin = document.getElementById('rootAdmin')
 
 let userLogin = /^[a-zA-Z0-9]/
 let pwdTest = /^[a-zA-Z0-9]/
 if (editAdmin){
     editAdmin.addEventListener('click',(e)=>{
-        if (!user.value || !pwdUser.value || !pwdConf.value) {
+        if (!user.value || !oldPwd.value || !pwd.value || !pwdConf.value) {
             rootAdmin.innerHTML=''
             e.preventDefault()
             const alert = document.createElement('div')
             alert.className='my-3 container text-center'
-            alert.innerHTML='<div class="alert alert-danger">Vous devez remplir tous les champs</div>'
+            alert.innerHTML='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous devez remplir tous les champs</div>'
             rootAdmin.appendChild(alert)
             alert.scrollIntoView();
         } else {
@@ -361,7 +361,7 @@ if (editAdmin){
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
             }
-            if (!pwdTest.test(pwdUser.value)) {
+            if (!pwdTest.test(pwd.value)) {
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')
@@ -370,7 +370,7 @@ if (editAdmin){
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
             }
-            if (pwdUser.value != pwdConf.value) {
+            if (pwd.value != pwdConf.value) {
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')
@@ -379,7 +379,7 @@ if (editAdmin){
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
             }
-            if (pwdUser.value.length<8) {
+            if (pwd.value.length<8) {
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')

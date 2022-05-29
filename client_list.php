@@ -52,6 +52,7 @@ if ($alert){echo $alert;}
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
                         <th scope="col">Date d\'inscription</th>
+                        <th scope="col">Creé par </th>
                     </tr>
                     </thead>
                     <tbody>';
@@ -62,6 +63,7 @@ if ($alert){echo $alert;}
                         <th scope="row">'.$result['lastName'].'</th>
                         <th scope="row">'.$result['firstName'].'</th>
                         <th scope="row">'.date_format($date,('d-m-Y')).'</th>
+                        <th scope="row">'.$result['create_by'].'</th>
                     <tr>';
             }
         } else {
@@ -73,24 +75,28 @@ if ($alert){echo $alert;}
 <div class="text-center container-lg">
 
     <ul id="ulPagination" class="pagination pagin">
-        <?php for($i = 1 ; $i <= $nbrPage ; $i++ )
-        {
-            if (isset($_GET['page'])){
+        <?php
+        if ($nbrPage > 1){
+            for($i = 1 ; $i <= $nbrPage ; $i++ )
+            {
+                if (isset($_GET['page'])){
 
-                if ($i!=$_GET['page']){
+                    if ($i!=$_GET['page']){
+                        echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
+                        href="?page='.$i.'">'.$i.'</a></li>';
+                    } else {
+                        echo '<li class="page-item active" aria-current="page"><a class="page-link pagination"
+                        href="?page='.$i.'">'.$i.'</a></li>';
+                    }
+                } else {
                     echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
                         href="?page='.$i.'">'.$i.'</a></li>';
-                } else {
-                    echo '<li class="page-item active" aria-current="page"><a class="page-link pagination"
-                        href="?page='.$i.'">'.$i.'</a></li>';
                 }
-            } else {
-                echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
-                        href="?page='.$i.'">'.$i.'</a></li>';
+
+
             }
-
-
-        }  ?>
+        }
+        ?>
     </ul>
 
 </div>

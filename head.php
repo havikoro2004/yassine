@@ -51,7 +51,7 @@ if (!$_SESSION){
             </button>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="admin_edit.php?id=<?= $_SESSION['id'] ?>">Paramètres</a>
+                <a class="dropdown-item" href="admin_edit.php?id=<?= $_SESSION['id'] ?>">Paramètres admin</a>
                 <a class="dropdown-item" href="manage_users.php">Gérer les utilisateurs</a>
             </div>
         </div>

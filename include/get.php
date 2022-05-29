@@ -17,12 +17,16 @@ if ($resultat= $reqUrl->fetch()){
     $adresse = $resultat['adresse'];
     $genre = $resultat['genre'];
     $photo = $resultat['photo'];
+    $by = $resultat['create_by'];
 
     if (!$tel){
         $tel = 'Non fourni';
     }
     if (!$adresse){
         $adresse='Non fourni';
+    }
+    if (!$cin){
+        $cin='Non fourni';
     }
     if (!$photo){
         if ($genre ==='Homme'){

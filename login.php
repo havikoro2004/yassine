@@ -6,7 +6,7 @@ if ($_SESSION){
 if (isset($_POST['login'])){
     if (!empty($_POST['pseudo']) && !empty($_POST['password'])){
         $db = new PDO ('mysql:host=localhost;dbname=club','root','');
-        $req = $db->prepare('select * from user join roles on roles.id=user.id_type where user.pseudo=:pseudo && user.password=:password');
+        $req = $db->prepare('select * from roles join user on roles.id=user.id_type where user.pseudo=:pseudo && user.password=:password');
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $password = htmlspecialchars($_POST['password']);
         $req->bindParam(':pseudo',$pseudo);
@@ -14,6 +14,7 @@ if (isset($_POST['login'])){
         $req->execute();
         $result=$req->fetch();
         if ($result){
+            $_SESSION['name']=$result['name'];
             $_SESSION['pseudo']=$result['pseudo'];
             $_SESSION['password']=$result['password'];
             $_SESSION['id']=$result['id'];

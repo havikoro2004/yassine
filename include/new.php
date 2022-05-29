@@ -30,7 +30,7 @@ if (isset($_POST['submit'])){
         danger mt-3" role="alert"><h2>Il semble qu\'il y a deja un utilisateur avec ces coordonées </h2></div>';
     } else {
 
-        $req = $db->prepare('insert into client (badge,firstName,lastName,birth,genre,cin,tel,adresse,date) values (:badge,:firstName,:lastName,:birth,:genre,:cin,:tel,:adresse, NOW())');
+        $req = $db->prepare('insert into client (badge,firstName,lastName,birth,genre,cin,tel,adresse,date,create_by) values (:badge,:firstName,:lastName,:birth,:genre,:cin,:tel,:adresse, NOW(),:create_by)');
         $req->bindParam(':badge',$badge);
         $req->bindParam(':firstName',$firstName);
         $req->bindParam(':lastName',$lastName);
@@ -39,6 +39,7 @@ if (isset($_POST['submit'])){
         $req->bindParam(':cin',$cin);
         $req->bindParam(':tel',$tel);
         $req->bindParam(':adresse',$adresse);
+        $req->bindParam(':create_by',$_SESSION['name']);
 
         $req->execute();
 
