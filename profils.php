@@ -18,7 +18,7 @@ if (isset($_SESSION['status'])){
 }
 if ($alert){echo $alert ;} ?>
 <div class="cont_profil container mt-5">
-    <div class="profilUser mt-5 d-flex flex-column align-items-center mb-3 justify-content-around">
+    <div class="profilUser  d-flex flex-column align-items-center mb-3 justify-content-around">
         <img id="imgPreview" class="mb-2" width="65%" height="65%" src="images/img_users/<?= $photo ; ?>" alt="">
         <strong class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></strong>
     <?php
@@ -41,7 +41,7 @@ if ($alert){echo $alert ;} ?>
 
     ?>
     </div>
-    <div class="mt-4 infosUser">
+    <div class=" infosUser">
         <ul class="list-group">
             <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -108,8 +108,8 @@ if ($alert){echo $alert ;} ?>
     </div>
 </div>
 
-<div class="container">
-    <div class="container text-center my-5">
+<div class="container py-5">
+    <div class="container text-center">
         <form id="formFilter" method="post">
             <div class="form-group">
                 <select name="fetchFilter" class="form-control" id="fetchFilter">
