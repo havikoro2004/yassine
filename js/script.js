@@ -347,7 +347,7 @@ if (editAdmin){
             rootAdmin.innerHTML=''
             e.preventDefault()
             const alert = document.createElement('div')
-            alert.className='my-3 container text-center'
+            alert.className='my-3 container text-center px-0'
             alert.innerHTML='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous devez remplir tous les champs</div>'
             rootAdmin.appendChild(alert)
             alert.scrollIntoView();
@@ -356,7 +356,7 @@ if (editAdmin){
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')
-                alert.className='my-3 container text-center'
+                alert.className='my-3 container text-center px-0'
                 alert.innerHTML='<div class="alert alert-danger">Vous devez respecter le format du pseudo</div>'
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
@@ -365,7 +365,7 @@ if (editAdmin){
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')
-                alert.className='my-3 container text-center'
+                alert.className='my-3 container text-center px-0'
                 alert.innerHTML='<div class="alert alert-danger">Vous devez respecter le format du mot de passe</div>'
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
@@ -374,7 +374,7 @@ if (editAdmin){
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')
-                alert.className='my-3 container text-center'
+                alert.className='my-3 container text-center px-0'
                 alert.innerHTML='<div class="alert alert-danger">les mots de passe ne correspondent pas</div>'
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
@@ -383,7 +383,7 @@ if (editAdmin){
                 rootAdmin.innerHTML=''
                 e.preventDefault()
                 const alert = document.createElement('div')
-                alert.className='my-3 container text-center'
+                alert.className='my-3 container text-center px-0'
                 alert.innerHTML='<div class="alert alert-danger">Le mots de passe doit avoir au moins 8 caractaires</div>'
                 rootAdmin.appendChild(alert)
                 alert.scrollIntoView();
