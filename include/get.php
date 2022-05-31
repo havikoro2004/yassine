@@ -85,7 +85,11 @@ if (isset($_POST['deleteUser'])){
     $reqDelet = $db->prepare('delete from client where id=:id');
     $reqDelet->bindParam(':id',$_GET['id']);
     $reqDelet->execute();
+
     $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert"><h4>Le profil a bien été suprimé</h4></div>';
-   echo '<meta http-equiv="refresh" content="2">';
+    echo '<meta http-equiv="refresh" content="1">';
+    if ($photo !=='defaultUserM.jpg' && $photo !=='defaultUserM.jpg'){
+        unlink('images/img_users/'.$photo.'');
+    }
 }
 

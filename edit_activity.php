@@ -13,9 +13,12 @@ $req->bindParam(':id_client',$_GET['id']);
 $req->execute();
 $activity=$req->fetch();
 
-if (is_int($activity['id_client']) && $activity['id_client'] = $_GET['id']){
 
-} else {
+if (isset($_POST['deleteAbn'])) {
+    $req = $db->prepare('delete from abonnement where id=:id');
+    $req->bindParam(':id', $_GET['abn']);
+    $req->execute();
+    $_SESSION['status'] = '<div id="alert" class="alert alert-info mt-3 container text-center" role="alert">l\'abonnement a bien été suprimé</div>';
     header('Location:profils.php?id='.$_GET['id'].'');
 }
 
@@ -93,16 +96,6 @@ if (isset($_SESSION['status'])){
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                         <form  method="post">
                             <button id="deleteModal" name="deleteAbn" type="submit" class="btn btn-danger">Suprimer</button>
-                            <?php
-
-                                if (isset($_POST['deleteAbn'])){
-                                    $req = $db->prepare('delete from abonnement where id=:id');
-                                    $req->bindParam(':id',$_GET['abn']);
-                                    $req->execute();
-                                    echo '<meta http-equiv="refresh" content="1">';
-                                }
-
-                            ;?>
                         </form>
 
                     </div>

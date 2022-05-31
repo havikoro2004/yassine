@@ -88,10 +88,3 @@ if (isset($_POST['editUser'])){
 
 }
 
-if (isset($_POST['deleteUser'])){
-    $req=$db->prepare('delete from user where id=:id');
-    $req->bindParam(':id',$_GET['id']);
-    $req->execute();
-    $_SESSION['status'] = '<div id="alert" class="alert alert-info mt-3 container text-center" role="alert">Le profil utilisateur a bien été suprimé</div>';
-    header( "Location:manage_users.php" );
-}

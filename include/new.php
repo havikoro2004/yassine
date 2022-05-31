@@ -26,8 +26,7 @@ if (isset($_POST['submit'])){
     $result = $req->fetch();
 
     if ($result > 0){
-        $alert = '<div class="alert alert-
-        danger mt-3" role="alert"><h2>Il semble qu\'il y a deja un utilisateur avec ces coordonées </h2></div>';
+        $alert = '<div class="alert alert-danger mt-3" role="alert">Il semble qu\'il y a deja un utilisateur avec ces coordonées </div>';
     } else {
 
         $req = $db->prepare('insert into client (badge,firstName,lastName,birth,genre,cin,tel,adresse,date,create_by) values (:badge,:firstName,:lastName,:birth,:genre,:cin,:tel,:adresse, NOW(),:create_by)');
@@ -49,7 +48,7 @@ if (isset($_POST['submit'])){
         $reqProfil->bindParam(':badge',$badge);
         $reqProfil->execute();
         $resultProfil = $reqProfil->fetch();
-        header( "refresh:2;url=profils.php?id=".$resultProfil['id']."" );
+        header( "refresh:1;url=profils.php?id=".$resultProfil['id']."" );
     }
 }
 
