@@ -36,8 +36,10 @@ if (!$_SESSION){
                 <li class="nav-item">
                     <a class="nav-link" href="activity.php">ACTIVITES</a>
                 </li>
+                <li class="nav-item text-white">
+                    <span class="nav-link text-white"><?= $_SESSION['role'] ?></span>
+                </li>
             </ul>
-
         </div>
     <?php
 
