@@ -18,8 +18,8 @@ if (isset($_POST['deleteAbn'])) {
     $req = $db->prepare('delete from abonnement where id=:id');
     $req->bindParam(':id', $_GET['abn']);
     $req->execute();
-    $_SESSION['status'] = '<div id="alert" class="alert alert-info mt-3 container text-center" role="alert">l\'abonnement a bien été suprimé</div>';
-    header('Location:profils.php?id='.$_GET['id'].'');
+    $_SESSION['status'] = '<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert"><h4>l\'abonnement a bien été suprimé</h4></div>';
+    header( "refresh:2;url=profils.php?id=".$_GET['id']."" );
 }
 
 ?>

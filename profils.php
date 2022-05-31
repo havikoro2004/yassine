@@ -5,7 +5,7 @@ include_once 'include/upload_img.php';
 include_once 'include/get.php';
 include_once 'include/activity.php';
 include_once 'include/abonnement.php';
-clearstatcache(true);
+
 $statusActifs=null;
 ?>
 
