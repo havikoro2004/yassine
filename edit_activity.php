@@ -40,6 +40,7 @@ if (isset($_SESSION['status'])){
         <th scope="col">Date d'expiration</th>
         <th scope="col">Statue</th>
         <th scope="col">Reste à payer</th>
+        <th scope="col">Dernier payement</th>
         <th>Date de renouvellement</th>
     </tr>
     </thead>
@@ -50,6 +51,7 @@ if (isset($_SESSION['status'])){
             if ($activity){
                 $debut = date_create($activity['date_debut']);
                 $fin = date_create($activity['date_fin']);
+                $lastpayement =date_create($activity['lastPayement']);
                 if ($activity['date_renew']){
                     $renouv = date_create($activity['date_renew']);
                     $renew = date_format($renouv,('d-m-Y'));
@@ -67,6 +69,7 @@ if (isset($_SESSION['status'])){
                     <th>'.date_format($fin,('d-m-Y')).'</th>
                     <th>'.$status.'</th>
                     <th>'.$activity['reste'].'</th>
+                    <th>'.date_format($lastpayement,('d-m-Y')).'</th>
                     <th>'.$renew.'</th>
                 ';
             }

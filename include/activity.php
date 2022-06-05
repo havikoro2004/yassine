@@ -56,7 +56,7 @@ if (isset($_POST['regler'])){
         $result = $req->fetch();
 
         if ($result['reste'] > 0 && $_POST['montant'] <= $result['reste']){
-            $req=$db->prepare('update abonnement set payer=:payer,reste=:reste');
+            $req=$db->prepare('update abonnement set payer=:payer,reste=:reste ,lastPayement=NOW()');
             $payer = (int)$result['payer'] + (int)$_POST['montant'];
             $req->bindParam(':payer',$payer);
             $reste = (int)$result['reste'] - (int)$_POST['montant'];

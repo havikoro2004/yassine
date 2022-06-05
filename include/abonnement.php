@@ -9,7 +9,7 @@ if (isset($_POST['validerAbn'])){
     $reqVerif->bindParam(':type',$_POST['type_sport']);
     $reqVerif->execute();
     if (!$reqVerif->fetch()){
-        $req = $db->prepare('insert into abonnement (id_client,type_sport,total,payer,reste,date_debut,date_fin,date_abonnement) values (:id_client,:type_sport,:total,:payer,:reste,:date_debut,:date_fin,NOW())');
+        $req = $db->prepare('insert into abonnement (id_client,type_sport,total,payer,reste,date_debut,date_fin,date_abonnement,lastPayement) values (:id_client,:type_sport,:total,:payer,:reste,:date_debut,:date_fin,NOW(),NOW())');
         $req->bindParam(':id_client',$id);
         $req->bindParam(':type_sport',$_POST['type_sport']);
         $req->bindParam(':total',$_POST['total']);
