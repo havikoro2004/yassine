@@ -1,11 +1,12 @@
 <?php
 session_start();
+require_once 'database/database.php';
+$db=getPdo();
 if ($_SESSION){
     header('Location: index.php');
 }
 if (isset($_POST['login'])){
     if (!empty($_POST['pseudo']) && !empty($_POST['password'])){
-        $db = new PDO ('mysql:host=localhost;dbname=club','root','');
         $req = $db->prepare('select * from roles join user on roles.id=user.id_type where user.pseudo=:pseudo && user.password=:password');
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $password = htmlspecialchars($_POST['password']);
