@@ -1,6 +1,6 @@
 <?php
 include_once 'database/database.php';
-getDb();
+$db = getPdo();
 $req = $db->prepare('select * from controlle join abonnement on controlle.id_abonnement=abonnement.id && id_abonnement=:id_abonnement order by date desc LIMIT :start, :final');
 $req->bindParam((':id_abonnement'),$_GET['activity']);
 $final = 100;

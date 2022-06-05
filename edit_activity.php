@@ -39,6 +39,7 @@ if (isset($_SESSION['status'])){
         <th scope="col">Date de début</th>
         <th scope="col">Date d'expiration</th>
         <th scope="col">Statue</th>
+        <th scope="col">Reste à payer</th>
         <th>Date de renouvellement</th>
     </tr>
     </thead>
@@ -65,6 +66,7 @@ if (isset($_SESSION['status'])){
                     <th>'.date_format($debut,('d-m-Y')).'</th>
                     <th>'.date_format($fin,('d-m-Y')).'</th>
                     <th>'.$status.'</th>
+                    <th>'.$activity['reste'].'</th>
                     <th>'.$renew.'</th>
                 ';
             }
@@ -106,6 +108,10 @@ if (isset($_SESSION['status'])){
         <div id="renouv" class="container mt-4">
 
         </div>
+<form class="container" action="" method="post">
+    <input class="form-control mb-2" type="number" placeholder="Ajouté un payement" min="0" name="montant">
+    <button name="regler" type="submit" class="btn btn-primary">Régler</button>
+</form>
 <script src="js/renouvelement.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/script.js" ></script>

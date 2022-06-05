@@ -7,9 +7,10 @@ $alert =null;
                 $reqActivity->bindParam(':name',$_POST['add']);
                 $reqActivity->execute();
                 if (!$reqActivity->fetch()){
-                    $reqAdd = $db->prepare('insert into activity (name) values (:name) ');
+                    $reqAdd = $db->prepare('insert into activity (name ,prix) values (:name ,:prix) ');
                     $addValue = strtoupper($_POST['add']);
                     $reqAdd->bindParam(':name',$addValue);
+                    $reqAdd->bindParam(':prix',$_POST['prix']);
                     $reqAdd->execute();
                     $alert = '<div class="alert alert-success mt-3 container text-center" role="alert"><h4>L\'activité a bien été ajoutée</h4></div>';
                     header( "refresh:1;url=activity.php" );
@@ -34,11 +35,39 @@ if (isset($_POST['validRenouv'])){
     if ($dateExpiration>=$postDate){
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous devez choisir une date supérieur à la date expiration actuelle</div>';
     } else {
-        $req=$db->prepare('update abonnement set date_renew=NOW(), date_fin=:date_fin ,status=true where id=:id');
+        $req=$db->prepare('update abonnement set date_renew=NOW(),total=:total,payer=:payer,reste=:reste, date_fin=:date_fin ,status=true where id=:id');
         $req->bindParam(':date_fin',$_POST['renouvDate']);
+        $req->bindParam(':total',$_POST['totalPayer']);
+        $req->bindParam(':payer',$_POST['payer']);
+        $reste = (int)$result['reste']+ ( (int)$_POST['totalPayer'] - (int)$_POST['payer'] );
+        $req->bindParam(':reste',$reste);
         $req->bindParam(':id',$_GET['abn']);
         $req->execute();
         $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert"><h4>Le renouvellement a bien été effectué</h4></div>';
     }
 
+}
+
+if (isset($_POST['regler'])){
+    if (!empty($_POST['montant'])){
+        $req=$db->prepare('select * from abonnement where id=:id');
+        $req->bindParam(':id',$_GET['abn']);
+        $req->execute();
+        $result = $req->fetch();
+
+        if ($result['reste'] > 0 && $_POST['montant'] <= $result['reste']){
+            $req=$db->prepare('update abonnement set payer=:payer,reste=:reste');
+            $payer = (int)$result['payer'] + (int)$_POST['montant'];
+            $req->bindParam(':payer',$payer);
+            $reste = (int)$result['reste'] - (int)$_POST['montant'];
+            $req->bindParam(':reste',$reste);
+            $req->execute();
+            $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">Payement enregistré avec success</div>';
+        } else {
+            $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Opération impossible</div>';
+        }
+
+    } else {
+        $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Aucun montant n\'a été saisi</div>';
+    }
 }

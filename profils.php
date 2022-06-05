@@ -138,6 +138,7 @@ if (count($resultAbon)> 0){ ?>
         <thead class="bg-dark text-white ">
         <tr>
             <th scope="col">Activité</th>
+            <th scope="col">Reste à payer</th>
             <th scope="col">Status</th>
             <th scope="col">Controller</th>
             <th scope="col">Tous les controles</th>
@@ -167,8 +168,9 @@ if (count($resultAbon)> 0){ ?>
       
                  <tr>
                      <th scope="row">'.$abn['type_sport'].'</th>
-
-                     <th>'.$status.'</th>
+                      <th>'.$abn['reste'].'</th>
+                      <th>'.$status.'</th>
+                     
                      <th><form method="post">'.$btn.'</form></th>
                      <th>
                          <button class="btn btn-primary">
@@ -222,6 +224,8 @@ if (count($resultAbon)> 0){ ?>
         <thead>
         <tr>
             <th scope="col">Nom de l'activité</th>
+            <th scope="col">Total à payer</th>
+            <th scope="col">Montant payé</th>
             <th scope="col">Date de début</th>
             <th scope="col">Date de fin</th>
         </tr>
@@ -235,6 +239,12 @@ if (count($resultAbon)> 0){ ?>
                         } ?>
                     </select>
                 </th>
+            <th>
+                <input id="total" class="form-control" name="total" type="number" placeholder="Total à payer" min="0">
+            </th>
+            <th>
+                <input id="payer" class="form-control" name="payer" type="number" placeholder="Montant payé" min="0">
+            </th>
             <th>
                 <input class="form-control" type="date" id="date_debut" name="date_debut">
             </th>

@@ -229,10 +229,11 @@ if (valider){
 
 const addActivity =document.getElementById('addBtn')
 const addValue = document.getElementById('add')
+const prix = document.getElementById('prix')
 const root3 = document.getElementById('root3')
 if (addActivity){
     addActivity.addEventListener('click',(e)=>{
-        if (addValue.value){
+        if (addValue.value && prix.value){
             let add = /^[a-zA-Z0-9]/
             if (!add.test(addValue.value)){
                 root3.innerHTML=''
@@ -248,7 +249,7 @@ if (addActivity){
             e.preventDefault()
             const alert = document.createElement('div')
             alert.className='my-4 container text-center'
-            alert.innerHTML='<div class="alert alert-danger">Le champs ne doit pas être vide</div>'
+            alert.innerHTML='<div class="alert alert-danger">Veuillez remplir tous les champs</div>'
             root3 .appendChild(alert)
             alert.scrollIntoView();
         }
@@ -258,7 +259,8 @@ if (addActivity){
 
 const root2= document.getElementById('root2')
 const abn = document.getElementById('abn')
-
+const total = document.getElementById('total')
+const payer =document.getElementById('payer')
 if (abn){
     abn.addEventListener('click',()=>{
         root2.style.display="block"
@@ -298,7 +300,7 @@ if (subAbn){
 
     subAbn.addEventListener('click',(e)=>{
 
-        if (!selectSport.value || !dateDebut.value || !dateFin.value || selectSport.value==='Choisir une activité'){
+        if (!selectSport.value || !dateDebut.value || !total.value || !payer.value || !dateFin.value || selectSport.value==='Choisir une activité'){
             root.innerHTML=''
             e.preventDefault()
             const alert = document.createElement('div')
