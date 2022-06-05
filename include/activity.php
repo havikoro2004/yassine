@@ -1,5 +1,6 @@
 <?php
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+require_once 'database/database.php';
+$db = getPdo();
 $alert =null;
             if (isset($_POST['addBtn'])){
                 $reqActivity = $db ->prepare('select * from activity where name=:name ');

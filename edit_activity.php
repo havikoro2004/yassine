@@ -1,12 +1,13 @@
 <?php
 $title='GERER LES ACTIVITES';
 include_once ('head.php');
+include_once 'database/database.php';
 if ($_SESSION['role']==='Controlleur'){
     header('Location:index.php');
 }
 include_once 'include/activity.php';
 
-$db = new PDO('mysql:host=localhost;dbname=club;charset=utf8mb4', 'root', '');
+$db=getPdo();
 $req =$db->prepare('select * from abonnement where id=:id && id_client=:id_client');
 $req->bindParam(':id',$_GET['abn']);
 $req->bindParam(':id_client',$_GET['id']);

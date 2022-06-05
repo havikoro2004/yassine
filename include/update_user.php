@@ -1,5 +1,6 @@
 <?php
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+require_once 'database/database.php';
+$db = getPdo();
 if (isset($_POST['edit'])){
     $req=$db->prepare('select * from client where birth=:birth && firstName=:firstName && lastName=:lastName');
     $req->bindParam(':birth',$_POST['birth']);

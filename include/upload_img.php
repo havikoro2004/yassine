@@ -1,5 +1,6 @@
 <?php
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+require_once 'database/database.php';
+$db = getPdo();
 if(isset($_POST["upload"])) {
     if ($_FILES['photo']['size'] !== 0){
 

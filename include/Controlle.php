@@ -1,5 +1,6 @@
 <?php
 
+require_once 'database/database.php';
 
 class Controlle
 {
@@ -7,7 +8,7 @@ class Controlle
 
   public function __construct()
   {
-      $this->db = new PDO('mysql:host=localhost;dbname=club', 'root', '');
+      $this->db = getPdo();
   }
     public function getClient($e){
         $req = $this->db->prepare('select * from client where badge=:badge');

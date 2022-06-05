@@ -1,5 +1,6 @@
 <?php
-$db = new PDO ('mysql:host=localhost;dbname=club','root','');
+require_once 'database/database.php';
+$db = getPdo();
 /* Requette pr trouver les infos du client by id GET URL  */
 $reqUrl = $db->prepare('select * from client where id=:id');
 $reqUrl->bindParam(':id',$_GET['id']);
