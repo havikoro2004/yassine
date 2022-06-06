@@ -24,15 +24,15 @@ if (isset($_SESSION['status'])){
 <form id="form" action="" method="post" class="container mt-5">
     <div class="form-group">
         <label for=""><strong>Numero de badge <span class="text-danger">*</span></strong></label>
-        <input disabled value="<?= $client['badge'] ?>" id="badge" class="form-control mb-3" type="text" maxlength="13">
+        <input disabled value="<?= $client['badge'] ?>"id="badge" class="form-control mb-3" type="text" maxlength="13">
     </div>
     <div class="form-group">
         <label for=""><strong>Nom <span class="text-danger">*</span></strong></label>
-        <input value="<?= $client['firstName'] ?>" id="firstName" class="form-control mb-3" type="text" maxlength="30">
+        <input value="<?= $client['firstName'] ?>" name="firstName" class="form-control mb-3" type="text" maxlength="30">
     </div>
     <div class="form-group">
         <label for=""><strong>Prénom <span class="text-danger">*</span></strong></label>
-        <input value="<?= $client['lastName'] ?>" id="lastName" class="form-control mb-3" type="text" maxlength="30">
+        <input value="<?= $client['lastName'] ?>" name="lastName" class="form-control mb-3" type="text" maxlength="30">
     </div>
     <div class="form-group">
         <label for=""><strong>Date de naissance <span class="text-danger">*</span></strong></label>
@@ -40,15 +40,15 @@ if (isset($_SESSION['status'])){
 
         </div>
         <div class="d-flex mb-3" style="width:50vw">
-            <select disabled id="day" class="form-control me-2" >
+            <select disabled name="day" class="form-control me-2" >
                 <option ><?= date("d",strtotime($client['birth'])) ?></option>
             </select>
 
-            <select disabled id="month" class="form-control me-2">
+            <select disabled name="month" class="form-control me-2">
                 <option ><?= date("m",strtotime($client['birth'])) ?></option>
             </select>
 
-            <select disabled id="year" class="form-control me-2">
+            <select disabled name="year" class="form-control me-2">
                 <option ><?= date("Y",strtotime($client['birth'])) ?></option>
             </select>
         </div>
@@ -62,22 +62,20 @@ if (isset($_SESSION['status'])){
     </div>
     <div class="form-group my-3">
         <label for=""><strong>C.I.N</strong></label>
-        <input id="cin" class="form-control mb-3" type="text" maxlength="8">
+        <input value="<?= $client['cin'] ?>" name="cin" class="form-control mb-3" type="text" maxlength="8">
     </div>
     <div class="form-group mb-3">
         <label for=""><strong>Tel</strong></label>
-        <input id="tel" class="form-control mb-3" type="tel" maxlength="10">
+        <input value="<?= $client['tel'] ?>" name="tel" class="form-control mb-3" type="tel" maxlength="10">
     </div>
     <div class="form-group mb-3">
         <label for=""><strong>Adresse</strong></label>
-        <textarea id="adresse" class="form-control"></textarea>
+        <textarea value="<?= $client['adresse'] ?>" name="adresse" class="form-control"></textarea>
     </div>
-    <button id="valider" type="button" class="btn btn-primary mb-5">Valider</button>
+    <button name="edit" type="submit" class="btn btn-primary mb-5">Valider</button>
 </form>
 
 <script src="js/jquery.js"></script>
-
-<script src="js/editProfil.js"></script>
 <script src="js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>
