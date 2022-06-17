@@ -174,11 +174,15 @@ if (count($resultAbon)> 0){ ?>
         } else {
             $btn = '<button disabled id="alert" class="btn btn-success btnStatus" type="submit" name="valider'.$abn['id'].'"><span class="d-flex justify-content-center">Valider</span></button>';
         }
+        $reste = $abn['reste'] ." DH";
+        if ($abn['reste']==0){
+            $reste = "<span class='text-success'>Payé</span>";
+        }
         echo '
       
                  <tr>
                      <th scope="row">'.$abn['type_sport'].'</th>
-                      <th>'.$abn['reste'].'</th>
+                      <th>'.$reste.'</th>
                       <th>'.$status.'</th>
                      
                      <th><form method="post">'.$btn.'</form></th>

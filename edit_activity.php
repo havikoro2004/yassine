@@ -81,12 +81,16 @@ if (isset($_SESSION['status'])){
                 if ($activity['status']==="pause"){
                     $final="??-??-????";
                 }
+                $reste = $activity['reste'] ." DH";
+                if ($activity['reste']==0){
+                    $reste = "<span class='text-success'>Payé</span>";
+                }
                 echo'
                     <th>'.$activity['type_sport'].'</th>
                     <th>'.$start.'</th>
                     <th>'.$final.'</th>
                     <th>'.$status.'</th>
-                    <th>'.$activity['reste'].'</th>
+                    <th>'.$reste.'</th>
                     <th>'.date_format($lastpayement,('d-m-Y')).'</th>
                     <th>'.$renew.'</th>
                     <th>'.$activity['remarque'].'</th>
