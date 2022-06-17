@@ -10,7 +10,16 @@ $users= new Controlle();
 $client = $users->getById($_GET['id']);
 
 ?>
-
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="client_list.php">Clients</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="profils.php?id=<?= $_GET['id'] ?>">Profil</a></li>
+            <li class="breadcrumb-item active" aria-current="page" href="#">Modifier</a></li>
+        </ol>
+    </nav>
+</div>
 <div class="container text-center" id="root">
 
 </div>

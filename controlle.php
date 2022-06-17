@@ -23,8 +23,16 @@ if (isset($_POST['chercher'])){
 }
 clearstatcache(true);
 ?>
-
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page" href="#">Controle</a></li>
+        </ol>
+    </nav>
+</div>
 <?php if ($alert){echo $alert;} ?>
+
 <div class="border container mt-2 rounded">
     <h2 class="my-5 text-center">Chercher un client</h2>
     <form action="" method="post" class="form-inline d-flex container mb-5">

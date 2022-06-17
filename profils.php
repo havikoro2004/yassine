@@ -9,7 +9,15 @@ include_once 'include/abonnement.php';
 $statusActifs=null;
 ?>
 
-
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="client_list.php">Clients</a></li>
+            <li class="breadcrumb-item active" aria-current="page" href="#">Profil</a></li>
+        </ol>
+    </nav>
+</div>
 <div id="root"></div>
 <?php
 if (isset($_SESSION['status'])){

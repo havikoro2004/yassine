@@ -8,7 +8,14 @@ clearstatcache(true);
 $activity=null;
 
 ?>
-
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page" href="#">Activités</a></li>
+        </ol>
+    </nav>
+</div>
 <div id="root3">
     <?php
     if (isset($_SESSION['status'])){

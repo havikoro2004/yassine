@@ -18,10 +18,19 @@ $nbrPage = ceil($totalresult['nbrresult'] / $final );
 
 $title='HISTORIQUE CONTROLE';
 
-include_once ('head.php');
+include_once ('head.php'); ?>
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="client_list.php">Clients</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="profils.php?id=<?= $_GET['id'] ?>">Profil</a></li>
+            <li class="breadcrumb-item active" aria-current="page" href="#">Historique</a></li>
+        </ol>
+    </nav>
+</div>
 
-
-if ($result){ ?>
+<?php if ($result){ ?>
     <h2 class="my-4 text-center">Derniers controles</h2>
     <hr class="my-4 container">
     <table class="table container text-center">
