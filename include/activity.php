@@ -71,3 +71,29 @@ if (isset($_POST['regler'])){
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Aucun montant n\'a été saisi</div>';
     }
 }
+
+if (isset($_POST['pause'])){
+    $req = $db->prepare('update abonnement set pause=NOW(),status="pause" where id=:id');
+    $req->bindParam(':id',$_GET['abn']);
+    $req->execute();
+    $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Abonnement est desormais en pause</div>';
+
+}
+
+if (isset($_POST['react'])){
+    $req1 =$db->prepare('select * from abonnement where id=:id');
+    $req1->bindParam(':id',$_GET['abn']);
+    $req1->execute();
+    $result = $req1->fetch();
+    $debut = new DateTime($result['date_debut']);
+    $fin = new DateTime($result['date_fin']);
+    $pause = new DateTime($result['pause']);
+    $newFin = ($pause->getTimestamp() + $fin->getTimestamp() ) - $debut->getTimestamp();
+    $newDate = date(('Y-m-d'),$newFin);
+    $req = $db->prepare('update abonnement set date_fin=:date,status="actif"');
+    $req->bindParam(':date',$newDate);
+    $req->execute();
+
+    $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">Abonnement est desormais actif</div>';
+
+}

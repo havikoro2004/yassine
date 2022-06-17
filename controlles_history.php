@@ -45,6 +45,9 @@ if ($result){ ?>
         $dateFin = date_format(new DateTime($historique['date_fin']),('d-m-Y'));
         $dateControle = date_format(new DateTime($historique['date']),('d-m-Y'));
         $heureControlle = date_format(new DateTime($historique['date']),('H:i'));
+        if ($historique['status']==="pause"){
+            $dateFin="??-??-????";
+        }
         echo '
         
         <tr>

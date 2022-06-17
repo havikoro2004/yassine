@@ -52,8 +52,8 @@ foreach ($resultAbon as $abn){
     $dateDebut = $dateDebut->getTimestamp();
     $dateFin = $dateFin->getTimestamp();
     $joursRestant = ($dateFin - $dateDebut);
-    if (!$joursRestant > 0){
-        $req = $db->prepare('update abonnement set status=false where id=:id');
+    if ($abn['status']==="actif" && !$joursRestant > 0){
+        $req = $db->prepare('update abonnement set status="inactif" where id=:id');
         $req->bindParam('id',$abn['id']);
         $req->execute();
     }

@@ -42,6 +42,7 @@ if (isset($_SESSION['status'])){
         <th scope="col">Reste à payer</th>
         <th scope="col">Dernier payement</th>
         <th>Date de renouvellement</th>
+        <th>Remarque</th>
     </tr>
     </thead>
     <tbody>
@@ -57,20 +58,28 @@ if (isset($_SESSION['status'])){
                     $renew = date_format($renouv,('d-m-Y'));
                 }
                 $status=null;
-                if (!$activity['status']){
+                if ($activity['status']==="inactif"){
                     $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
+                } else if ($activity['status']==="pause"){
+                    $status = '<button class="btn btn-secondary btnStatus" disabled><span class="d-flex justify-content-center">Pause</span></button>';
                 } else {
                     $status = '<button class="btn btn-info btnStatus text-white" disabled><span class="d-flex justify-content-center">Actif</span></button>';
                 }
                 $dateFin = date_format(new DateTime($activity['date_fin']),('d-m-y'));
+                $start = date_format($debut,('d-m-Y'));
+                $final = date_format($fin,('d-m-Y'));
+                if ($activity['status']==="pause"){
+                    $final="??-??-????";
+                }
                 echo'
                     <th>'.$activity['type_sport'].'</th>
-                    <th>'.date_format($debut,('d-m-Y')).'</th>
-                    <th>'.date_format($fin,('d-m-Y')).'</th>
+                    <th>'.$start.'</th>
+                    <th>'.$final.'</th>
                     <th>'.$status.'</th>
                     <th>'.$activity['reste'].'</th>
                     <th>'.date_format($lastpayement,('d-m-Y')).'</th>
                     <th>'.$renew.'</th>
+                    <th>'.$activity['remarque'].'</th>
                 ';
             }
 
@@ -80,20 +89,70 @@ if (isset($_SESSION['status'])){
 </table>
 
     <div class="container text-center">
+    <?php
+
+    if ($activity['status']==="actif"){ ?>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#exampleModal">
-            Suprimer l'activité
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            Pause
         </button>
-        <button class="btn btn-success" type="button" id="prolong">Renouveler</button>
-    </div>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Suprimer l'activité</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Mettre en pause l'abonnement</h5>
+                    </div>
+                    <div class="modal-body">
+                        Etes-vous sur de vouloir mettre en pause ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <form action="" method="post" ><button name="pause" type="submit" class="btn btn-primary">Valider</button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+   <?php } else if ($activity['status']==="pause"){ ?>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Réactiver
+        </button>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Réactiver l'abonnement</h5>
+                    </div>
+                    <div class="modal-body">
+                        Etes-vous sur de vouloir réactiver ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <form action="" method="post" ><button name="react" type="submit" class="btn btn-primary">Valider</button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     <?php }
+
+    ?>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#suprimer">
+            Suprimer
+        </button>
+        <button class="btn btn-success" type="button" id="prolong">Renouveler</button>
+    </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="suprimer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Suprimer l'activité</h5>
                     </div>
                     <div class="modal-body">
                         Vous êtes sur de vouloir suprimer ?
@@ -108,6 +167,7 @@ if (isset($_SESSION['status'])){
                 </div>
             </div>
         </div>
+
         <div id="renouv" class="container mt-4">
 
         </div>

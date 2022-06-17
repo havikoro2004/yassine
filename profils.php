@@ -153,16 +153,18 @@ if (count($resultAbon)> 0){ ?>
 
  <?php   foreach ($resultAbon as $abn){
         $status=null;
-        if (!$abn['status']){
+        if ($abn['status']==='inactif'){
             $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
-        } else {
+        } else if ($abn['status']==='pause'){
+            $status = '<button class="btn btn-dark btnStatus text-white" disabled><span class="d-flex justify-content-center">Pause</span></button>';
+        }else {
             $status = '<button class="btn btn-info btnStatus text-white" disabled><span class="d-flex justify-content-center">Actif</span></button>';
         }
         $dateFin = date_format(new DateTime($abn['date_fin']),('d-m-y'));
-        if ($abn['status']){
+        if ($abn['status']==='actif'){
             $btn = '<button id="alert" class="btn btn-success btnStatus" type="submit" name="valider'.$abn['id'].'"><span class="d-flex justify-content-center">Valider</span></button>';
         } else {
-            $btn = '';
+            $btn = '<button disabled id="alert" class="btn btn-success btnStatus" type="submit" name="valider'.$abn['id'].'"><span class="d-flex justify-content-center">Valider</span></button>';
         }
         echo '
       
@@ -228,6 +230,7 @@ if (count($resultAbon)> 0){ ?>
             <th scope="col">Montant payé</th>
             <th scope="col">Date de début</th>
             <th scope="col">Date de fin</th>
+            <th scope="col">Remarque</th>
         </tr>
         <tr>
             <th>
@@ -250,6 +253,9 @@ if (count($resultAbon)> 0){ ?>
             </th>
             <th>
                 <input class="form-control" type="date" id="date_fin" name="date_fin">
+            </th>
+            <th>
+                <textarea class="form-control" name="remarque" id="remarque" cols="30" rows="1"></textarea>
             </th>
         </tr>
         </tbody>
