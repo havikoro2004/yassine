@@ -86,14 +86,17 @@ if (isset($_POST['react'])){
     $req1->bindParam(':id',$_GET['abn']);
     $req1->execute();
     $result = $req1->fetch();
-    $debut = new DateTime($result['date_debut']);
     $fin = new DateTime($result['date_fin']);
     $pause = new DateTime($result['pause']);
-    $newFin = ($pause->getTimestamp() + $fin->getTimestamp() ) - $debut->getTimestamp();
+    $reprise =new DateTime();
+    $newFin = $fin->getTimestamp() + ($reprise->getTimestamp() - $pause->getTimestamp()) ;
     $newDate = date(('Y-m-d'),$newFin);
-    $req = $db->prepare('update abonnement set date_fin=:date,status="actif"');
+
+    $req = $db->prepare('update abonnement set date_fin=:date,status="actif" where id=:id');
     $req->bindParam(':date',$newDate);
+    $req->bindParam(':id',$_GET['abn']);
     $req->execute();
+
 
     $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">Abonnement est desormais actif</div>';
 
