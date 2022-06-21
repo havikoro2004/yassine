@@ -18,11 +18,8 @@ $(()=>{
         window.location = $(this).data("href");
     });
 })
-$(()=>{
-    $("#fetchFilter").on("change", function(){
-        $("#formFilter").submit();
-    })
-})
+
+
 const root = document.getElementById('root')
 const valider = document.getElementById('valider')
 const annuler = document.getElementById('annuler')
@@ -340,7 +337,7 @@ const oldPwd = document.getElementById('oldPwd')
 const pwd = document.getElementById('pwd')
 const pwdConf = document.getElementById('pwdConf')
 const rootAdmin = document.getElementById('rootAdmin')
-
+const editAdmin = document.getElementById('editAdmin')
 let userLogin = /^[a-zA-Z0-9]/
 let pwdTest = /^[a-zA-Z0-9]/
 if (editAdmin){

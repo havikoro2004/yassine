@@ -4,14 +4,6 @@ include_once ('head.php');
 include_once ('include/new.php');
 clearstatcache(true);
 ?>
-<div class="container mt-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="index.php">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page" href="#">Clients</a></li>
-        </ol>
-    </nav>
-</div>
 <?php
 
 if ($res){

@@ -71,5 +71,5 @@ if (!$_SESSION){
 </nav>
 <header class="mt-3 container">
     <div class="container text-end"><img class="logo p-2" src="images/logo.png" alt="" ></div>
-    <div class="brand d-flex justify-content-center align-items-center""><h1 class="h1Home"><?= $title; ?></h1></div>
+    <div class="brand d-flex justify-content-center align-items-center""><h1 class="h1Home display-1"><?= $title; ?></h1></div>
 </header>

@@ -8,17 +8,16 @@ html , body {
 
 }
 .logo {
-    width:120px ;
-    height:120px;
+    width:100px ;
+    height:100px;
 }
 header {
     border: 1px solid #bcbebf;
-
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
     text-align: center;
-    height: 20vh;
+    height: 15vh;
     background-size: cover;
     width: 100%;
 
@@ -103,7 +102,7 @@ table {
         grid-template-columns: 1fr 5fr;
     }
     .h1Home{
-        font-size: 3rem;
+        font-size: 2rem;
 
     }
     .table-profils{

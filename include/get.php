@@ -40,11 +40,25 @@ if ($resultat= $reqUrl->fetch()){
     header('Location:client_list.php');
 }
 
-$tableAbonnement = $db->prepare('select * from abonnement where id_client=:id order by date_abonnement desc ');
+$tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status="actif" order by date_abonnement desc ');
 $tableAbonnement->bindParam(':id',$_GET['id']);
 $tableAbonnement->execute();
 $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
 $status=null;
+
+if (isset($_POST['fetchFilter'])){
+    $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=:status order by date_abonnement desc ');
+    $tableAbonnement->bindParam(':id',$_GET['id']);
+    $tableAbonnement->bindParam(':status',$_POST['fetchFilter']);
+    $tableAbonnement->execute();
+    $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+    if ($_POST['fetchFilter']==='tous'){
+        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id order by date_abonnement desc ');
+        $tableAbonnement->bindParam(':id',$_GET['id']);
+        $tableAbonnement->execute();
+        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
 
 foreach ($resultAbon as $abn){
     $dateDebut = new DateTime($abn['date_debut']);
@@ -56,29 +70,6 @@ foreach ($resultAbon as $abn){
         $req = $db->prepare('update abonnement set status="inactif" where id=:id');
         $req->bindParam('id',$abn['id']);
         $req->execute();
-    }
-}
-if (isset($_POST['fetchFilter'])){
-    if ($_POST['fetchFilter']==='actif'){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=true order by date_abonnement desc ');
-        $tableAbonnement->bindParam(':id',$_GET['id']);
-        $tableAbonnement->execute();
-        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
-        $statusActifs= 'selected =""';
-        if (!$resultAbon){
-            $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité active n\'est trouvée</div>';
-        }
-    }
-}
-if (isset($_POST['fetchFilter'])){
-    if ($_POST['fetchFilter']=='expired'){
-        $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id && status=false order by date_abonnement desc ');
-        $tableAbonnement->bindParam(':id',$_GET['id']);
-        $tableAbonnement->execute();
-        $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
-        if (!$resultAbon){
-            $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité expirée n\'est trouvée</div>';
-        }
     }
 }
 
