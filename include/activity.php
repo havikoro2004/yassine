@@ -35,7 +35,7 @@ if (isset($_POST['validRenouv'])){
     if ($dateExpiration>=$postDate){
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous devez choisir une date supérieur à la date expiration actuelle</div>';
     } else {
-        $req=$db->prepare('update abonnement set date_renew=NOW(),total=:total,payer=:payer,reste=:reste, date_fin=:date_fin ,status="actif" where id=:id');
+        $req=$db->prepare('update abonnement set date_renew=NOW(),total=:total,payer=:payer,reste=:reste, date_fin=:date_fin,lastPayement=NOW() ,status="actif" where id=:id');
         $req->bindParam(':date_fin',$_POST['renouvDate']);
         $req->bindParam(':total',$_POST['totalPayer']);
         $req->bindParam(':payer',$_POST['payer']);
