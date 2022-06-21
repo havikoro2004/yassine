@@ -153,7 +153,7 @@ if ($alert){echo $alert ;} ?>
         </div>
   <?php  } else { ?>
         <div class="d-flex ">
-            <div class="form-group d-flex align-items-center me-2">Filtrer par :</div>
+            <div class="form-group d-flex align-items-center me-2">Afficher par:</div>
             <form class="my-2" id="formFilter" method="post">
                 <div class="form-group">
                     <select name="fetchFilter" class="form-control" id="fetchFilter">

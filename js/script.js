@@ -18,7 +18,11 @@ $(()=>{
         window.location = $(this).data("href");
     });
 })
-
+$(()=>{
+    $("#fetchFilter").on("change", function(){
+        $("#formFilter").submit();
+    })
+})
 
 const root = document.getElementById('root')
 const valider = document.getElementById('valider')
