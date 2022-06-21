@@ -265,7 +265,6 @@ const payer =document.getElementById('payer')
 if (abn){
     abn.addEventListener('click',()=>{
         root2.style.display="block"
-        document.getElementById('closeIcone').style.display='block'
         root2.scrollIntoView();
     })
 }
@@ -393,5 +392,21 @@ if (editAdmin){
             }
         }
 
+    })
+}
+
+
+if (document.getElementById('selectSport')){
+    const selectSport =document.getElementById('selectSport')
+    selectSport.addEventListener('change',()=>{
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST','../include/xhrPrixSport.php',true)
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange= ()=>{
+            if (xhr.readyState===4 && xhr.status===200){
+                total.value = xhr.responseText
+            }
+        }
+        xhr.send('request='+selectSport.value)
     })
 }

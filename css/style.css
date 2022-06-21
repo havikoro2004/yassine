@@ -69,9 +69,6 @@ table {
     grid-template-columns: 1fr ;
     grid-template-rows: 1fr;
 }
-#closeIcone{
-    display: none;
-}
 .table-profils{
     font-size: 10px;
 }
