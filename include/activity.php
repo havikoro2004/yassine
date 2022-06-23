@@ -7,10 +7,11 @@ $alert =null;
                 $reqActivity->bindParam(':name',$_POST['add']);
                 $reqActivity->execute();
                 if (!$reqActivity->fetch()){
-                    $reqAdd = $db->prepare('insert into activity (name ,prix) values (:name ,:prix) ');
+                    $reqAdd = $db->prepare('insert into activity (name ,prix,nbrActivity) values (:name ,:prix,:nbrActivity) ');
                     $addValue = strtoupper($_POST['add']);
                     $reqAdd->bindParam(':name',$addValue);
                     $reqAdd->bindParam(':prix',$_POST['prix']);
+                    $reqAdd->bindParam(':nbrActivity',$_POST['nbrActivity']);
                     $reqAdd->execute();
                     $alert = '<div class="alert alert-success mt-3 container text-center" role="alert"><h4>L\'activité a bien été ajoutée</h4></div>';
                     header( "refresh:1;url=activity.php" );
@@ -101,3 +102,4 @@ if (isset($_POST['react'])){
     $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">Abonnement est desormais actif</div>';
 
 }
+

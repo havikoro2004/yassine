@@ -229,12 +229,13 @@ if (valider){
 }
 
 const addActivity =document.getElementById('addBtn')
+const nbrActivity = document.getElementById('nbrActivity')
 const addValue = document.getElementById('add')
 const prix = document.getElementById('prix')
 const root3 = document.getElementById('root3')
 if (addActivity){
     addActivity.addEventListener('click',(e)=>{
-        if (addValue.value && prix.value){
+        if (addValue.value && prix.value && nbrActivity.value){
             let add = /^[a-zA-Z0-9]/
             if (!add.test(addValue.value)){
                 root3.innerHTML=''
@@ -262,10 +263,16 @@ const root2= document.getElementById('root2')
 const abn = document.getElementById('abn')
 const total = document.getElementById('total')
 const payer =document.getElementById('payer')
+const close = document.getElementById('close')
 if (abn){
     abn.addEventListener('click',()=>{
+        close.style.display='block'
         root2.style.display="block"
         root2.scrollIntoView();
+    })
+    close.addEventListener('click',()=>{
+        root2.style.display='none'
+        close.style.display='none'
     })
 }
 const subAbn = document.getElementById('subAbn')
@@ -400,7 +407,7 @@ if (document.getElementById('selectSport')){
     const selectSport =document.getElementById('selectSport')
     selectSport.addEventListener('change',()=>{
         const xhr = new XMLHttpRequest()
-        xhr.open('POST','../include/xhrPrixSport.php',true)
+        xhr.open('POST','./include/xhrPrixSport.php',true)
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange= ()=>{
             if (xhr.readyState===4 && xhr.status===200){

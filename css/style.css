@@ -64,6 +64,9 @@ table {
     text-align: center;
 
 }
+#close{
+    display: none;
+}
 .cont_profil {
     display: grid;
     grid-template-columns: 1fr ;

@@ -16,12 +16,12 @@ if (isset($_SESSION['status'])){
 }
 if ($alert){echo $alert ;} ?>
 <div class="cont_profil container mt-3">
-    <div class="profilUser  d-flex flex-column align-items-center my-3 justify-content-start">
+    <div class="profilUser d-flex flex-column align-items-center mb-5 justify-content-start">
         <img id="imgPreview" class="mb-2" width="60%" height="60%" src="images/img_users/<?= $photo ; ?>" alt="">
         <strong class="text-center"><?= strtoupper($firstName) .' '. strtoupper($lastName) ; ?></strong>
     <?php
     if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
-        <div class="container">
+        <div class="container mt-4">
             <form enctype="multipart/form-data" action="" method="post" class="mb-3 container text-center">
                 <label for="actual-btn">
                     <span style="height: 37px" class="btn btn-outline-dark mt-2">
@@ -39,8 +39,8 @@ if ($alert){echo $alert ;} ?>
 
     ?>
     </div>
-    <div class=" infosUser">
-        <table class="table">
+    <div class="infosUser">
+        <table class="table border border-3 " style="background-color: #f1f2f6">
             <tbody>
             <tr>
                 <td>
@@ -105,7 +105,7 @@ if ($alert){echo $alert ;} ?>
     <?php
 
     if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
-        <div class="d-flex ">
+        <div class="d-flex justify-content-center">
             <form method="post">
                 <button class="btn btn-primary my-2 me-2"><a class="text-white text-decoration-none" href="update_user.php?id=<?= $_GET['id'] ?>">Modifier les infos</a></button>
             </form>
@@ -132,47 +132,79 @@ if ($alert){echo $alert ;} ?>
             </div>
 
             <button type="button" id="abn" class="btn btn-dark my-2 me-2">Ajouter un Abonnement</button>
-            <div class="form-group d-flex align-items-center me-2">Afficher par:</div>
-            <form class="my-2" id="formFilter" method="post">
-                <div class="form-group">
-                    <select name="fetchFilter" class="form-control" id="fetchFilter">
-                        <option disabled selected >Selectioner</option>
-                        <option value="actif">Actives</option>
-                        <option value="inactif">Inactives</option>
-                        <option value="pause">Pause</option>
-                        <option value="tous">Tous</option>
-                    </select>
-                </div>
-            </form>
+            <button type="button" id="close" class="btn btn-secondary my-2 me-2">Annuler</button>
         </div>
-  <?php  } else { ?>
-        <div class="d-flex ">
-            <div class="form-group d-flex align-items-center me-2">Afficher par:</div>
-            <form class="my-2" id="formFilter" method="post">
-                <div class="form-group">
-                    <select name="fetchFilter" class="form-control" id="fetchFilter">
-                        <option disabled selected >Selectioner</option>
-                        <option value="actif">Actives</option>
-                        <option value="inactif">Inactives</option>
-                        <option value="pause">Pause</option>
-                        <option value="tous">Tous</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-  <?php  }
-    ?>
+  <?php  } ?>
     </div>
 </div>
+<div id="root2">
+    <form  class="container" action="" method="post">
+        <table class="table container">
+            <thead>
+            <tr>
+                <th scope="col">Nom de l'activité</th>
+                <th scope="col">Total à payer</th>
+                <th scope="col">Montant payé</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Remarque</th>
+            </tr>
+            <tr>
+                <th>
+
+                    <select name="type_sport" class="form-control" id="selectSport">
+                        <option>Choisir une activité</option>
+                        <?php foreach ($activitys as $activity){
+                            echo '      <option>'.$activity['name'].'</option>';
+                        } ?>
+                    </select>
+
+                </th>
+                <th>
+                    <input readonly id="total" class="form-control" name="total" type="number" placeholder="Total à payer" min="0">
+                </th>
+                <th>
+                    <input id="payer" class="form-control" name="payer" type="number" placeholder="Montant payé" min="0">
+                </th>
+                <th>
+                    <input class="form-control" type="date" id="date_debut" name="date_debut">
+                </th>
+                <th>
+                    <input class="form-control" type="date" id="date_fin" name="date_fin">
+                </th>
+                <th>
+                    <textarea class="form-control" name="remarque" id="remarque" cols="30" rows="1"></textarea>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container text-center"><button id="subAbn" type="submit" class="btn btn-primary mb-5 " style="width: 30vw" name="validerAbn">Valider</button></div>
+    </form>
+
+</div>
 <?php
-$teste[]=null;
 if (count($resultAbon)> 0){ ?>
+    <div class="container d-flex">
+        <div class="form-group d-flex align-items-center me-2">Afficher par :</div>
+        <form class="my-2" id="formFilter" method="post">
+            <div class="form-group">
+                <select name="fetchFilter" class="form-control" id="fetchFilter">
+                    <option disabled selected >Selectioner</option>
+                    <option value="actif">Actives</option>
+                    <option value="inactif">Inactives</option>
+                    <option value="pause">Pause</option>
+                    <option value="tous">Tous</option>
+                </select>
+            </div>
+        </form>
+    </div>
     <table id="table"  class="table table-hover container text-center table-profils">
         <thead class="bg-dark text-white ">
         <tr>
             <th scope="col">Activité</th>
             <th scope="col">Reste à payer</th>
             <th scope="col">Status</th>
+            <th scope="col">Séances effectués</th>
             <th scope="col">Controller</th>
             <th scope="col">Tous les controles</th>
             <?php
@@ -203,12 +235,25 @@ if (count($resultAbon)> 0){ ?>
         if ($abn['reste']==0){
             $reste = "<span class='text-success'>Payé</span>";
         }
+         $nbrActivity = intval($abn['avtivityPerWeek']);
+
+         $reqActivity = $db->prepare('select * from activity where name=:name');
+         $reqActivity->bindParam(':name',$abn['type_sport']);
+         $reqActivity->execute();
+         $activType = $reqActivity->fetch();
+
+         if ($nbrActivity >= $activType['nbrActivity']){
+             $nbrActivity = '<span class="text-danger">'.$abn['avtivityPerWeek'].'</span>';
+         } else if ($nbrActivity === (intval($activType['nbrActivity']) - 1)){
+             $nbrActivity = '<span style="color: #f39c12">'.$abn['avtivityPerWeek'].'</span>';
+         }
         echo '
       
                  <tr>
                      <th scope="row">'.$abn['type_sport'].'</th>
                       <th>'.$reste.'</th>
                       <th>'.$status.'</th>
+                      <th>'.$nbrActivity.'</th>
                      
                      <th><form method="post">'.$btn.'</form></th>
                      <th>
@@ -236,14 +281,19 @@ if (count($resultAbon)> 0){ ?>
 
 
       <?php  if (isset($_POST['valider'.$abn['id']])){
-
             $reqDelet = $db->prepare('insert into controlle (id_abonnement,date,id_user) values (:id_abonnement,NOW(),:id_user) ');
             $reqDelet->bindParam(':id_abonnement',$abn['id']);
             $reqDelet->bindParam(':id_user',$_SESSION['name']);
             $reqDelet->execute();
             echo"<meta http-equiv='refresh' content='0'>";
-
             $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert"><h4>Le client a bien été controlé</h4></div>';
+            $req = $db->prepare('update abonnement set avtivityPerWeek=:avtivityPerWeek where id=:id');
+            $req->bindParam(':id',$abn['id']);
+            $nbrActivity = $abn['avtivityPerWeek'] + 1 ;
+
+            $req->bindParam(':avtivityPerWeek',$nbrActivity);
+            $req->execute();
+
         }
 
     }
@@ -256,53 +306,6 @@ if (count($resultAbon)> 0){ ?>
 
 </tbody>
 </table>
-
-<div id="root2">
-    <form  class="container" action="" method="post">
-    <table class="table container">
-        <thead>
-        <tr>
-            <th scope="col">Nom de l'activité</th>
-            <th scope="col">Total à payer</th>
-            <th scope="col">Montant payé</th>
-            <th scope="col">Date de début</th>
-            <th scope="col">Date de fin</th>
-            <th scope="col">Remarque</th>
-        </tr>
-        <tr>
-            <th>
-
-                    <select name="type_sport" class="form-control" id="selectSport">
-                        <option>Choisir une activité</option>
-                        <?php foreach ($activitys as $activity){
-                            echo '      <option>'.$activity['name'].'</option>';
-                        } ?>
-                    </select>
-
-                </th>
-            <th>
-                <input id="total" class="form-control" name="total" type="number" placeholder="Total à payer" min="0">
-            </th>
-            <th>
-                <input id="payer" class="form-control" name="payer" type="number" placeholder="Montant payé" min="0">
-            </th>
-            <th>
-                <input class="form-control" type="date" id="date_debut" name="date_debut">
-            </th>
-            <th>
-                <input class="form-control" type="date" id="date_fin" name="date_fin">
-            </th>
-            <th>
-                <textarea class="form-control" name="remarque" id="remarque" cols="30" rows="1"></textarea>
-            </th>
-        </tr>
-        </tbody>
-    </table>
-        <div class="container text-center"><button id="subAbn" type="submit" class="btn btn-primary mb-5 " style="width: 30vw" name="validerAbn">Valider</button></div>
-    </form>
-
-</div>
-
 <script src="js/jquery.js"></script>
 <script src="js/script.js" ></script>
 <script src="js/bootstrap.bundle.min.js" ></script>

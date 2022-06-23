@@ -38,6 +38,7 @@ $activity=null;
                         <tr>
                             <th scope="col">Nom de l'activité</th>
                             <th scope="col">Prix en DH</th>
+                            <th scope="col">Activité par semaine</th>
                             <?php
                              if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
                                  <th scope="col">Suprimer </th>
@@ -69,6 +70,7 @@ $activity=null;
                         echo '  
                             <tr><td>'.$activity['name'].'</td>
                             <td>'.$activity['prix'].'</td>
+                            <td>'.$activity['nbrActivity'].'</td>
                             ';
 
                         if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){
@@ -100,6 +102,7 @@ $activity=null;
         <button id="addBtn" name="addBtn" type="submit" class="btn btn-dark me-2">Ajouter</button>
         <input maxlength="30" id="add" id="filter" name="add" class="form-control mr-sm-2 me-2" type="search" placeholder="Ajouter une activité" aria-label="Search">
         <input id="prix" name="prix" placeholder="Prix" class="form-control" type="number" min="0">
+            <input id="nbrActivity" name="nbrActivity" placeholder="Nombre d'activité par semaine" class="form-control" type="number" min="0">
     </form>
   <?php  }    ?>
 
