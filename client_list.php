@@ -18,26 +18,24 @@ if ($alert){echo $alert;}
 
 <div class="border container rounded mt-4">
 
-    <form action="" method="post" class="form-inline d-flex container mt-4">
-        <input id="filter" name="filter" class="form-control mr-sm-2 me-2" type="search" placeholder="Chercher" aria-label="Search">
-        <select name="select" class="form-control me-2" id="selectfilter">
+    <form action="" method="post" class="form-inline d-flex container my-4">
+        <input id="filter" name="filter" class="form-control mr-sm-2 me-2 w-25" type="search" placeholder="Chercher" aria-label="Search">
+        <select name="select" class="form-control me-2 w-25" id="selectfilter">
             <option>Nom</option>
             <option>Prénom</option>
             <option>Date de naissance</option>
             <option>Badge</option>
         </select>
-        <button name="chercher" class="btn btn-outline-dark" type="submit">Chercher</button>
+        <button name="chercher" class="btn btn-outline-dark me-2" type="submit">Chercher</button>
+        <?php if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
+            <a href="new.php" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                </svg> Ajouter un client</a>
+        <?php }
+        ?>
     </form>
-<?php if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
-    <div class="container text-center my-5">
-        <a href="new.php" class="btn btn-dark">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-            </svg> Ajouter un client</a>
-    </div>
-<?php }
-    ?>
 </div>
 
 <h2 class="text-center my-3">Dernière inscriptions</h2>

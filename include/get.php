@@ -44,6 +44,9 @@ $tableAbonnement = $db->prepare('select * from abonnement where id_client=:id &&
 $tableAbonnement->bindParam(':id',$_GET['id']);
 $tableAbonnement->execute();
 $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+if (!$resultAbon){
+    $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Le client n\'a aucun abonnement en cours</div>';
+}
 $status=null;
 
 if (isset($_POST['fetchFilter'])){
@@ -57,6 +60,9 @@ if (isset($_POST['fetchFilter'])){
         $tableAbonnement->bindParam(':id',$_GET['id']);
         $tableAbonnement->execute();
         $resultAbon= $tableAbonnement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    if (!$resultAbon){
+        $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert">Aucun resultat trouvé</div>';
     }
 }
 

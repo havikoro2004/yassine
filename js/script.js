@@ -417,3 +417,7 @@ if (document.getElementById('selectSport')){
         xhr.send('request='+selectSport.value)
     })
 }
+
+if (document.getElementById('filter')){
+    document.getElementById('filter').focus()
+}

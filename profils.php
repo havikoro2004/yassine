@@ -119,7 +119,8 @@ if ($alert){echo $alert ;} ?>
                     <div class="modal-content">
 
                         <div class="modal-body text-center">
-                            Etes-Vous sure de vouloir suprimer le client ?
+                            <h4>Attention</h4>
+                            Vous êtes sur le point de suprimer un client cette action va suprimer toutes les informations du client ainsi que ses abonnement si il en a veuillez bien vérifier avant de confirmer
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -133,8 +134,38 @@ if ($alert){echo $alert ;} ?>
 
             <button type="button" id="abn" class="btn btn-dark my-2 me-2">Ajouter un Abonnement</button>
             <button type="button" id="close" class="btn btn-secondary my-2 me-2">Annuler</button>
+            <div class="form-group d-flex align-items-center me-2">Afficher par :</div>
+            <form class="my-2" id="formFilter" method="post">
+                <div class="form-group">
+                    <select name="fetchFilter" class="form-control" id="fetchFilter">
+                        <option disabled selected >Selectioner</option>
+                        <option value="actif">Actives</option>
+                        <option value="inactif">Inactives</option>
+                        <option value="pause">Pause</option>
+                        <option value="tous">Tous</option>
+                    </select>
+                </div>
+            </form>
         </div>
-  <?php  } ?>
+  <?php  }
+    else { ?>
+        <div class="d-flex justify-content-center">
+            <button type="button" id="close" class="btn btn-secondary my-2 me-2">Annuler</button>
+            <div class="form-group d-flex align-items-center me-2">Afficher par :</div>
+            <form class="my-2" id="formFilter" method="post">
+                <div class="form-group">
+                    <select name="fetchFilter" class="form-control" id="fetchFilter">
+                        <option disabled selected >Selectioner</option>
+                        <option value="actif">Actives</option>
+                        <option value="inactif">Inactives</option>
+                        <option value="pause">Pause</option>
+                        <option value="tous">Tous</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+   <?php }
+    ?>
     </div>
 </div>
 <div id="root2">
@@ -185,18 +216,6 @@ if ($alert){echo $alert ;} ?>
 <?php
 if (count($resultAbon)> 0){ ?>
     <div class="container d-flex">
-        <div class="form-group d-flex align-items-center me-2">Afficher par :</div>
-        <form class="my-2" id="formFilter" method="post">
-            <div class="form-group">
-                <select name="fetchFilter" class="form-control" id="fetchFilter">
-                    <option disabled selected >Selectioner</option>
-                    <option value="actif">Actives</option>
-                    <option value="inactif">Inactives</option>
-                    <option value="pause">Pause</option>
-                    <option value="tous">Tous</option>
-                </select>
-            </div>
-        </form>
     </div>
     <table id="table"  class="table table-hover container text-center table-profils">
         <thead class="bg-dark text-white ">
@@ -206,6 +225,7 @@ if (count($resultAbon)> 0){ ?>
             <th scope="col">Status</th>
             <th scope="col">Séances effectués</th>
             <th scope="col">Controller</th>
+            <th scope="col">Dernier controle</th>
             <th scope="col">Tous les controles</th>
             <?php
             if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
@@ -217,6 +237,13 @@ if (count($resultAbon)> 0){ ?>
         <tbody>
 
  <?php   foreach ($resultAbon as $abn){
+        $req = $db->prepare('select * from controlle where id_abonnement=:id');
+        $req->bindParam(':id',$abn['id']);
+        $req->execute();
+        $resultControl = $req->fetchAll(PDO::FETCH_ASSOC);
+        $dateControlFormated='...';
+
+
         $status=null;
         if ($abn['status']==='inactif'){
             $status = '<button class="btn btn-danger btnStatus" disabled><span class="d-flex justify-content-center">Expiré</span></button>';
@@ -242,10 +269,16 @@ if (count($resultAbon)> 0){ ?>
          $reqActivity->execute();
          $activType = $reqActivity->fetch();
 
+     if ($resultControl){
+         $id = COUNT($resultControl) - 1;
+         $dateControle = date_create($resultControl[$id]['date']);
+         $dateControlFormated = date_format($dateControle,('d-m-Y H:i'));
+     }
+
          if ($nbrActivity >= $activType['nbrActivity']){
-             $nbrActivity = '<span class="text-danger">'.$abn['avtivityPerWeek'].'</span>';
+             $nbrActivity = '<button class="btn btn-danger" readonly=""><strong>'.$abn['avtivityPerWeek'].'</strong></button>';
          } else if ($nbrActivity === (intval($activType['nbrActivity']) - 1)){
-             $nbrActivity = '<span style="color: #f39c12">'.$abn['avtivityPerWeek'].'</span>';
+             $nbrActivity = '<div class="btn btn-warning" readonly=""><strong>'.$abn['avtivityPerWeek'].'</strong></div>';
          }
         echo '
       
@@ -256,11 +289,13 @@ if (count($resultAbon)> 0){ ?>
                       <th>'.$nbrActivity.'</th>
                      
                      <th><form method="post">'.$btn.'</form></th>
+                     <th>'.$dateControlFormated.'</th>
                      <th>
                          <button class="btn btn-primary">
                          <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'"><span class="d-flex justify-content-center">Voir</span></a>
                          </button>
-                     </th> ' ;
+                     </th>                   
+                     ' ;
         if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){
             echo '     <th>
    
@@ -271,7 +306,8 @@ if (count($resultAbon)> 0){ ?>
                  </svg>
              </a>
 
-     </th>';
+     </th>
+     ';
         }
 
         ?>
@@ -300,8 +336,6 @@ if (count($resultAbon)> 0){ ?>
 
 
 }
-
-
 ?>
 
 </tbody>
