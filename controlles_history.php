@@ -16,7 +16,7 @@ $countStatement->execute();
 $totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
 $nbrPage = ceil($totalresult['nbrresult'] / $final );
 
-$title='HISTORIQUE CONTROLE';
+$title='Historique des controles';
 
 include_once ('head.php'); ?>
 <?php if ($result){ ?>

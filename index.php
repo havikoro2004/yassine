@@ -1,5 +1,5 @@
 <?php
-$title='MARACANA GYM';
+$title='Maracana Gym';
 include_once ('head.php');
 clearstatcache(true);
 

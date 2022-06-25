@@ -1,5 +1,5 @@
 <?php
-$title='ACTIVITES';
+$title='Activités';
 include_once ('head.php');
 include_once 'include/activity.php';
 

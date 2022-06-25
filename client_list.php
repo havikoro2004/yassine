@@ -1,5 +1,5 @@
 <?php
-$title='LISTE DES CLIENTS';
+$title='Liste des clients';
 include_once ('head.php');
 include_once ('include/new.php');
 clearstatcache(true);

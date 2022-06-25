@@ -1,5 +1,5 @@
 <?php
-$title='AJOUTER UN CLIENT';
+$title='Ajouter un client';
 include_once ('head.php');
 include_once 'include/new.php';
 if ($_SESSION['role']==='Controlleur'){

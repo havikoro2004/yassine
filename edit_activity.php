@@ -1,5 +1,5 @@
 <?php
-$title='GERER LES ACTIVITES';
+$title='Gérer les activités';
 include_once ('head.php');
 include_once 'database/database.php';
 if ($_SESSION['role']==='Controlleur'){

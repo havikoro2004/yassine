@@ -1,5 +1,5 @@
 <?php
-$title='CONTROLER UN CLIENT';
+$title='Controller un client';
 include_once ('head.php');
 $alert = null;
 $abonnements=null;

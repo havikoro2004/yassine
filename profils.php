@@ -1,5 +1,5 @@
 <?php
-$title='PROFIL CLIENT';
+$title='Profil client';
 require_once 'head.php';
 require_once 'include/upload_img.php';
 require_once 'include/get.php';

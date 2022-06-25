@@ -1,5 +1,5 @@
 <?php
-$title='MODIFIER LES INFOS';
+$title='Modifier les infos';
 include_once ('head.php');
 include_once 'include/update_user.php';
 include_once 'include/Controlle.php';
