@@ -30,6 +30,12 @@ if (isset($_POST['submit'])){
         $alert = '<div class="alert alert-danger mt-3" role="alert">Il semble qu\'il y a deja un utilisateur avec ces coordonées </div>';
     } else {
 
+        $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+        $action = $_SESSION['name'].' a inscrit un nouveau client '.$_POST['firstName'].' '.$_POST['lastName'];
+        $history->bindParam(':id',$_SESSION['id']);
+        $history->bindParam(':action',$action);
+        $history->execute();
+
         $req = $db->prepare('insert into client (badge,firstName,lastName,birth,genre,cin,tel,adresse,date,create_by) values (:badge,:firstName,:lastName,:birth,:genre,:cin,:tel,:adresse, NOW(),:create_by)');
         $req->bindParam(':badge',$badge);
         $req->bindParam(':firstName',$firstName);
