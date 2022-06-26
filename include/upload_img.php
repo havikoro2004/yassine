@@ -8,6 +8,16 @@ if(isset($_POST["upload"])) {
         $imgFormat =strtolower($_FILES['photo']['type']);
         if (in_array($_FILES['photo']['type'],$format)){
             if ($_FILES['photo']['size'] > 3000){
+                $req = $db->prepare('select * from client where id=:id');
+                $req->bindParam(':id',$_GET['id']);
+                $req->execute();
+                $list = $req->fetch();
+                $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+                $action = $_SESSION['name'].' a mis à jour la photo profil de '.$list['firstName'].' '.$list['lastName'];
+                $history->bindParam(':id',$_SESSION['id']);
+                $history->bindParam(':action',$action);
+                $history->execute();
+
                 $extention = substr($_FILES['photo']['name'], strpos($_FILES['photo']['name'], ".") + 1);
                 move_uploaded_file($_FILES['photo']['tmp_name'], 'images/img_users/'.$_GET['id'].'.'.$extention);
                 $picName = $_GET['id'].'.'.$extention;
