@@ -36,6 +36,24 @@ if (isset($_POST['validRenouv'])){
     if ($dateExpiration>=$postDate){
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous devez choisir une date supérieur à la date expiration actuelle</div>';
     } else {
+
+        $req = $db->prepare('select * from client where id=:id');
+        $req->bindParam(':id',$_GET['id']);
+        $req->execute();
+        $list = $req->fetch();
+
+        $abon = $db->prepare('select * from abonnement where id=:id');
+        $abon->bindParam(':id',$_GET['abn']);
+        $abon->execute();
+        $abonne = $abon->fetch();
+
+        $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+        $action = $_SESSION['name'].' a renouvelé l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+        $history->bindParam(':id',$_SESSION['id']);
+        $history->bindParam(':action',$action);
+        $history->execute();
+
+
         $req=$db->prepare('update abonnement set date_renew=NOW(),total=:total,payer=:payer,reste=:reste, date_fin=:date_fin,lastPayement=NOW() ,status="actif" where id=:id');
         $req->bindParam(':date_fin',$_POST['renouvDate']);
         $req->bindParam(':total',$_POST['totalPayer']);
@@ -57,6 +75,24 @@ if (isset($_POST['regler'])){
         $result = $req->fetch();
 
         if ($result['reste'] > 0 && $_POST['montant'] <= $result['reste']){
+
+            $req = $db->prepare('select * from client where id=:id');
+            $req->bindParam(':id',$_GET['id']);
+            $req->execute();
+            $list = $req->fetch();
+
+            $abon = $db->prepare('select * from abonnement where id=:id');
+            $abon->bindParam(':id',$_GET['abn']);
+            $abon->execute();
+            $abonne = $abon->fetch();
+
+            $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+            $action = $_SESSION['name'].' a ajouté un paiement de l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+            $history->bindParam(':id',$_SESSION['id']);
+            $history->bindParam(':action',$action);
+            $history->execute();
+
+
             $req=$db->prepare('update abonnement set payer=:payer,reste=:reste ,lastPayement=NOW() where id=:id');
             $req->bindParam(':id',$_GET['abn']);
             $payer = (int)$result['payer'] + (int)$_POST['montant'];
@@ -75,6 +111,22 @@ if (isset($_POST['regler'])){
 }
 
 if (isset($_POST['pause'])){
+    $req = $db->prepare('select * from client where id=:id');
+    $req->bindParam(':id',$_GET['id']);
+    $req->execute();
+    $list = $req->fetch();
+
+    $abon = $db->prepare('select * from abonnement where id=:id');
+    $abon->bindParam(':id',$_GET['abn']);
+    $abon->execute();
+    $abonne = $abon->fetch();
+
+    $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+    $action = $_SESSION['name'].' a mis en pause l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+    $history->bindParam(':id',$_SESSION['id']);
+    $history->bindParam(':action',$action);
+    $history->execute();
+
     $req = $db->prepare('update abonnement set pause=NOW(),status="pause" where id=:id');
     $req->bindParam(':id',$_GET['abn']);
     $req->execute();
@@ -83,6 +135,23 @@ if (isset($_POST['pause'])){
 }
 
 if (isset($_POST['react'])){
+
+    $req = $db->prepare('select * from client where id=:id');
+    $req->bindParam(':id',$_GET['id']);
+    $req->execute();
+    $list = $req->fetch();
+
+    $abon = $db->prepare('select * from abonnement where id=:id');
+    $abon->bindParam(':id',$_GET['abn']);
+    $abon->execute();
+    $abonne = $abon->fetch();
+
+    $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+    $action = $_SESSION['name'].' a reactivél\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+    $history->bindParam(':id',$_SESSION['id']);
+    $history->bindParam(':action',$action);
+    $history->execute();
+
     $req1 =$db->prepare('select * from abonnement where id=:id');
     $req1->bindParam(':id',$_GET['abn']);
     $req1->execute();
