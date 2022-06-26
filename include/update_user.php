@@ -32,6 +32,14 @@ if (isset($_POST['edit'])){
     }
 }
 if (isset($_POST['editAdmin'])){
+
+    $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+    $action = $_SESSION['name'].' a modifié  son profil ';
+    $history->bindParam(':id',$_SESSION['id']);
+    $history->bindParam(':action',$action);
+    $history->execute();
+
+
     $req=$db->prepare('select * from user where id=:id  && password=:password');
     $req->bindParam(':id',$_GET['id']);
     $req->bindParam(':password',$_POST['oldPwd']);
@@ -60,6 +68,14 @@ if (isset($_POST['subUser'])){
         if ($req->fetch()) {
             $_SESSION['status'] = '<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Ce pseudo est deja utilisé veuillez choisir un autre pseudo</div>';
         } else {
+
+            $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+            $action = $_SESSION['name'].' a crée un nouveau '.$_POST['role']. ' '.$_POST['nom'];
+            $history->bindParam(':id',$_SESSION['id']);
+            $history->bindParam(':action',$action);
+            $history->execute();
+
+
             $req = $db->prepare('insert into user (name,pseudo,password,date_inscription ,id_type) values(:name,:pseudo,:password,NOW(), :id_type) ');
             $req->bindParam(':name', $_POST['nom']);
             $req->bindParam('pseudo', $_POST['pseudoUser']);
@@ -83,7 +99,19 @@ if (!$users){
 if (isset($_POST['editUser'])){
     $roles= ['Editeur'=>2,'Controlleur'=>3];
 
-        $req = $db->prepare('update user set name=:name,pseudo=:pseudo,password=:password,id_type=:id_type where id=:id');
+    $req = $db->prepare('select * from user where id=:id');
+    $req->bindParam(':id',$_GET['id']);
+    $req->execute();
+    $list = $req->fetch();
+
+    $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+    $action = $_SESSION['name'].' a modifié le profil de l\'utilisateur '.$list['name'];
+    $history->bindParam(':id',$_SESSION['id']);
+    $history->bindParam(':action',$action);
+    $history->execute();
+
+
+    $req = $db->prepare('update user set name=:name,pseudo=:pseudo,password=:password,id_type=:id_type where id=:id');
         $req->bindParam(':name', $_POST['nom']);
         $req->bindParam('pseudo', $_POST['pseudoUser']);
         $req->bindParam('password', $_POST['pseudoUser']);

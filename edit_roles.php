@@ -7,6 +7,26 @@ $req->bindParam(':id',$_GET['id']);
 $req->execute();
 $result = $req->fetch();
 
+if (isset($_POST['deleteUser'])){
+
+    $reqdelete = $db->prepare('select * from user where id=:id');
+    $reqdelete->bindParam(':id',$_GET['id']);
+    $reqdelete->execute();
+    $list = $reqdelete->fetch();
+
+    $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+    $action = $_SESSION['name'].' a suprimé l\'utilisateur '.$list['name'];
+    $history->bindParam(':id',$_SESSION['id']);
+    $history->bindParam(':action',$action);
+    $history->execute();
+
+    $req = $db->prepare('delete from user where id=:id');
+    $req->bindParam(':id',$_GET['id']);
+    $req->execute();
+    $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert"><h4>Le profil a bien été suprimé</h4></div>';
+    header("Refresh: 1; url=manage_users.php");
+}
+
 ?>
 <!doctype html>
 <html lang="en">
