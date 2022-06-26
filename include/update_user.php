@@ -14,7 +14,7 @@ if (isset($_POST['edit'])){
     } else {
 
         $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-        $action = $_SESSION['name'].' a mis à jour le profil de '.$_POST['firstName'].' '.$_POST['lastName'];
+        $action = $_SESSION['name'].' a modifié le profil du client '.$_POST['firstName'].' '.$_POST['lastName'];
         $history->bindParam(':id',$_SESSION['id']);
         $history->bindParam(':action',$action);
         $history->execute();
