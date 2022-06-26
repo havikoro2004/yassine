@@ -31,7 +31,7 @@ if (isset($_POST['submit'])){
     } else {
 
         $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-        $action = $_SESSION['name'].' a inscrit un nouveau client '.$_POST['firstName'].' '.$_POST['lastName'];
+        $action ='a inscrit un nouveau client '.$_POST['firstName'].' '.$_POST['lastName'];
         $history->bindParam(':id',$_SESSION['id']);
         $history->bindParam(':action',$action);
         $history->execute();

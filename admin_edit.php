@@ -29,8 +29,8 @@ include_once 'include/update_user.php';
 
 <div class="container text-center mt-5">
     <h2 class="text-secondary">Modifier le login</h2>
-    <form method="post">
-        <div class="form-group my-3 container ">
+    <form method="post" class="container">
+        <div class="form-group my-3 container">
             <input id="loginAdmin" name="pseudo" style="max-width: 50vw" value="<?= $_SESSION['pseudo'] ?>" type="text" class="m-auto form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="form-group">

@@ -52,6 +52,17 @@ $activity=null;
                                 echo "<meta http-equiv='refresh' content='0'>";
                                 $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous ne pouvez pas suprimer cette activité appartient à un abonnement</div>';
                             } else {
+
+                                $req = $db->prepare('select * from client where id=:id');
+                                $req->bindParam(':id',$_GET['id']);
+                                $req->execute();
+                                $list = $req->fetch();
+                                $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+                                $action ='a suprimé l\'activité '.$activity['name'];
+                                $history->bindParam(':id',$_SESSION['id']);
+                                $history->bindParam(':action',$action);
+                                $history->execute();
+
                                 $deleteReq = $db->prepare('delete from activity where id=:id && name=:name');
                                 $deleteReq->bindParam('id',$activity['id']);
                                 $deleteReq->bindParam('name',$activity['name']);
@@ -88,6 +99,16 @@ $activity=null;
                                             $activityName[]=$act['name'];
                                         }
                                         if (!in_array($name,$activityName)){
+                                            $req = $db->prepare('select * from client where id=:id');
+                                            $req->bindParam(':id',$_GET['id']);
+                                            $req->execute();
+                                            $list = $req->fetch();
+                                            $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+                                            $action ='a modifié l\'activité '.$activity['name'];
+                                            $history->bindParam(':id',$_SESSION['id']);
+                                            $history->bindParam(':action',$action);
+                                            $history->execute();
+
                                             $req1 = $db->prepare('update abonnement set type_sport=:name where type_sport=:post');
                                             $req1->bindParam(':name',$name);
                                             $req1->bindParam('post',$activity['name']);
@@ -156,11 +177,8 @@ $activity=null;
                             <td><input readonly class="text-center"  style="border:none" type="text" value="'.$activity['nbrActivity'].'"></td>
                             ' ;
                         }
-
                         ?>
-
                             <?php  }
-
                 }
 
                 ?>

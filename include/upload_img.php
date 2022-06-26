@@ -13,7 +13,7 @@ if(isset($_POST["upload"])) {
                 $req->execute();
                 $list = $req->fetch();
                 $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-                $action = $_SESSION['name'].' a mis à jour la photo profil de '.$list['firstName'].' '.$list['lastName'];
+                $action ='a mis à jour la photo profil de '.$list['firstName'].' '.$list['lastName'];
                 $history->bindParam(':id',$_SESSION['id']);
                 $history->bindParam(':action',$action);
                 $history->execute();

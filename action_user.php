@@ -4,29 +4,8 @@ require_once 'head.php';
 if ($_SESSION['role']!=='Admin'){
     header('Location:index.php');
 }
-require_once 'include/update_user.php';
 require_once 'database/database.php';
-$db=getPdo();
-
-$req = $db->prepare('select * from suivi join user on suivi.id_user=user.id where suivi.id_user=:id ORDER BY date DESC LIMIT :start, :final');
-$req->bindParam(':id',$_GET['id']);
-$final = 100;
-$page = $_GET['page'] ?? 1;
-$req->bindParam(':final',$final,pdo::PARAM_INT);
-$req->bindValue(':start' ,$final * ( (int)$page - 1)  , PDO::PARAM_INT );
-$req->execute();
-$result = $req->fetchAll(PDO::FETCH_ASSOC);
-
-$countStatement = $db ->prepare('SELECT COUNT(*) as nbrresult FROM suivi where id_user=:id');
-$countStatement->bindParam((':id'),$_GET['id']);
-$countStatement->execute();
-$totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
-$nbrPage = ceil($totalresult['nbrresult'] / $final );
-
-
-
-
-
+require_once 'include/history.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -49,62 +28,67 @@ if (isset($_SESSION['status'])){
 }
 ?>
 <div class="container text-center mt-5">
-    <table class="table text-start">
-        <thead>
-        <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Pseudo</th>
-            <th scope="col">Action</th>
-            <th scope="col">Date</th>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-
-        foreach ($result as $resultat){
-            $date = date_create($resultat['date']);
-            ?>
+    <?php
+    if ($result){ ?>
+        <table class="table text-start">
+            <thead class="bg-dark text-white">
             <tr>
-                <td><?= $resultat['name'] ?></td>
-                <td><?= $resultat['pseudo'] ?></td>
-                <td><?= $resultat['action'] ?></td>
-                <td><?= date_format($date,('d-m-Y H:i')) ?></td>
+                <th scope="col">Nom</th>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Action</th>
+                <th scope="col">Date</th>
+                </th>
             </tr>
-       <?php }
-        ?>
-
-
-        </tbody>
-    </table>
-    <div class="text-center container-lg">
-
-        <ul id="ulPagination" class="pagination pagin">
+            </thead>
+            <tbody>
             <?php
-            if ($nbrPage>1){
-                for($i = 1 ; $i <= $nbrPage ; $i++ )
-                {
-                    if (isset($_GET['page'])){
 
-                        if ($i!=$_GET['page']){
+            foreach ($result as $resultat){
+                $date = date_create($resultat['date']);
+                ?>
+                <tr>
+                    <td><?= $resultat['name'] ?></td>
+                    <td><?= $resultat['pseudo'] ?></td>
+                    <td><?= $resultat['action'] ?></td>
+                    <td>Le <?= date_format($date,('d-m-Y à H:i')) ?></td>
+                </tr>
+            <?php }
+            ?>
+
+
+            </tbody>
+        </table>
+        <div class="text-center container-lg">
+
+            <ul id="ulPagination" class="pagination pagin">
+                <?php
+                if ($nbrPage>1){
+                    for($i = 1 ; $i <= $nbrPage ; $i++ )
+                    {
+                        if (isset($_GET['page'])){
+
+                            if ($i!=$_GET['page']){
+                                echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
+                        href="?id='.$_GET['id'].'&page='.$i.'">'.$i.'</a></li>';
+                            } else {
+                                echo '<li class="page-item active" aria-current="page"><a class="page-link pagination"
+                         href="?id='.$_GET['id'].'&page='.$i.'">'.$i.'</a></li>';
+                            }
+                        } else {
                             echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
                         href="?id='.$_GET['id'].'&page='.$i.'">'.$i.'</a></li>';
-                        } else {
-                            echo '<li class="page-item active" aria-current="page"><a class="page-link pagination"
-                         href="?id='.$_GET['id'].'&page='.$i.'">'.$i.'</a></li>';
                         }
-                    } else {
-                        echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
-                        href="?id='.$_GET['id'].'&page='.$i.'">'.$i.'</a></li>';
+
+
                     }
-
-
                 }
-            }
-            ?>
-        </ul>
+                ?>
+            </ul>
 
-    </div>
+        </div>
+   <?php }
+
+    ?>
 </div>
 </body>
 <script src="js/jquery.js"></script>

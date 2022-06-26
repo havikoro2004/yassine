@@ -48,7 +48,7 @@ if (isset($_POST['validRenouv'])){
         $abonne = $abon->fetch();
 
         $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-        $action = $_SESSION['name'].' a renouvelé l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+        $action ='a renouvelé l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
         $history->bindParam(':id',$_SESSION['id']);
         $history->bindParam(':action',$action);
         $history->execute();
@@ -87,7 +87,7 @@ if (isset($_POST['regler'])){
             $abonne = $abon->fetch();
 
             $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-            $action = $_SESSION['name'].' a ajouté un paiement de l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+            $action ='a ajouté un paiement de l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
             $history->bindParam(':id',$_SESSION['id']);
             $history->bindParam(':action',$action);
             $history->execute();
@@ -122,7 +122,7 @@ if (isset($_POST['pause'])){
     $abonne = $abon->fetch();
 
     $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-    $action = $_SESSION['name'].' a mis en pause l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+    $action ='a mis en pause l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
     $history->bindParam(':id',$_SESSION['id']);
     $history->bindParam(':action',$action);
     $history->execute();
@@ -147,7 +147,7 @@ if (isset($_POST['react'])){
     $abonne = $abon->fetch();
 
     $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-    $action = $_SESSION['name'].' a reactivél\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+    $action ='a reactivél\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
     $history->bindParam(':id',$_SESSION['id']);
     $history->bindParam(':action',$action);
     $history->execute();

@@ -16,7 +16,7 @@ if (isset($_POST['validerAbn'])){
             $req->execute();
             $list = $req->fetch();
             $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-            $action = $_SESSION['name'].' a ajouté une abonnement  '.$_POST['type_sport'].' pour le client '.$list['firstName'].' '.$list['lastName'];
+            $action ='a ajouté une abonnement  '.$_POST['type_sport'].' pour le client '.$list['firstName'].' '.$list['lastName'];
             $history->bindParam(':id',$_SESSION['id']);
             $history->bindParam(':action',$action);
             $history->execute();
@@ -33,7 +33,7 @@ if (isset($_POST['validerAbn'])){
             $req->bindParam(':date_fin',$_POST['date_fin']);
             $req->execute();
             $_SESSION['status']='<div id="alert" class="alert alert-success mt-3 container text-center" role="alert"><h4>Abonnement a bien été ajouté</h4></div>';
-            echo"<meta http-equiv='refresh' content='2'>";
+            echo"<meta http-equiv='refresh' content='1'>";
         } else {
             $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Opération impossible le montant à payer doit être inférieur ou égale montant total</div>';
         }

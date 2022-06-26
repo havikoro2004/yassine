@@ -14,7 +14,7 @@ if (isset($_POST['edit'])){
     } else {
 
         $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-        $action = $_SESSION['name'].' a modifié le profil du client '.$_POST['firstName'].' '.$_POST['lastName'];
+        $action ='a modifié le profil du client '.$_POST['firstName'].' '.$_POST['lastName'];
         $history->bindParam(':id',$_SESSION['id']);
         $history->bindParam(':action',$action);
         $history->execute();
@@ -34,7 +34,7 @@ if (isset($_POST['edit'])){
 if (isset($_POST['editAdmin'])){
 
     $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-    $action = $_SESSION['name'].' a modifié  son profil ';
+    $action ='a modifié  son profil ';
     $history->bindParam(':id',$_SESSION['id']);
     $history->bindParam(':action',$action);
     $history->execute();
@@ -70,7 +70,7 @@ if (isset($_POST['subUser'])){
         } else {
 
             $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-            $action = $_SESSION['name'].' a crée un nouveau '.$_POST['role']. ' '.$_POST['nom'];
+            $action ='a crée un nouveau '.$_POST['role']. ' '.$_POST['nom'];
             $history->bindParam(':id',$_SESSION['id']);
             $history->bindParam(':action',$action);
             $history->execute();
@@ -105,7 +105,7 @@ if (isset($_POST['editUser'])){
     $list = $req->fetch();
 
     $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-    $action = $_SESSION['name'].' a modifié le profil de l\'utilisateur '.$list['name'];
+    $action ='a modifié le profil de l\'utilisateur '.$list['name'];
     $history->bindParam(':id',$_SESSION['id']);
     $history->bindParam(':action',$action);
     $history->execute();
@@ -116,7 +116,7 @@ if (isset($_POST['editUser'])){
         $req->bindParam('pseudo', $_POST['pseudoUser']);
         $req->bindParam('password', $_POST['pseudoUser']);
         $req->bindParam('id_type', $roles[$_POST['role']]);
-    $req->bindParam('id', $_GET['id']);
+        $req->bindParam('id', $_GET['id']);
         $req->execute();
         $_SESSION['status'] = '<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">Modifications effectués avec success</div>';
         echo "<meta http-equiv='refresh' content='1'>";

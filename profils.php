@@ -322,7 +322,7 @@ if (count($resultAbon)> 0){ ?>
              $req->execute();
              $list = $req->fetch();
              $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-             $action = $_SESSION['name'].' a validé le controle de l\'activité '.$abn['type_sport'].' du client '.$list['firstName'].' '.$list['lastName'];
+             $action ='a validé le controle de l\'activité '.$abn['type_sport'].' du client '.$list['firstName'].' '.$list['lastName'];
              $history->bindParam(':id',$_SESSION['id']);
              $history->bindParam(':action',$action);
              $history->execute();

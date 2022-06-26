@@ -85,7 +85,7 @@ if (isset($_POST['deleteUser'])){
     $req->execute();
     $list = $req->fetch();
     $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-    $action = $_SESSION['name'].' a surpimé le profil de '.$list['firstName'].' '.$list['lastName'];
+    $action ='a surpimé le profil de '.$list['firstName'].' '.$list['lastName'];
     $history->bindParam(':id',$_SESSION['id']);
     $history->bindParam(':action',$action);
     $history->execute();
