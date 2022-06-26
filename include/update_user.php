@@ -12,6 +12,13 @@ if (isset($_POST['edit'])){
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Un utilisateur a deja le même nom & prénom et date de naissai</div>';
         echo "<meta http-equiv='refresh' content='0'>";
     } else {
+
+        $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+        $action = $_SESSION['name'].' a mis à jour le profil de '.$_POST['firstName'].' '.$_POST['lastName'];
+        $history->bindParam(':id',$_SESSION['id']);
+        $history->bindParam(':action',$action);
+        $history->execute();
+
         $req = $db->prepare('update client set firstName=:firstName, lastName=:lastName , cin=:cin , tel=:tel , adresse=:adresse where id=:id');
         $req->bindParam(':id',$_GET['id']);
         $req->bindParam(':firstName',$_POST['firstName']);
