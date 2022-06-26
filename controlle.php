@@ -21,7 +21,7 @@ if (isset($_POST['chercher'])){
        $alert ='<div class="alert alert-danger mt-3 container text-center" role="alert">Veuillez inserer un mot clé de recherche </div>';
     }
 }
-clearstatcache(true);
+
 ?>
 <div class="container mt-3">
     <nav aria-label="breadcrumb">

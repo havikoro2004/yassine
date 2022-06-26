@@ -4,6 +4,7 @@ include_once 'head.php';
 if ($_SESSION['role']!=='Admin'){
     header('Location:index.php');
 }
+
 include_once 'include/update_user.php';
 ?>
 <!doctype html>
@@ -19,7 +20,7 @@ include_once 'include/update_user.php';
 </head>
 <body>
 <div id="rootAdmin" ><?php
-
+    $_SESSION['status']='';
     if (isset($_SESSION['status'])){
         echo $_SESSION['status'];
         unset($_SESSION['status']);
@@ -43,6 +44,9 @@ include_once 'include/update_user.php';
         </div>
         <button id="editAdmin" name="editAdmin" type="submit" class="btn btn-primary">Valider</button>
     </form>
+</div>
+<div class="container">
+    <button class="btn btn-success"><a class="text-white text-decoration-none" href="action_user.php?id=<?= $_GET['id'] ?>">Voir l'historique des actions</a></button>
 </div>
 </body>
 <script src="js/jquery.js"></script>
