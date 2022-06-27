@@ -7,6 +7,14 @@ $alert =null;
                 $reqActivity->bindParam(':name',$_POST['add']);
                 $reqActivity->execute();
                 if (!$reqActivity->fetch()){
+
+                    $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+                    $nouvelleActivite = strtoupper($_POST['add']);
+                    $action ='a ajouté une nouvelle activité '.$nouvelleActivite;
+                    $history->bindParam(':id',$_SESSION['id']);
+                    $history->bindParam(':action',$action);
+                    $history->execute();
+
                     $reqAdd = $db->prepare('insert into activity (name ,prix,nbrActivity) values (:name ,:prix,:nbrActivity) ');
                     $addValue = strtoupper($_POST['add']);
                     $reqAdd->bindParam(':name',$addValue);
