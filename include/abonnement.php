@@ -16,7 +16,7 @@ if (isset($_POST['validerAbn'])){
             $req->execute();
             $list = $req->fetch();
             $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-            $action ='a ajouté une abonnement  '.$_POST['type_sport'].' pour le client '.$list['firstName'].' '.$list['lastName'];
+            $action ='a ajouté un nouvel abonnement  '.$_POST['type_sport'].' pour le client '.$list['firstName'].' '.$list['lastName'];
             $history->bindParam(':id',$_SESSION['id']);
             $history->bindParam(':action',$action);
             $history->execute();

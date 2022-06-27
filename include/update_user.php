@@ -114,7 +114,7 @@ if (isset($_POST['editUser'])){
     $req = $db->prepare('update user set name=:name,pseudo=:pseudo,password=:password,id_type=:id_type where id=:id');
         $req->bindParam(':name', $_POST['nom']);
         $req->bindParam('pseudo', $_POST['pseudoUser']);
-        $req->bindParam('password', $_POST['pseudoUser']);
+        $req->bindParam('password', $_POST['pwdUser']);
         $req->bindParam('id_type', $roles[$_POST['role']]);
         $req->bindParam('id', $_GET['id']);
         $req->execute();
