@@ -8,11 +8,11 @@ if (isset($_POST['edit'])){
     $req->bindParam('lastName',$_POST['lastName']);
     $req->execute();
     $result = $req->fetch();
+
     if ($result && $result['id']!=$_GET['id']){
         $_SESSION['status']='<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Un utilisateur a deja le même nom & prénom et date de naissai</div>';
         echo "<meta http-equiv='refresh' content='0'>";
     } else {
-
         $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
         $action ='a modifié le profil du client '.$_POST['firstName'].' '.$_POST['lastName'];
         $history->bindParam(':id',$_SESSION['id']);

@@ -33,14 +33,15 @@ CREATE TABLE `abonnement` (
   `date_renew` date DEFAULT NULL,
   `date_debut` date NOT NULL,
   `date_fin` date NOT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'actif',
-  `lastPayement` date NOT NULL,
   `pause` date DEFAULT NULL,
+  `lastPayement` date NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'actif',
   `remarque` text DEFAULT NULL,
+  `avtivityPerWeek` decimal(10,0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_client` (`id_client`),
   CONSTRAINT `abonnement_ibfk_1` FOREIGN KEY (`id_client`) REFERENCES `client` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=332 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=365 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +50,6 @@ CREATE TABLE `abonnement` (
 
 LOCK TABLES `abonnement` WRITE;
 /*!40000 ALTER TABLE `abonnement` DISABLE KEYS */;
-INSERT INTO `abonnement` VALUES (331,246,'BOX',200,100,100,'2022-06-17 17:20:22',NULL,'2022-06-17','2022-06-19','actif','2022-06-17','2022-06-17','je ne suis pas content');
 /*!40000 ALTER TABLE `abonnement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,8 +64,9 @@ CREATE TABLE `activity` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `prix` decimal(10,0) NOT NULL,
+  `nbrActivity` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +75,6 @@ CREATE TABLE `activity` (
 
 LOCK TABLES `activity` WRITE;
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-INSERT INTO `activity` VALUES (214,'BOX',60),(215,'MUSCULATION',100),(216,'BREAKDANCE',200);
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `client` (
   `photo` varchar(255) DEFAULT NULL,
   `create_by` varchar(255) NOT NULL DEFAULT 'najib',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +108,6 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (246,'102030','flata','najib','1982-11-09','Homme','ee102030','0674176588','106 impasse de la cerisaie','2022-06-06','246.jpg','najib flata');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +126,7 @@ CREATE TABLE `controlle` (
   PRIMARY KEY (`id`),
   KEY `id_abonnement` (`id_abonnement`),
   CONSTRAINT `controlle_ibfk_1` FOREIGN KEY (`id_abonnement`) REFERENCES `abonnement` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=336 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=627 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +135,6 @@ CREATE TABLE `controlle` (
 
 LOCK TABLES `controlle` WRITE;
 /*!40000 ALTER TABLE `controlle` DISABLE KEYS */;
-INSERT INTO `controlle` VALUES (252,'2022-06-05 17:19:55',NULL,'2'),(253,'2022-06-05 17:19:57',NULL,'2'),(254,'2022-06-05 17:20:12',NULL,'2'),(255,'2022-06-05 17:20:30',NULL,'2'),(256,'2022-06-05 17:20:42',NULL,'2'),(257,'2022-06-05 17:21:04',NULL,'2'),(258,'2022-06-05 17:27:48',NULL,'2'),(259,'2022-06-05 17:29:20',NULL,'2'),(260,'2022-06-05 17:30:48',NULL,'2'),(261,'2022-06-05 17:34:28',NULL,'2'),(262,'2022-06-05 17:37:46',NULL,'2'),(263,'2022-06-05 17:37:55',NULL,'2'),(264,'2022-06-05 17:38:57',NULL,'2'),(265,'2022-06-05 18:05:46',NULL,'2'),(266,'2022-06-05 18:06:36',NULL,'2'),(267,'2022-06-05 18:06:41',NULL,'2'),(268,'2022-06-05 18:11:24',NULL,'2'),(269,'2022-06-05 18:13:33',NULL,'2'),(270,'2022-06-05 18:18:21',NULL,'2'),(271,'2022-06-05 18:18:25',NULL,'2'),(272,'2022-06-05 18:18:46',NULL,'2'),(273,'2022-06-05 18:18:51',NULL,'2'),(274,'2022-06-05 18:20:58',NULL,'2'),(275,'2022-06-05 18:21:03',NULL,'2'),(276,'2022-06-05 18:21:53',NULL,'2'),(277,'2022-06-05 18:22:07',NULL,'2'),(278,'2022-06-05 18:22:11',NULL,'2'),(279,'2022-06-05 18:22:16',NULL,'2'),(280,'2022-06-05 18:22:20',NULL,'2'),(281,'2022-06-05 18:24:00',NULL,'2'),(282,'2022-06-05 18:24:02',NULL,'2'),(285,'2022-06-05 18:30:23',NULL,'2'),(286,'2022-06-05 18:30:26',NULL,'2'),(333,'2022-06-17 17:27:39',331,'najib flata'),(334,'2022-06-17 17:39:47',331,'najib flata'),(335,'2022-06-17 17:42:48',331,'najib flata');
 /*!40000 ALTER TABLE `controlle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,6 +163,34 @@ INSERT INTO `roles` VALUES (1,'Admin'),(2,'Editeur'),(3,'Controlleur');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `suivi`
+--
+
+DROP TABLE IF EXISTS `suivi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `suivi` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `action` text NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `suivi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `suivi`
+--
+
+LOCK TABLES `suivi` WRITE;
+/*!40000 ALTER TABLE `suivi` DISABLE KEYS */;
+INSERT INTO `suivi` VALUES (1,'a surpimÃ© le profil de flata najib',2,'2022-06-27 00:09:25');
+/*!40000 ALTER TABLE `suivi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -181,7 +207,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `id_type` (`id_type`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_type`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +216,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (2,'najib flata','123sat','2022-05-28','super_admin',1),(26,'yassine flata','10203040','2022-05-28','ssine_rock10',2),(27,'chakib flata','10203040','2022-05-28','lilchak',3);
+INSERT INTO `user` VALUES (2,'najib flata','10203040','2022-05-28','super_admin',1),(30,'najib','10203040','2022-06-26','havikoro',2),(31,'chakib','10203040','2022-06-26','lilchak',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -203,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-17 17:47:52
+-- Dump completed on 2022-06-27  0:12:09
