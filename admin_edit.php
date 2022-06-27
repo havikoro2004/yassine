@@ -1,11 +1,12 @@
 <?php
 $title='Page Admin';
-include_once 'head.php';
+require_once 'head.php';
 if ($_SESSION['role']!=='Admin'){
     header('Location:index.php');
 }
 
-include_once 'include/update_user.php';
+require_once 'include/update_user.php';
+require_once 'include/save.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,23 +31,52 @@ include_once 'include/update_user.php';
 <div class="container text-center mt-5">
     <h2 class="text-secondary">Modifier le login</h2>
     <form method="post" class="container">
-        <div class="form-group my-3 container">
-            <input id="loginAdmin" name="pseudo" style="max-width: 50vw" value="<?= $_SESSION['pseudo'] ?>" type="text" class="m-auto form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div class="form-group">
+            <input id="loginAdmin" name="pseudo"  value="<?= $_SESSION['pseudo'] ?>" type="text" class="form-control mb-3" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-            <input id="oldPwd" name="oldPwd" style="max-width: 50vw"   placeholder="Mot de passe actuel" type="password" class="m-auto form-control mb-3">
+            <input id="oldPwd" name="oldPwd"   placeholder="Mot de passe actuel" type="password" class="form-control mb-3">
         </div>
         <div class="form-group">
-            <input id="pwd" name="pwd" style="max-width: 50vw"   placeholder="Nouveau mot de passe" type="password" class="m-auto form-control mb-3">
+            <input id="pwd" name="pwd"   placeholder="Nouveau mot de passe" type="password" class="form-control mb-3">
         </div>
         <div class="form-group">
-            <input id="pwdConf" style="max-width: 50vw"   placeholder="Confirmer le nouveau mot de passe" type="password" class="m-auto form-control mb-3">
+            <input id="pwdConf"  placeholder="Confirmer le nouveau mot de passe" type="password" class="form-control mb-3">
         </div>
-        <button id="editAdmin" name="editAdmin" type="submit" class="btn btn-primary">Valider</button>
+        <button id="editAdmin" name="editAdmin" type="submit" class="btn btn-primary mb-3">Valider</button>
     </form>
 </div>
-<div class="container">
-    <button class="btn btn-success"><a class="text-white text-decoration-none" href="action_user.php?id=<?= $_GET['id'] ?>">Voir l'historique des actions</a></button>
+<div class="container text-center d-flex justify-content-center">
+
+
+
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Historique</th>
+            <th scope="col">Sauvegarder</th>
+            <th scope="col">Restaurer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <button class="btn btn-success"><a class="text-white text-decoration-none" href="action_user.php?id=<?= $_GET['id'] ?>">Voir l'historique des actions</a></button>
+            </td>
+            <td>
+                <form action="" method="post" class="mx-2">
+                    <button type="submit" name="save" class="btn btn-secondary">Sauvegarder la base de donnée</button>
+                </form>
+            </td>
+            <td>
+                <button class="btn btn-dark"><a class="text-decoration-none text-white" href="restaurer.php">Restaurer</a></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 </body>
 <script src="js/jquery.js"></script>
