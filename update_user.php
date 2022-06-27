@@ -69,7 +69,7 @@ if (isset($_SESSION['status'])){
     </div>
     <div class="form-group mb-3">
         <label for=""><strong>Adresse</strong></label>
-        <textarea value="<?= $client['adresse'] ?>" name="adresse" class="form-control"></textarea>
+        <textarea name="adresse" class="form-control"><?= $client['adresse'] ?></textarea>
     </div>
     <button name="edit" type="submit" class="btn btn-primary mb-5">Valider</button>
 </form>

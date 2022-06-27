@@ -155,7 +155,7 @@ if (isset($_POST['react'])){
     $abonne = $abon->fetch();
 
     $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
-    $action ='a reactivél\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
+    $action ='a reactivé l\'activité '.$abonne['type_sport'].' dlu client '.$list['firstName'].' '.$list['lastName'];
     $history->bindParam(':id',$_SESSION['id']);
     $history->bindParam(':action',$action);
     $history->execute();
