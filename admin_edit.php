@@ -48,10 +48,6 @@ require_once 'include/save.php';
 </div>
 <div class="container text-center d-flex justify-content-center">
 
-
-
-
-
     <table class="table">
         <thead>
         <tr>
@@ -66,9 +62,27 @@ require_once 'include/save.php';
                 <button class="btn btn-success"><a class="text-white text-decoration-none" href="action_user.php?id=<?= $_GET['id'] ?>">Voir l'historique des actions</a></button>
             </td>
             <td>
-                <form action="" method="post" class="mx-2">
-                    <button type="submit" name="save" class="btn btn-secondary">Sauvegarder la base de donnée</button>
-                </form>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Sauvegarder la base de donnée
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                               Vous êtes sur le point de sauvegarder la base de donnée êtes vous sur ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                <form action="" method="post" class="mx-2">
+                                    <button type="submit" name="save" class="btn btn-primary">Sauvegarder la base de donnée</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
             <td>
                 <button class="btn btn-dark"><a class="text-decoration-none text-white" href="restaurer.php">Restaurer</a></button>
