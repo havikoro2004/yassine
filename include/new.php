@@ -70,6 +70,11 @@ $reqAll->execute();
 $countStatement = $db ->prepare('SELECT COUNT(*) as nbrresult FROM client');
 $countStatement->execute();
 $totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
+if ($totalresult['nbrresult']<=400){
+
+} else {
+    $totalresult['nbrresult'] = 400;
+}
 $nbrPage = ceil($totalresult['nbrresult'] / $final );
 
 $resultAll = $reqAll->fetchAll(PDO::FETCH_ASSOC);

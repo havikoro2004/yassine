@@ -3,7 +3,7 @@ include_once 'database/database.php';
 $db = getPdo();
 $req = $db->prepare('select * from controlle join abonnement on controlle.id_abonnement=abonnement.id && id_abonnement=:id_abonnement order by date desc LIMIT :start, :final');
 $req->bindParam((':id_abonnement'),$_GET['activity']);
-$final = 100;
+$final = 50;
 $page = $_GET['page'] ?? 1;
 $req->bindParam(':final',$final,pdo::PARAM_INT);
 $req->bindValue(':start' ,$final * ( (int)$page - 1)  , PDO::PARAM_INT );
@@ -14,6 +14,11 @@ $countStatement = $db ->prepare('SELECT COUNT(*) as nbrresult FROM controlle whe
 $countStatement->bindParam((':id_abonnement'),$_GET['activity']);
 $countStatement->execute();
 $totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
+if ($totalresult['nbrresult']<=400){
+
+} else {
+    $totalresult['nbrresult'] = 400;
+}
 $nbrPage = ceil($totalresult['nbrresult'] / $final );
 
 $title='Historique des controles';
