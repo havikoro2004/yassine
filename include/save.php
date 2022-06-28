@@ -40,6 +40,15 @@ if (isset($_POST['save'])){
         $req->execute();
         $dump = new MySQLDump($dp);
         $dump->save('databaseSave/'.$savDate.'.sql.gz');
+
+
+        $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+        $action ='a fait une sauvegarde de la base de donnée';
+        $history->bindParam(':id',$_SESSION['id']);
+        $history->bindParam(':action',$action);
+        $history->execute();
+
+
         echo '<div id="alert" class="alert alert-success mt-3 container text-center" role="alert">La base de donnée a bien été enregistrée</div>';
     } else {
         echo '<div id="alert" class="alert alert-danger mt-3 container text-center" role="alert">Vous avez le droit qu\'à 2 sauvegardes par jour</div>';
@@ -67,6 +76,13 @@ if ($sauvegarde){
             }
             $import = new MySQLImport($dp);
             $import->load('databaseSave/'.$save['folderName'].'.sql.gz');
+
+            $history = $db->prepare('insert into suivi (action,date,id_user) values (:action , NOW() , :id)');
+            $action ='a effectué une restauration de la base de donnée';
+            $history->bindParam(':id',$_SESSION['id']);
+            $history->bindParam(':action',$action);
+            $history->execute();
+
         }
 
     }
