@@ -261,7 +261,7 @@ if (addActivity){
 
 const root2= document.getElementById('root2')
 const abn = document.getElementById('abn')
-const total = document.getElementById('total')
+const prixpermonth = document.getElementById('prixpermonth')
 const payer =document.getElementById('payer')
 const close = document.getElementById('close')
 if (abn){
@@ -307,7 +307,7 @@ if (subAbn){
 
     subAbn.addEventListener('click',(e)=>{
 
-        if (!selectSport.value || !dateDebut.value || !total.value || !payer.value || !dateFin.value || selectSport.value==='Choisir une activité'){
+        if (!selectSport.value || !dateDebut.value || !prixpermonth.value || !payer.value || !dateFin.value || selectSport.value==='Choisir une activité'){
             root.innerHTML=''
             e.preventDefault()
             const alert = document.createElement('div')
@@ -411,7 +411,7 @@ if (document.getElementById('selectSport')){
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange= ()=>{
             if (xhr.readyState===4 && xhr.status===200){
-                total.value = xhr.responseText
+                prixpermonth.value = xhr.responseText
             }
         }
         xhr.send('request='+selectSport.value)

@@ -1,19 +1,18 @@
 <?php
 $title='Gérer les activités';
-include_once ('head.php');
-include_once 'database/database.php';
+require_once 'head.php';
+require_once 'database/database.php';
 if ($_SESSION['role']==='Controlleur'){
     header('Location:index.php');
 }
 include_once 'include/activity.php';
 
 $db=getPdo();
-$req =$db->prepare('select * from abonnement where id=:id && id_client=:id_client');
+$req =$db->prepare('select * from abonnement join activity on abonnement.type_sport=activity.name where abonnement.id=:id && abonnement.id_client=:id_client');
 $req->bindParam(':id',$_GET['abn']);
 $req->bindParam(':id_client',$_GET['id']);
 $req->execute();
 $activity=$req->fetch();
-
 
 if (isset($_POST['deleteAbn'])) {
     $req = $db->prepare('delete from abonnement where id=:id');
@@ -39,6 +38,7 @@ if (isset($_SESSION['status'])){
         <th scope="col">Date de début</th>
         <th scope="col">Date d'expiration</th>
         <th scope="col">Statue</th>
+        <th scope="col">Prix par mois</th>
         <th scope="col">Reste à payer</th>
         <th scope="col">Dernier payement</th>
         <th>Date de renouvellement</th>
@@ -80,6 +80,7 @@ if (isset($_SESSION['status'])){
                     <th>'.$start.'</th>
                     <th>'.$final.'</th>
                     <th>'.$status.'</th>
+                    <th>'.$activity['prix'].' DH</th>
                     <th>'.$reste.'</th>
                     <th>'.date_format($lastpayement,('d-m-Y')).'</th>
                     <th>'.$renew.'</th>

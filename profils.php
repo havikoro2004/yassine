@@ -174,10 +174,11 @@ if ($alert){echo $alert ;} ?>
             <thead>
             <tr>
                 <th scope="col">Nom de l'activité</th>
-                <th scope="col">Total à payer</th>
-                <th scope="col">Montant payé</th>
+                <th scope="col">Prix par mois</th>
                 <th scope="col">Date de début</th>
                 <th scope="col">Date de fin</th>
+                <th scope="col">Total en DH</th>
+                <th scope="col">Montant payé</th>
                 <th scope="col">Remarque</th>
             </tr>
             <tr>
@@ -192,16 +193,19 @@ if ($alert){echo $alert ;} ?>
 
                 </th>
                 <th>
-                    <input readonly id="total" class="form-control" name="total" type="number" placeholder="Total à payer" min="0">
-                </th>
-                <th>
-                    <input id="payer" class="form-control" name="payer" type="number" placeholder="Montant payé" min="0">
+                    <input readonly id="prixpermonth" class="form-control" name="prixpermonth" type="number" placeholder="Prix par mois" min="0">
                 </th>
                 <th>
                     <input class="form-control" type="date" id="date_debut" name="date_debut">
                 </th>
                 <th>
                     <input class="form-control" type="date" id="date_fin" name="date_fin">
+                </th>
+                <th>
+                    <input id="total" class="form-control" name="total" type="number" placeholder="Total" min="0">
+                </th>
+                <th>
+                    <input id="payer" class="form-control" name="payer" type="number" placeholder="Montant payé" min="0">
                 </th>
                 <th>
                     <textarea class="form-control" name="remarque" id="remarque" cols="30" rows="1"></textarea>
@@ -224,12 +228,13 @@ if (count($resultAbon)> 0){ ?>
             <th scope="col">Reste à payer</th>
             <th scope="col">Status</th>
             <th scope="col">Séances effectués</th>
-            <th scope="col">Controller</th>
             <th scope="col">Dernier controle</th>
+            <th scope="col">Remarque</th>
+            <th scope="col">Controller</th>
             <th scope="col">Tous les controles</th>
             <?php
             if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
-                <th scope="col">Gérer l'abonnement</th>
+                <th scope="col">Gérer</th>
           <?php  }  ?>
 
         </tr>
@@ -280,21 +285,25 @@ if (count($resultAbon)> 0){ ?>
          } else if ($nbrActivity === (intval($activType['nbrActivity']) - 1)){
              $nbrActivity = '<div class="btn btn-warning" readonly=""><strong>'.$abn['avtivityPerWeek'].'</strong></div>';
          }
+         if (!$abn['remarque']){
+             $abn['remarque']='...';
+         }
         echo '
       
                  <tr>
                      <th scope="row">'.$abn['type_sport'].'</th>
                       <th>'.$reste.'</th>
                       <th>'.$status.'</th>
-                      <th>'.$nbrActivity.'</th>
-                     
-                     <th><form method="post">'.$btn.'</form></th>
+                      <th>'.$nbrActivity.'</th>                          
                      <th>'.$dateControlFormated.'</th>
+                     <th>'.$abn['remarque'].'</th> 
                      <th>
                          <button class="btn btn-primary">
                          <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'"><span class="d-flex justify-content-center">Voir</span></a>
                          </button>
-                     </th>                   
+                     </th>  
+                     <th><form method="post">'.$btn.'</form></th>
+                             
                      ' ;
         if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){
             echo '     <th>
