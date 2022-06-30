@@ -52,7 +52,11 @@ if (isset($_SESSION['status'])){
             if ($activity){
                 $debut = date_create($activity['date_debut']);
                 $fin = date_create($activity['date_fin']);
-                $lastpayement =date_create($activity['lastPayement']);
+                if ($activity['lastPayement']){
+                    $lastpayement =date_format(date_create($activity['lastPayement']));
+                } else {
+                    $lastpayement='';
+                }
                 if ($activity['date_renew']){
                     $renouv = date_create($activity['date_renew']);
                     $renew = date_format($renouv,('d-m-Y'));
@@ -82,7 +86,7 @@ if (isset($_SESSION['status'])){
                     <th>'.$status.'</th>
                     <th>'.$activity['prix'].' DH</th>
                     <th>'.$reste.'</th>
-                    <th>'.date_format($lastpayement,('d-m-Y')).'</th>
+                    <th>'.$lastpayement.'</th>
                     <th>'.$renew.'</th>
                     <th>'.$activity['remarque'].'</th>
                 ';

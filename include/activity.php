@@ -28,12 +28,30 @@ $alert =null;
                 }
 
             }
-            $reqActivity = $db ->prepare('select * from activity order by name ');
+
+            $reqActivity = $db ->prepare('select * from activity order by name LIMIT :start, :final');
+            $final = 200;
+            $page = $_GET['page'] ?? 1;
+            $reqActivity->bindParam(':final',$final,pdo::PARAM_INT);
+            $reqActivity->bindValue(':start' ,$final * ( (int)$page - 1)  , PDO::PARAM_INT );
             $reqActivity->execute();
+
+            $countStatement = $db ->prepare('SELECT COUNT(*) as nbrresult FROM activity');
+            $countStatement->execute();
+            $totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
+            if ($totalresult['nbrresult']<=300){
+
+            } else {
+                $totalresult['nbrresult'] = 300;
+            }
+            $nbrPage = ceil($totalresult['nbrresult'] / $final );
+
+
             $activitys = $reqActivity->fetchAll();
             if (!$activitys){
                 $alert = '<div class="alert alert-dark mt-3 container text-center" role="alert">Aucune activité n\'est ajoutée</div>';
             }
+
 if (isset($_POST['validRenouv'])){
     $req=$db->prepare('select * from abonnement where id=:id');
     $req->bindParam(':id',$_GET['abn']);

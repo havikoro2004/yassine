@@ -20,6 +20,15 @@ $activity=null;
 </div>
 <div class="border container mt-2 rounded">
     <h2 class="my-5 text-center">Liste des activités</h2>
+    <?php
+    if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
+        <form action="" method="post" class="form-inline d-flex container mb-5">
+            <button id="addBtn" name="addBtn" type="submit" class="btn btn-dark me-2">Ajouter</button>
+            <input maxlength="30" id="add" id="filter" name="add" class="form-control mr-sm-2 me-2" type="search" placeholder="Ajouter une activité" aria-label="Search">
+            <input id="prix" name="prix" placeholder="Prix" class="form-control me-2" type="number" min="0">
+            <input id="nbrActivity" name="nbrActivity" placeholder="Nombre d'activité par semaine" class="form-control" type="number" min="0">
+        </form>
+    <?php  }    ?>
     <div id="editActivitys">
 
     </div>
@@ -140,7 +149,7 @@ $activity=null;
                             echo '  
                                 <tr>
                               <form method="post">
-                                <td><input maxlength="25" name="name" class="text-center" style="border:none" type="text" value="'.$activity['name'].'"></td>
+                                <td><input width="50%" maxlength="25" name="name" class="text-center" style="font-size:14px; border:none" type="text" value="'.$activity['name'].'"></td>
                                 <td><input min=0 name="prix" class="text-center"  style="border:none" type="number" value="'.$activity['prix'].'"></td>
                                 <td><input min=0 max=10 name="nbrActivity" class="text-center"  style="border:none" type="text" value="'.$activity['nbrActivity'].'"></td>
                                 <td><button name='.$activity['id'].' class="btn btn-primary" type="submit">Valider</button></td>  
@@ -187,15 +196,34 @@ $activity=null;
         </table>
 
     </div>
-    <?php
-    if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){ ?>
-        <form action="" method="post" class="form-inline d-flex container mb-5">
-        <button id="addBtn" name="addBtn" type="submit" class="btn btn-dark me-2">Ajouter</button>
-        <input maxlength="30" id="add" id="filter" name="add" class="form-control mr-sm-2 me-2" type="search" placeholder="Ajouter une activité" aria-label="Search">
-        <input id="prix" name="prix" placeholder="Prix" class="form-control me-2" type="number" min="0">
-            <input id="nbrActivity" name="nbrActivity" placeholder="Nombre d'activité par semaine" class="form-control" type="number" min="0">
-    </form>
-  <?php  }    ?>
+
+</div>
+<div class="text-center container">
+
+    <ul id="ulPagination" class="pagination pagin">
+        <?php
+        if ($nbrPage > 1){
+            for($i = 1 ; $i <= $nbrPage ; $i++ )
+            {
+                if (isset($_GET['page'])){
+
+                    if ($i!=$_GET['page']){
+                        echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
+                        href="?page='.$i.'">'.$i.'</a></li>';
+                    } else {
+                        echo '<li class="page-item active" aria-current="page"><a class="page-link pagination"
+                        href="?page='.$i.'">'.$i.'</a></li>';
+                    }
+                } else {
+                    echo '<li class="page-item" aria-current="page"><a class="page-link pagination"
+                        href="?page='.$i.'">'.$i.'</a></li>';
+                }
+
+
+            }
+        }
+        ?>
+    </ul>
 
 </div>
 <script src="js/jquery.js"></script>

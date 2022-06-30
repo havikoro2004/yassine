@@ -297,12 +297,12 @@ if (count($resultAbon)> 0){ ?>
                       <th>'.$nbrActivity.'</th>                          
                      <th>'.$dateControlFormated.'</th>
                      <th>'.$abn['remarque'].'</th> 
+                      <th><form method="post">'.$btn.'</form></th>
                      <th>
                          <button class="btn btn-primary">
                          <a class="text-white text-decoration-none btnStatus" href="controlles_history.php?id='.$_GET['id'].'&activity='.$abn['id'].'"><span class="d-flex justify-content-center">Voir</span></a>
                          </button>
-                     </th>  
-                     <th><form method="post">'.$btn.'</form></th>
+                     </th>                   
                              
                      ' ;
         if ($_SESSION['role']==='Admin' || $_SESSION['role']==='Editeur'){
