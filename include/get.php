@@ -10,14 +10,22 @@ if ($resultat= $reqUrl->fetch()){
     $firstName = $resultat['firstName'];
     $lastName = $resultat['lastName'];
 
-    $birth = date_create($resultat['birth']);
+    if ($resultat['birth']){
+        $birth = date_format(date_create($resultat['birth']));
+    } else {
+        $birth='Non fourni';
+    }
     $date = $resultat['date'];
     $date = date_create($resultat['date']);
     $cin = $resultat['cin'];
     $badge = $resultat['badge'];
     $tel = $resultat['tel'];
     $adresse = $resultat['adresse'];
-    $genre = $resultat['genre'];
+    if ($resultat['genre']){
+        $genre = $resultat['genre'];
+    } else {
+        $genre = 'Non fourni';
+    }
     $photo = $resultat['photo'];
     $by = $resultat['create_by'];
 
@@ -96,7 +104,7 @@ if (isset($_POST['deleteUser'])){
 
     $_SESSION['status']='<div id="alert" class="alert alert-dark mt-3 container text-center" role="alert"><h4>Le profil a bien été suprimé</h4></div>';
     echo '<meta http-equiv="refresh" content="1">';
-    if ($photo !=='defaultUserM.jpg' && $photo !=='defaultUserM.jpg'){
+    if ($photo !='defaultUserM.jpg' && $photo !='defaultUserM.jpg'){
         unlink('images/img_users/'.$photo.'');
     }
 }

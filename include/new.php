@@ -61,7 +61,7 @@ if (isset($_POST['submit'])){
 
 /*  Liste des dernier clients inscrit  */
 $reqAll = $db->prepare('select * from client order by date desc LIMIT :start, :final ');
-$final = 20;
+$final = 15;
 $page = $_GET['page'] ?? 1;
 $reqAll->bindParam(':final',$final,pdo::PARAM_INT);
 $reqAll->bindValue(':start' ,$final * ( (int)$page - 1)  , PDO::PARAM_INT );
@@ -70,10 +70,10 @@ $reqAll->execute();
 $countStatement = $db ->prepare('SELECT COUNT(*) as nbrresult FROM client');
 $countStatement->execute();
 $totalresult = $countStatement->fetch(pdo::FETCH_ASSOC);
-if ($totalresult['nbrresult']<=400){
+if ($totalresult['nbrresult']<=100){
 
 } else {
-    $totalresult['nbrresult'] = 400;
+    $totalresult['nbrresult'] = 100;
 }
 $nbrPage = ceil($totalresult['nbrresult'] / $final );
 
@@ -109,7 +109,7 @@ if (isset($_POST['chercher'])){
             $req->bindParam(':birth',$_POST['filter']);
             $req->execute();
             $res = $req->fetchAll(PDO::FETCH_ASSOC);
-            if (!$res){$alert = '<div class="alert alert-danger mt-3 container text-center" role="alert">Aucun resultat n\'est trouvé avec le badge <strong>'.$_POST['filter'].'</strong></div>';}
+            if (!$res){$alert = '<div class="alert alert-danger mt-3 container text-center" role="alert">Aucun resultat n\'est trouvé avec la date de naissance <strong>'.$_POST['filter'].'</strong></div>';}
         }
     } else {$alert = '<div class="alert alert-danger mt-3 container text-center" role="alert">Veuillez saisir un mot clé de recherche</div>';}
 }
